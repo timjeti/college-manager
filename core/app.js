@@ -1,7 +1,7 @@
 const express = require('express')
 const mysql = require('mysql')
 const app = express()
-const port = 3001
+const port = 3000
 
 let data
 
@@ -32,7 +32,7 @@ app.get('/',(req, res) => {
 })
 
 app.get('/insert', (req, res) => {
-	var sql = "INSERT INTO test (id, name, type, email) VALUES ('2', 'Ajeet Kumar', 'USER', 'test@gmail.com')";  
+	var sql = "INSERT INTO test (id, name, type, email) VALUES ('3', 'Ajeet Kumar', 'USER', 'test@gmail.com')";  
 	connection.query(sql, function (err, result) {  
 	if (err) throw err;  
 	console.log("1 record inserted");
