@@ -25,6 +25,12 @@ npm install -g @angular/cli
 content_copy
 ng new college-manager
 
+##Installing angular material
+npm install @angular/material @angular/cdk @angular/animations --save  
+ng add @angular/material  
+
+##Installing bootstrap
+ng add @ng-bootstrap/ng-bootstrap
 
 3)Install mysql via xampp
 mysql port: 3306

@@ -1,0 +1,10 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+.container {
+  background-color:slategray;
+  margin:2%;
+  padding: 2%;
+}
