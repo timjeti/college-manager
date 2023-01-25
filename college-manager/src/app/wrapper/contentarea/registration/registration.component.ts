@@ -14,11 +14,14 @@ export class RegistrationComponent {
   disabilityDetails: string = '';
   checked: string = 'no';
 
+  someData : any;
+
 
   regForm !: FormGroup;
   constructor(private formbuilder : FormBuilder, private regService: RegisterService){}
   
   ngOnInit(){
+    
     this.regForm = this.formbuilder.group({
       fName : [''],
       mName : [''],
@@ -106,6 +109,8 @@ export class RegistrationComponent {
       // aplBnkBrnch: [''],
       // aplBnkIfsc: ['']
     })
+
+    
   }
 
   register(){
@@ -128,6 +133,7 @@ export class RegistrationComponent {
   }
 
   getRegistrationDetails(id : string){
+    
     this.regService.getRegisteredStudentDetails(id)
     .subscribe({
       next:(res)=>{
@@ -138,5 +144,7 @@ export class RegistrationComponent {
       }
     })
   }
+
+  // type Employee = Array<{ id: number; name: string }>;
 
 }

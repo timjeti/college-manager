@@ -24,6 +24,12 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ApplicantlistComponent } from './wrapper/contentarea/applicantlist/applicantlist.component';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { ApplicantdetailsComponent } from './wrapper/contentarea/applicantdetails/applicantdetails.component';
+import {MatSortModule} from '@angular/material/sort';
+
 
 
 @NgModule({
@@ -32,7 +38,9 @@ import { HttpClientModule } from '@angular/common/http';
     WrapperComponent,
     ContentareaComponent,
     SideBarComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    ApplicantlistComponent,
+    ApplicantdetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +62,10 @@ import { HttpClientModule } from '@angular/common/http';
     MatButtonModule,
     MatCardModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]
