@@ -30,5 +30,18 @@ export class RegisterService {
     )
   }
 
+  async uploadImage(formData : FormData) {
+    // const file = event.target.files[0];
+    // const formData = new FormData();
+    // formData.append('image', file);
+
+    try {
+      await this.client.post('http://localhost:3000/register', formData).toPromise();
+      console.log('Image uploaded successfully');
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
 
 }

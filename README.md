@@ -35,3 +35,5 @@ ng add @ng-bootstrap/ng-bootstrap
 3)Install mysql via xampp
 mysql port: 3306
 
+4)For image upload, install this inside core folder for express js
+sudo npm install -g multer

@@ -29,6 +29,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { ApplicantdetailsComponent } from './wrapper/contentarea/applicantdetails/applicantdetails.component';
 import {MatSortModule} from '@angular/material/sort';
+import { RegistrationImageHandlerComponent } from './wrapper/contentarea/registration/registration-image-handler/registration-image-handler.component';
 
 
 
@@ -40,7 +41,8 @@ import {MatSortModule} from '@angular/material/sort';
     SideBarComponent,
     RegistrationComponent,
     ApplicantlistComponent,
-    ApplicantdetailsComponent
+    ApplicantdetailsComponent,
+    RegistrationImageHandlerComponent
   ],
   imports: [
     BrowserModule,
