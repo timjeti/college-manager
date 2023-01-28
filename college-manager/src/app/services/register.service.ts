@@ -30,17 +30,23 @@ export class RegisterService {
     )
   }
 
-  async uploadImage(formData : FormData) {
-    // const file = event.target.files[0];
-    // const formData = new FormData();
-    // formData.append('image', file);
-
+  async uploadRegistrationBinaries(id : string, type : string, formData : FormData) {
+    console.log("Uploading upload data")
     try {
-      await this.client.post('http://localhost:3000/register', formData).toPromise();
-      console.log('Image uploaded successfully');
+      console.log(`http://localhost:3000/register/upload?id=${id}&type=${type}`)
+      this.client.post<any>(`http://localhost:3000/register/upload?id=${id}&type=${type}`, formData)
+      .subscribe((res)=>{
+        console.log('Image uploaded successfully');
+        console.log(res);
+      })
+      
     } catch (error) {
       console.error(error);
     }
+  }
+
+  getRegisteredBinaries(id : string, type : String ): Observable<Blob>{
+    return this.client.get(`http://localhost:3000/register/upload?id=${id}&type=${type}`, { responseType: 'blob' });
   }
 
 

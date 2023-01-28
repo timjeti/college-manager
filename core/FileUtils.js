@@ -15,8 +15,10 @@ class FileUtils {
     var type = query.type
     var dir_path = `./uploads/${reg_id}`
     console.log(file)
+    console.log(file.mimetype)
     if(file.mimetype == 'image/jpeg' || file.mimetype == 'image/jpg'  || file.mimetype == 'image/png'){
-      if(type !== 'profile' || type !== 'caste' || type !== 'disability' || type !== 'bank' || type !== 'signature'){
+      console.log(type)
+      if(type !== 'profile' && type !== 'caste' && type !== 'disability' && type !== 'bank' && type !== 'signature'){
         throw new Error('Unidentified upload type, not supported!!')
       }
       console.log("image type is jpeg")

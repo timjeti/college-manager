@@ -1,4 +1,62 @@
-<form>
+<br>
+<br>
+<h3>Applicant: Enter Document Proof</h3>
+<form (submit)="onUpload()">
+  <label for="image">Enter your registration id:</label>
+  <input  [(ngModel)]="reg_id" name="id" placeholder="Enter your registrationid">
+    <br>
+    <br>
     <label for="image">Select an image:</label>
-    <input type="file" name="image" (change)="uploadImage($event)">
-  </form>
+    <input type="file" name="image" (change)="loadImage($event)">
+    <br>
+    <br>
+    <label for="image">Upload Data Type&nbsp;&nbsp;</label>
+    <mat-form-field >
+      <mat-label>Upload Data Type</mat-label>
+      <br>
+      <mat-select name="gender" [(ngModel)]="applicantUploadType">
+          <mat-option value="profile" >Profile Image</mat-option>
+          <mat-option value="educationDetails">Certificates</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
+
+    <button type="submit">
+      Upload
+    </button>
+</form>
+
+<br>
+<br>
+<h3>Admin: View Document Proofs</h3>
+<form (submit)="onSubmit()">
+  <input  [(ngModel)]="id" name="id" placeholder="id">
+  <input  [(ngModel)]="type" name="type" placeholder="type">
+  <button type="submit">
+    Show
+  </button>
+</form>
+
+  <img [src]="imageToShow"  height="400" width="400" *ngIf="!isPdf;else pdfFound"
+     alt="Place image title" 
+     >
+<ng-template #pdfFound>
+<div class="pdf-container">
+  <p>Inside PDF</p>
+  <pdf-viewer
+    [src]="imageToShow"
+    [rotation]="0"
+    [original-size]="false"
+    [show-all]="true"
+    [fit-to-page]="false"
+    [zoom]="1"
+    [zoom-scale]="'page-width'"
+    [stick-to-page]="false"
+    [render-text]="true"
+    [external-link-target]="'blank'"
+    [autoresize]="true"
+    [show-borders]="false"
+    style="width: 40%; height: 400px;"
+  ></pdf-viewer>
+</div>
+</ng-template>

@@ -9,6 +9,8 @@ import { RegisterService } from 'src/app/services/register.service';
 })
 
 export class RegistrationComponent {
+
+  applicantId = Date.now();
   
   disability: string = 'no';
   disabilityDetails: string = '';

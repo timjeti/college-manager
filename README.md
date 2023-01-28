@@ -37,3 +37,6 @@ mysql port: 3306
 
 4)For image upload, install this inside core folder for express js
 sudo npm install -g multer
+
+5)Install Pdf viewer to view pdf files
+npm i ng2-pdf-viewer

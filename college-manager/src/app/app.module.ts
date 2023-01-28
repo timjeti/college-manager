@@ -30,6 +30,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { ApplicantdetailsComponent } from './wrapper/contentarea/applicantdetails/applicantdetails.component';
 import {MatSortModule} from '@angular/material/sort';
 import { RegistrationImageHandlerComponent } from './wrapper/contentarea/registration/registration-image-handler/registration-image-handler.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 
 
@@ -67,7 +68,9 @@ import { RegistrationImageHandlerComponent } from './wrapper/contentarea/registr
     HttpClientModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    FormsModule,
+    PdfViewerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
