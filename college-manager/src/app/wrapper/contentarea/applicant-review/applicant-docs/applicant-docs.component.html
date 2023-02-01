@@ -1,0 +1,32 @@
+<h3>Admin: View Document Proofs</h3>
+<form (submit)="onSubmit()">
+  <input  [(ngModel)]="id" name="id" placeholder="id">
+  <input  [(ngModel)]="type" name="type" placeholder="type">
+  <button type="submit">
+    Show
+  </button>
+</form>
+
+  <img [src]="imageToShow"  height="400" width="400" *ngIf="!isPdf;else pdfFound"
+     alt="Place image title" 
+     >
+<ng-template #pdfFound>
+<div class="pdf-container">
+  <p>Inside PDF</p>
+  <pdf-viewer
+    [src]="imageToShow"
+    [rotation]="0"
+    [original-size]="false"
+    [show-all]="true"
+    [fit-to-page]="false"
+    [zoom]="1"
+    [zoom-scale]="'page-width'"
+    [stick-to-page]="false"
+    [render-text]="true"
+    [external-link-target]="'blank'"
+    [autoresize]="true"
+    [show-borders]="false"
+    style="width: 40%; height: 400px;"
+  ></pdf-viewer>
+</div>
+</ng-template>

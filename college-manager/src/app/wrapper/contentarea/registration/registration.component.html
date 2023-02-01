@@ -21,10 +21,10 @@
                 <input matInput formControlName="lName" name="lName">
               </mat-form-field>
         </div>
-        <mat-card-actions>
+        <!-- <mat-card-actions>
             <button mat-raised-button="" color="primary">Save</button>
-            </mat-card-actions>
-        <!-- <div class="col-sm">
+            </mat-card-actions> -->
+        <div class="col-sm">
             <mat-form-field appearance="outline">
                 <mat-label>Choose a date</mat-label>
                 <input matInput [matDatepicker]="picker" formControlName="dBirth" name="dBirth">
@@ -32,15 +32,15 @@
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
-        </div> -->
+        </div>
         
     </div>
-    </form>
-    <button mat-raised-button="" color="primary" (click)="getRegistrationDetails('4')">Get</button>
+    
+    <!-- <button mat-raised-button="" color="primary" (click)="getRegistrationDetails('12')">Get</button> -->
 
     <!-- <button mat-raised-button="" color="primary" (click)="getApplicantList()">GetAll</button> -->
-</div>
-    <!-- <div class="row">
+<!-- </div> -->
+    <div class="row">
         <div class="col-sm">
             <mat-form-field appearance="outline">
                 <mat-label>Gender</mat-label>
@@ -136,8 +136,16 @@
     <br><br>
     <h2>Application Details</h2>
     <div class="row">
-        
-        <mat-label>BA</mat-label>
+        <mat-form-field >
+            <mat-label>Select Course</mat-label>
+            <br>
+            <mat-select name="cource" formControlName="aplCourse">
+                <mat-option value="profile">BA</mat-option>
+                <mat-option value="educationDetails">BSc</mat-option>
+                <mat-option value="educationDetails">BCom</mat-option>
+              </mat-select>
+          </mat-form-field>
+          <br>
         
         <div class="col-sm">
             <mat-form-field appearance="outline">
@@ -606,4 +614,8 @@
         <button mat-raised-button="" color="primary">Save</button>
         </mat-card-actions>
     </form>
-</div> -->
+    <mat-card-actions>
+        <button mat-raised-button="" color="primary">Save</button>
+        </mat-card-actions>
+<!-- </form> -->
+</div>
