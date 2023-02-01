@@ -78,8 +78,7 @@ class FileUtils {
   static getAbsolutePath(relativePath){
     return path.resolve(relativePath);
   }
+
 }
-
-
 
 module.exports = FileUtils;

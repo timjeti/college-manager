@@ -25,7 +25,7 @@ export class RegisterService {
   }
 
   getAllRegisteredStudentDetails(): any{
-    return this.client.get<any>("http://localhost:3000/applicantList").pipe(
+    return this.client.get<any>("http://localhost:3000/register/applicantList").pipe(
       map(res=>{
         return res;
     }),
