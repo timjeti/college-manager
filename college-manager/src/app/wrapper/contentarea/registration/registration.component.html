@@ -91,9 +91,7 @@
             <mat-form-field appearance="outline">
                 <mat-label>Nationality</mat-label>
                 <mat-select formControlName="stdNatlty" name="nationality">
-                    <mat-option value="INDIA">INDIA</mat-option>
-                    <mat-option value="NEPAL">NEPAL</mat-option>
-                    <mat-option value="CHINA">CHINA</mat-option>
+                    <mat-option *ngFor="let country of countryList"  value="country.name">{{country.name}}</mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
@@ -348,19 +346,16 @@
         <div class="col-lg-6">
             <mat-form-field appearance="outline">
                 <mat-label>Select State</mat-label>
-                <mat-select  formControlName="aplPerSta" name="applicant_per_state">
-                    <mat-option value="ASSAM">ASSAM</mat-option>
-                    <mat-option value="ARUNACHAL">ARUNACHAL</mat-option>
-                    <mat-option value="MEGHALAYA">MEGHALAYA</mat-option>
+                <mat-select  (ngModelChange)="getDistrictFromState($event)" formControlName="aplPerSta" name="applicant_per_state">
+                    <mat-option *ngFor ='let state of stateList' value="{{state.state}}">{{state.state}}</mat-option>
                     </mat-select>
                 </mat-form-field>
         </div>
         <div class="col-lg-6">
             <mat-form-field appearance="outline">
                 <mat-label>Select District</mat-label>
-                <mat-select  formControlName="aplPerDist" name="applicant_per_distrct">
-                    <mat-option value="TEZPUR">TEZPUR</mat-option>
-                    <mat-option value="NORTH LAKHIMPUR">NORTH LAKHIMPUR</mat-option>
+                <mat-select [disabled] = "!isStateSelected('permanent')" formControlName="aplPerDist"  name="applicant_per_distrct">
+                    <mat-option *ngFor="let district of districts" value="{{district}}" >{{district}}</mat-option>
                     </mat-select>
                 </mat-form-field>
         </div>
@@ -374,12 +369,12 @@
 
     <br><br>
     <h2>Correspondance Address Details</h2>
-    <mat-checkbox class="example-margin">Same as Permanent Address</mat-checkbox>
+    <mat-checkbox (click)="disableCorrAddr($event)" formControlName="aplyIsCorAdd" class="example-margin">Same as Permanent Address</mat-checkbox>
     <div class="row">
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="outline" >
                 <mat-label>Address</mat-label>
-                <input matInput formControlName="aplCorAdd" name="aplicant_corrs_address">
+                <input matInput formControlName="aplCorAdd" name="aplicant_corrs_address" >
                 </mat-form-field>
         </div>
         <div class="col-sm">
@@ -405,20 +400,17 @@
         <div class="col-lg-6">
             <mat-form-field appearance="outline">
                 <mat-label>Select State</mat-label>
-                <mat-select formControlName="aplCorSta" name="applicant_corrs_state">
-                    <mat-option value="ASSAM">ASSAM</mat-option>
-                    <mat-option value="ARUNACHAL">ARUNACHAL</mat-option>
-                    <mat-option value="MEGHALAYA">MEGHALAYA</mat-option>
-                    </mat-select>
+                <mat-select formControlName="aplCorSta" (ngModelChange)="getDistrictFromState($event)"  name="applicant_corrs_state">
+                    <mat-option *ngFor ='let state of stateList' value="{{state.state}}">{{state.state}}</mat-option>
+                </mat-select>
                 </mat-form-field>
         </div>
         <div class="col-lg-6">
             <mat-form-field appearance="outline">
                 <mat-label>Select District</mat-label>
-                <mat-select formControlName="aplCorDist" name="applicant_corrs_distrct">
-                    <mat-option value="TEZPUR">TEZPUR</mat-option>
-                    <mat-option value="NORTH LAKHIMPUR">NORTH LAKHIMPUR</mat-option>
-                    </mat-select>
+                <mat-select [disabled] = "!isStateSelected('correspondent')" formControlName="aplCorDist" name="applicant_corrs_distrct">
+                    <mat-option *ngFor="let district of districts" value="{{district}}" >{{district}}</mat-option>
+                </mat-select>
                 </mat-form-field>
         </div>
         <div class="col-sm">

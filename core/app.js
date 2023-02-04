@@ -8,6 +8,8 @@ const port = 3000
 const registerRoute = require('./routes/register')
 const courseRoute = require('./routes/course')
 const subjectRoute = require('./routes/subject')
+const facultyRoute = require('./routes/faculty')
+
 app.use(express.json());
 app.use(cors())
 app.use(bodyParser.json());
@@ -16,6 +18,7 @@ app.use(bodyParser.urlencoded({extended: true})); // parse application/x-www-for
 app.use('/register', registerRoute)
 app.use('/course', courseRoute)
 app.use('/subject', subjectRoute)
+app.use('/faculty', facultyRoute)
 
 
 app.listen(port, () => {
