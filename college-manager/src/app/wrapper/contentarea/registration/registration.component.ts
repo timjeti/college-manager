@@ -33,11 +33,16 @@ export class RegistrationComponent {
   
   disability: string = 'no';
   disabilityDetails: string = '';
+  studyGap: boolean = false;
+  studyGapDetails: string ='';
   checked: string = 'no';
 
   someData : any;
   districts = []
 
+  courses : [{courseId : string, courseName : string}]
+  electiveList : [{subjectName : string}]
+  milList : [{subjectName : string}]
 
 
   regForm !: FormGroup;
@@ -49,6 +54,7 @@ export class RegistrationComponent {
     console.log(this.stateList)
   }
   
+  //load the form values from the registration form at runtime
   ngOnInit(){
     
     this.regForm = this.formbuilder.group({
@@ -105,6 +111,7 @@ export class RegistrationComponent {
       aplPerGuardPhnNum: [''],
       aplPerAddLoc: [''],
       aplPerSta: [''],
+      aplPerAddPs: [''],
       aplPerDist: [ {value  :'', disabled : true} ],
       aplPerPin: [''],
 
@@ -113,7 +120,7 @@ export class RegistrationComponent {
       aplCorAdd: [''],
       aplCorGuardPhnNum: [''],
       aplCorAddLoc: [''],
-      aplPerAddPs: [''],
+      aplCorAddPs: [''],
       aplCorSta: [''],
       aplCorDist: [ {value  :'', disabled : true} ],
       aplCorPin: [''],
@@ -152,7 +159,17 @@ export class RegistrationComponent {
       aplBnkBrnch: [''],
       aplBnkIfsc: ['']
     })
+    //Get all the courses
+    this.getAllCourses()
   }
+
+  // studyGapstatus(event){
+  //     if(event.target.innerText == "YES"){
+  //       this.studyGap = true;
+  //     }else{
+  //       this.studyGap = false;
+  //     }
+  // }
 
   //check if dropdown for state is sleceted for either permanent or correspoindent address
   isStateSelected(addressType){
@@ -168,6 +185,7 @@ export class RegistrationComponent {
     return true
   }
 
+  //get the districts given a particular state loaded from state json file
   getDistrictFromState(event) : any{
     for (let index = 0; index < this.stateList.length; index++) {
       const element = this.stateList[index];
@@ -178,6 +196,7 @@ export class RegistrationComponent {
     }
   }
 
+  //handle corresponding addres checkbox value changes
   disableCorrAddr(event){
     if(event.target.checked)
        {  
@@ -185,7 +204,7 @@ export class RegistrationComponent {
         this.regForm.controls['aplCorAdd'].disable()
         this.regForm.controls['aplCorGuardPhnNum'].disable()
         this.regForm.controls['aplCorAddLoc'].disable()
-        this.regForm.controls['aplPerAddPs'].disable()
+        this.regForm.controls['aplCorAddPs'].disable()
         this.regForm.controls['aplCorSta'].disable()
         // this.regForm.controls['aplCorDist'].disable()
         this.regForm.controls['aplCorPin'].disable()  
@@ -195,13 +214,14 @@ export class RegistrationComponent {
         this.regForm.controls['aplCorAdd'].enable()
         this.regForm.controls['aplCorGuardPhnNum'].enable()
         this.regForm.controls['aplCorAddLoc'].enable()
-        this.regForm.controls['aplPerAddPs'].enable()
+        this.regForm.controls['aplCorAddPs'].enable()
         this.regForm.controls['aplCorSta'].enable()
         // this.regForm.controls['aplCorDist'].enable()
         this.regForm.controls['aplCorPin'].enable()  
        }
   }
 
+  //Submit registration form of a student
   register(){
     
     console.log("Registered: ")
@@ -221,6 +241,7 @@ export class RegistrationComponent {
     }
   }
 
+  //Get registration details of a single student
   getRegistrationDetails(id : string){
     
     this.regService.getRegisteredStudentDetails(id)
@@ -233,6 +254,47 @@ export class RegistrationComponent {
       }
     })
   }
+
+    //Get registration details of a single student
+    getAllCourses(){
+    
+      this.regService.getAllCourses()
+      .subscribe({
+        next:(res)=>{
+          console.log(res)
+          this.courses = res
+        },
+        error:()=>{
+          console.log("Something went wrong")
+        }
+      })
+    }
+
+    getSubjectsByCourse(courseName){
+      // console.log(event)
+      this.electiveList = this.getSubjectsByType(courseName, 'elec')
+      this.milList = this.getSubjectsByType(courseName, 'mil')
+      // console.log(this.milList)
+    }
+
+    //get all the elective subjects for a course
+    getSubjectsByType(event, type): any{
+      this.regService.getAllSubjects(event, type)
+      .subscribe({
+        next:(res)=>{
+          if(type == 'elec'){
+            this.electiveList = res
+            // console.log(this.electiveList)
+          }else{
+            this.milList = res
+            // console.log(this.milList)
+          }
+        },
+        error:()=>{
+          console.log("Something went wrong")
+        }
+      })
+    }
 
   // type Employee = Array<{ id: number; name: string }>;
 

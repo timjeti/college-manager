@@ -98,13 +98,13 @@
         <div class="col-md">
         <mat-form-field appearance="outline">
             <mat-label>Whether study discontinued, if yes mention</mat-label>
-            <mat-select formControlName="stdBreak" name="student_break">
-                <mat-option value="YES">YES</mat-option>
-                <mat-option value="NO">NO</mat-option>
+            <mat-select #study formControlName="stdBreak" name="student_break">
+                <mat-option value="YES">Yes</mat-option>
+                <mat-option value="NO">No</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="form-group" *ngIf="disability === 'yes'">
+        <div class="form-group" *ngIf="study.value == 'YES'">
             <mat-label>Reason for Study Gap</mat-label>
             <textarea formControlName="stdGapRsn" name="stdudent_gap_reason"></textarea>
           </div>
@@ -113,13 +113,13 @@
         <div class="col-lg-6">
             <mat-form-field appearance="outline">
                 <mat-label>Person with Disability</mat-label>
-                <mat-select formControlName="stdDisability" name="stdudent_disability">
+                <mat-select #disability formControlName="stdDisability" name="stdudent_disability">
                     <mat-option value="YES" >Yes</mat-option>
                     <mat-option value="NO">No</mat-option>
                   </mat-select>
               </mat-form-field>
         </div>
-        <div class="form-group" *ngIf="disability === 'yes'">
+        <div class="form-group" *ngIf="disability.value == 'YES'">
             <mat-label>Mention the disability</mat-label>
             <textarea class="form-control" formControlName="stdDisabilityDet" name="stdudent_disability_details"></textarea>
           </div>
@@ -138,9 +138,7 @@
             <mat-label>Select Course</mat-label>
             <br>
             <mat-select name="cource" formControlName="aplCourse">
-                <mat-option value="profile">BA</mat-option>
-                <mat-option value="educationDetails">BSc</mat-option>
-                <mat-option value="educationDetails">BCom</mat-option>
+                <mat-option  *ngFor="let course of courses" value="course.courseName" (click)=getSubjectsByCourse(course.courseName)>{{course.courseName}}</mat-option>
               </mat-select>
           </mat-form-field>
           <br>
@@ -190,8 +188,7 @@
             <mat-form-field appearance="outline">
                 <mat-label>MIL Subject</mat-label>
                 <mat-select formControlName="aplMilSub" name="applicant_mil_sub">
-                    <mat-option value="MIL1">MIL1</mat-option>
-                    <mat-option value="MIL2">MIL2</mat-option>
+                    <mat-option *ngFor="let mil of milList"value="mil.subjectName">{{mil.subjectName}}</mat-option>
                   </mat-select>
               </mat-form-field>
         </div>
@@ -229,8 +226,7 @@
               <mat-form-field appearance="outline">
                 <mat-label>Elective/Generic Elective</mat-label>
                 <mat-select formControlName="aplElecSub" name="applicant_elec_sub">
-                    <mat-option value="ELEC1">ELEC1</mat-option>
-                    <mat-option value="ELEC2">ELEC2</mat-option>
+                    <mat-option *ngFor="let elec of electiveList"value="elec.subjectName">{{elec.subjectName}}</mat-option>
                   </mat-select>
                 </mat-form-field>
             </div>
@@ -394,7 +390,7 @@
         <div class="col-sm">
             <mat-form-field appearance="outline">
                 <mat-label>Enter Police Station</mat-label>
-                <input matInput formControlName="aplPerAddPs" name="applicant_corrs_policestation">
+                <input matInput formControlName="aplCorAddPs" name="applicant_corrs_policestation">
                 </mat-form-field>
         </div>
         <div class="col-lg-6">
@@ -606,8 +602,8 @@
         <button mat-raised-button="" color="primary">Save</button>
         </mat-card-actions>
     </form>
-    <mat-card-actions>
+    <!-- <mat-card-actions>
         <button mat-raised-button="" color="primary">Save</button>
-        </mat-card-actions>
+        </mat-card-actions> -->
 <!-- </form> -->
 </div>

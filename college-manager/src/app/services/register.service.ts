@@ -56,9 +56,28 @@ export class RegisterService {
     }
   }
 
+  //get all uploaded data by student during registration
   getRegisteredBinaries(id : string, type : String ): Observable<Blob>{
     return this.client.get(`http://localhost:3000/register/upload?id=${id}&type=${type}`, { responseType: 'blob' });
   }
 
+  //get all courses
+  getAllCourses(): any{
+    return this.client.get<any>("http://localhost:3000/course/courses").pipe(
+      map(res=>{
+        return res;
+    }),
+    )
+  }
+
+  //get all subjects based on course type 
+  getAllSubjects(courseName, subjectType): any{
+    console.log(`http://localhost:3000/course/${courseName}/subjects?subjectType=${subjectType}`)
+    return this.client.get<any>(`http://localhost:3000/course/${courseName}/subjects?subjectType=${subjectType}`).pipe(
+      map(res=>{
+        return res;
+    }),
+    )
+  }
 
 }

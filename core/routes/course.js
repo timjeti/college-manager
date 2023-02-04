@@ -57,9 +57,9 @@ router.get('/:courseName/subjects', (req,res) => {
     courseName = req.params.courseName
     subjectType= req.query.subjectType
     query = ''
-    query = `SELECT * from coll_subject where courseName = '${courseName}'`
+    query = `SELECT subjectName from coll_subject where courseName = '${courseName}'`
     if( subjectType !== undefined ){
-        query = `SELECT * FROM coll_subject WHERE courseName = '${courseName}' AND subjectType='${subjectType}'` 
+        query = `SELECT subjectName FROM coll_subject WHERE courseName = '${courseName}' AND subjectType='${subjectType}'` 
     }
     return restUtils.executeQuery(query, res)
 })
