@@ -29,6 +29,14 @@ import {MatSortModule} from '@angular/material/sort';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { ApplicantReviewComponent } from './wrapper/contentarea/applicant-review/applicant-review.component';
 import { ApplicantDocsComponent } from './wrapper/contentarea/applicant-review/applicant-docs/applicant-docs.component';
+import { EducationTableComponent } from './wrapper/contentarea/registration/education-table/education-table.component';
+import { CoursesComponent } from './wrapper/contentarea/academics/courses/courses.component';
+import { SubjectsComponent } from './wrapper/contentarea/academics/subjects/subjects.component';
+import { ModifycourceComponent } from './wrapper/contentarea/academics/courses/modifycource.component';
+import { ModifysubjectComponent } from './wrapper/contentarea/academics/subjects/modifysubject/modifysubject.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { TestDialogComponent } from './wrapper/contentarea/academics/courses/test-dialog/test-dialog.component';
+
 
 @NgModule({
   declarations: [
@@ -38,7 +46,13 @@ import { ApplicantDocsComponent } from './wrapper/contentarea/applicant-review/a
     SideBarComponent,
     routingComponents,
     ApplicantReviewComponent,
-    ApplicantDocsComponent
+    ApplicantDocsComponent,
+    EducationTableComponent,
+    CoursesComponent,
+    SubjectsComponent,
+    ModifycourceComponent,
+    ModifysubjectComponent,
+    TestDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +79,8 @@ import { ApplicantDocsComponent } from './wrapper/contentarea/applicant-review/a
     MatPaginatorModule,
     MatSortModule,
     FormsModule,
-    PdfViewerModule
+    PdfViewerModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

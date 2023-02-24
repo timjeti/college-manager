@@ -4,14 +4,18 @@ import { RegistrationComponent} from './wrapper/contentarea/registration/registr
 import { ApplicantdetailsComponent } from './wrapper/contentarea/applicant-review/applicantdetails/applicantdetails.component';
 import { RegistrationImageHandlerComponent } from './wrapper/contentarea/registration/registration-image-handler/registration-image-handler.component';
 import { ApplicantDocsComponent } from './wrapper/contentarea/applicant-review/applicant-docs/applicant-docs.component';
+import { CoursesComponent } from './wrapper/contentarea/academics/courses/courses.component';
+import { SubjectsComponent } from './wrapper/contentarea/academics/subjects/subjects.component';
 
-export const routingComponents = [RegistrationComponent,RegistrationImageHandlerComponent,ApplicantdetailsComponent]
+export const routingComponents = [RegistrationComponent,RegistrationImageHandlerComponent,ApplicantdetailsComponent,CoursesComponent,SubjectsComponent]
 
 const routes: Routes = [
     { path: 'registration1', component: RegistrationComponent},
     { path: 'registration2', component: RegistrationImageHandlerComponent},
     { path: 'registeredList', component: ApplicantdetailsComponent },
     { path: 'registeredList/docs', component: ApplicantDocsComponent },
+    { path: 'registeredList/courses', component: CoursesComponent },
+    { path: 'registeredList/subjects', component: SubjectsComponent }
 ];
 
 

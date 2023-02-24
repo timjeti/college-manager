@@ -1,0 +1,91 @@
+<div class="demo-button-container">
+    <button mat-raised-button (click)="addData()" class="demo-button">
+      Add data
+    </button>
+    <!-- <button
+        mat-raised-button
+        [disabled]="!dataToDisplay.length"
+        (click)="removeData()"
+        class="demo-button">
+      Remove data
+    </button> -->
+  </div>
+  
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-tabl" >
+    <!-- Position Column -->
+    <!-- <ng-container matColumnDef="Sl">
+      <th mat-header-cell *matHeaderCellDef>No.</th>
+      <td mat-cell *matCellDef="let element">{{element.position}}</td>
+    </ng-container> -->
+  
+    <!-- Name Column -->
+    <ng-container matColumnDef="courseName">
+      <th mat-header-cell *matHeaderCellDef>Course</th>
+      <td mat-cell *matCellDef="let element">
+        <!-- <mat-form-field floatLabel="never"></mat-form-field> -->
+          <mat-form-field >
+          <input matInput placeholder="Course" [value]="element.courseName" [(ngModel)]="element.courseName">
+        </mat-form-field></td>
+    </ng-container>
+  
+    <!-- Weight Column -->
+    <ng-container matColumnDef="board">
+      <th mat-header-cell *matHeaderCellDef>Board/University</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-form-field >
+          <input matInput placeholder="Board/University" [value]="element.board" [(ngModel)]="element.board">
+        </mat-form-field>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="roll">
+      <th mat-header-cell *matHeaderCellDef>Roll Number</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-form-field >
+          <input matInput placeholder="Roll No." [value]="element.roll" [(ngModel)]="element.roll">
+        </mat-form-field>
+      </td>
+    </ng-container>
+  
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="percentage">
+      <th mat-header-cell *matHeaderCellDef>Percentage/CGPA</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-form-field >
+          <input matInput placeholder="Percentage/CGPA" [value]="element.percentage" [(ngModel)]="element.percentage">
+        </mat-form-field>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef>Division</th>
+        <td mat-cell *matCellDef="let element">
+          <mat-form-field >
+            <input matInput placeholder="Division" [value]="element.position" [(ngModel)]="element.position">
+          </mat-form-field>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="passYear">
+        <th mat-header-cell *matHeaderCellDef>Passing Year</th>
+        <td mat-cell *matCellDef="let element">
+          <select [(ngModel)]="element.passYear">
+            <option *ngFor="let year of years" [value]="year">{{ year }}</option> 
+          </select>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let element; let i = index">
+          <!-- <mat-form-field > -->
+            <!-- <input matInput placeholder="" [value]="element.position" [(ngModel)]="element.position"> -->
+            <button mat-button color="primary" (click)="removeData(i)">Delete</button>
+          <!-- </mat-form-field> -->
+        </td>
+      </ng-container>
+
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>

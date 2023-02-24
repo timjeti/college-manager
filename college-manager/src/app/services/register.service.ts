@@ -71,7 +71,7 @@ export class RegisterService {
   }
 
   //get all subjects based on course type 
-  getAllSubjects(courseName, subjectType): any{
+  getSubjectsbyCourse(courseName, subjectType): any{
     console.log(`http://localhost:3000/course/${courseName}/subjects?subjectType=${subjectType}`)
     return this.client.get<any>(`http://localhost:3000/course/${courseName}/subjects?subjectType=${subjectType}`).pipe(
       map(res=>{
@@ -79,5 +79,15 @@ export class RegisterService {
     }),
     )
   }
+
+    //get all subjects based on course type 
+    getAllSubjects(): any{
+      console.log(`http://localhost:3000/subject/subjects`)
+      return this.client.get<any>('http://localhost:3000/subject/subjects').pipe(
+        map(res=>{
+          return res;
+      }),
+      )
+    }
 
 }

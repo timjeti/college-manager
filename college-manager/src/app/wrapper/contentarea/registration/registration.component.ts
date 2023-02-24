@@ -43,6 +43,8 @@ export class RegistrationComponent {
   courses : [{courseId : string, courseName : string}]
   electiveList : [{subjectName : string}]
   milList : [{subjectName : string}]
+  honorList : [{subjectName : string}]
+  compulsorySubList : [{subjectName : string}]
 
 
   regForm !: FormGroup;
@@ -58,6 +60,7 @@ export class RegistrationComponent {
   ngOnInit(){
     
     this.regForm = this.formbuilder.group({
+      applStream : [''],
       //Student Details
       fName : [''],
       mName : [''],
@@ -90,10 +93,16 @@ export class RegistrationComponent {
       aplHnrSub3: [''],
       aplElecSub: [''],
 
+      //XIth
+      aplElecSub1: [''],
+      aplElecSub2: [''],
+      aplElecSub3: [''],
+      aplElecSub4: [''],
+
       //Last Examination Marks
       aplLstExmTotMark: [''],
       aplLstExmMarkObt: [''],
-      aplLstExmPcObt: [''],
+      aplLstExmPcObt: [{value  :'', disabled : true}],
 
       //Parent/Guardian's Details
       aplGuardNm: [''],
@@ -126,27 +135,27 @@ export class RegistrationComponent {
       aplCorPin: [''],
 
       //Details of Academic Qualification
-      apl12thBoard: [''],
-      apl12thYOP: [''],
-      apl12thTotMarks: [''],
-      apl12thScrdMarks: [''],
-      apl12thScrdPc: [''],
-      apl12thRoll: [''],
+      // apl12thBoard: [''],
+      // apl12thYOP: [''],
+      // apl12thTotMarks: [''],
+      // apl12thScrdMarks: [''],
+      // apl12thScrdPc: [''],
+      // apl12thRoll: [''],
       apl12thRegNum: [''],
-      apl12thCol: [''],
+      aplLastCol: [''],
 
       //HS Examination Marks Details
       apl12thSubMil: [''],
-      apl12thElecSub1: [''],
-      apl12thElecSub2: [''],
-      apl12thElecSub3: [''],
-      apl12thElecSub4: [''],
-      apl12thEngMrk: [''],
-      apl12thMilMrk: [''],
-      apl12thElec1Mrk: [''],
-      apl12thElec2Mrk: [''],
-      apl12thElec3Mrk: [''],
-      apl12thElec4Mrk: [''],
+      aplLastElecSub1: [''],
+      aplLastElecSub2: [''],
+      aplLastElecSub3: [''],
+      aplLastElecSub4: [''],
+      aplLastEngMrk: ['0'],
+      aplLastMilMrk: ['0'],
+      aplLastElec1Mrk: ['0'],
+      aplLastElec2Mrk: ['0'],
+      aplLastElec3Mrk: ['0'],
+      aplLastElec4Mrk: ['0'],
 
       //Extra Curricular Activities
       aplExtraCur: [''],
@@ -272,28 +281,53 @@ export class RegistrationComponent {
 
     getSubjectsByCourse(courseName){
       // console.log(event)
-      this.electiveList = this.getSubjectsByType(courseName, 'elec')
-      this.milList = this.getSubjectsByType(courseName, 'mil')
+      this.getSubjectsByType(courseName, 'elec')
+      this.getSubjectsByType(courseName, 'mil')
+      this.getSubjectsByType(courseName, 'hon')
+      this.getSubjectsByType(courseName, 'comp')
       // console.log(this.milList)
     }
 
     //get all the elective subjects for a course
     getSubjectsByType(event, type): any{
-      this.regService.getAllSubjects(event, type)
+      this.regService.getSubjectsbyCourse(event, type)
       .subscribe({
         next:(res)=>{
           if(type == 'elec'){
             this.electiveList = res
             // console.log(this.electiveList)
-          }else{
+          }else if(type == 'mil'){
             this.milList = res
-            // console.log(this.milList)
+          }else if(type == 'hon'){
+            this.honorList = res
+          }else if(type == 'comp'){
+            this.compulsorySubList = res
           }
         },
         error:()=>{
           console.log("Something went wrong")
         }
       })
+    }
+
+    getPercantage(){
+      console.log("Percentage Block hit")
+      let totalMarksSecured = 0
+      totalMarksSecured = (Number.parseInt(this.regForm.value.aplLastEngMrk)+Number.parseInt(this.regForm.value.aplLastMilMrk)+Number.parseInt(this.regForm.value.aplLastElec1Mrk)+Number.parseInt(this.regForm.value.aplLastElec2Mrk)+Number.parseInt(this.regForm.value.aplLastElec3Mrk)+Number.parseInt(this.regForm.value.aplLastElec4Mrk))
+      console.log(totalMarksSecured)
+      let perc = totalMarksSecured / 600 * 100
+      if(0 <= perc && perc <= 100){
+        let val = (Math.round(perc * 10) / 10).toFixed(2)
+        this.regForm.controls['aplLstExmPcObt'].setValue(val)
+      }else{
+        this.regForm.controls['aplLstExmPcObt'].setValue('')
+      }
+      
+    }
+
+    enableCGPABlock(){
+      console.log("CGPA Block hit")
+      this.regForm.controls['aplLstExmPcObt'].enable()
     }
 
   // type Employee = Array<{ id: number; name: string }>;
