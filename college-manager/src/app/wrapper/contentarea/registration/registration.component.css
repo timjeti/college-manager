@@ -4,7 +4,9 @@
     align-items: flex-start;
   }
 .container {
-  background-color:slategray;
-  margin:2%;
-  padding: 2%;
+  /* background-color:slategray; */
 }
+.container-fluid{
+  overflow: hidden;
+  /* padding: 2%; */
+  }

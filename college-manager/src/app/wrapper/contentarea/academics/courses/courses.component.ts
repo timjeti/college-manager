@@ -4,8 +4,14 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { RegisterService } from 'src/app/services/register.service';
 import {MatDialog} from '@angular/material/dialog';
-import { TestDialogComponent } from './test-dialog/test-dialog.component';
+import { CourseDialogComponent } from './course-dialog/course-dialog.component';
 
+export interface courseMap{
+  id: number,
+  courseId: string,
+  courseName: string,
+  courseType: string
+}
 
 @Component({
   selector: 'app-courses',
@@ -34,9 +40,15 @@ export class CoursesComponent {
 
   openDialog() {
     console.log('Inside Dialog')
-    this.dialog.open(TestDialogComponent, {
+    this.dialog.open(CourseDialogComponent, {
       width:'70%',
-      height:'50%'
+      height:'50%',
+      data: {
+        id: this.dataSource.id,
+        courseId: this.dataSource.courseId,
+        courseName:  this.dataSource.courseName,
+        courseType: this.dataSource.courseType
+      }
     });
   }
 
@@ -66,6 +78,7 @@ export class CoursesComponent {
         console.log(res)
         this.dataSource = new MatTableDataSource(res);
         // this.dataSource = res
+        console.log(this.dataSource)
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       },

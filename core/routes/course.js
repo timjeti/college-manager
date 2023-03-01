@@ -11,15 +11,15 @@ var restUtils = require('./RestUtils.js')
 //api to create a new course
 router.post("/", (req,res) =>{
 
-    const { courseId, courseName } = req.body
-    query = `INSERT INTO coll_course (courseId, courseName) VALUES ('${courseId}', '${courseName}')`
+    const { courseId, courseName, courseType } = req.body
+    query = `INSERT INTO coll_course (courseId, courseName, courseType) VALUES ('${courseId}', '${courseName}','${courseType}')`
     restUtils.executeCommitQuery(query, res)
 })
 
 //api to get details of a particular course
 router.get('/', (req, res) => {
     const courseName = req.query.courseName
-    const query = `SELECT courseId, courseName from coll_course where courseName='${courseName}'`
+    const query = `SELECT courseId, courseName, courseType from coll_course where courseName='${courseName}'`
     restUtils.executeQuery(query, res)
 })
 
@@ -27,15 +27,21 @@ router.get('/', (req, res) => {
 router.put('/:id', (req, res) => {
     console.log("put data")
     const id = req.params.id
-    const courseName = req.query.courseName
-    const courseId = req.query.courseId
-    const query = `UPDATE coll_course SET courseId='${courseId}', courseName='${courseName}' WHERE id='${id}'`
+    const { courseId, courseName, courseType } = req.body
+    const query = `UPDATE coll_course SET courseId='${courseId}', courseName='${courseName}', courseType='${courseType}' WHERE id='${id}'`
     restUtils.executeQuery(query, res)
 })
 
 //api to get details of all the courses
 router.get('/courses', (req, res) => {
-    const query = 'SELECT id, courseId, courseName from coll_course'
+    const query = 'SELECT * from coll_course'
+    restUtils.executeQuery(query, res)
+})
+
+//api to get details of all the courses basd on courseType
+router.get('/courses', (req, res) => {
+    const courseType = req.query.courseType
+    const query = `SELECT * FROM coll_course WHERE courseType='${courseType}'`
     restUtils.executeQuery(query, res)
 })
 

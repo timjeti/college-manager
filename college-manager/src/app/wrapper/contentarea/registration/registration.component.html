@@ -1,9 +1,9 @@
 
-<div class="container">
-    <form class="form-container" (ngSubmit)="register()" [formGroup]="regForm">
+<div class="container-fluid">
+    <form class="form-control form-control-sm" (ngSubmit)="register()" [formGroup]="regForm" >
         <div class="row">
             <div class="col-sm">
-                <mat-form-field appearance="outline">
+                <mat-form-field>
                     <mat-label>Select your stream</mat-label>
                     <mat-select  #stream formControlName="applStream" name="gender">
                         <mat-option value="xi">XI</mat-option>
@@ -17,19 +17,19 @@
     <h2>Student Details</h2>
     <div class="row">
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>First Name</mat-label>
                 <input matInput formControlName="fName" name="fName">
               </mat-form-field>
         </div>
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field>
                 <mat-label>Middle Name</mat-label>
                 <input matInput formControlName="mName" name="mName">
               </mat-form-field>
         </div>
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field>
                 <mat-label>Last Name</mat-label>
                 <input matInput formControlName="lName" name="lName">
               </mat-form-field>
@@ -38,7 +38,7 @@
             <button mat-raised-button="" color="primary">Save</button>
             </mat-card-actions> -->
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Choose a date</mat-label>
                 <input matInput [matDatepicker]="picker" formControlName="dBirth" name="dBirth">
                 <mat-hint>MM/DD/YYYY</mat-hint>
@@ -55,7 +55,7 @@
 <!-- </div> -->
     <div class="row">
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Gender</mat-label>
                 <mat-select formControlName="gender" name="gender">
                     <mat-option value="male">MALE</mat-option>
@@ -65,19 +65,19 @@
               </mat-form-field>
         </div>
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Caste</mat-label>
                 <input matInput formControlName="stdCaste" name="student_caste">
               </mat-form-field>
         </div>
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Blood Group</mat-label>
                 <input matInput formControlName="bGroup" name="bGroup">
               </mat-form-field>
         </div>
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Phone Number</mat-label>
                 <input matInput formControlName="stdPhnNumber" name="student_phone">
               </mat-form-field>
@@ -85,13 +85,13 @@
     </div>
     <div class="row">
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Email</mat-label>
                 <input matInput formControlName="stdEmail" name="email">
                 </mat-form-field>
         </div>
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Religion</mat-label>
                 <mat-select formControlName="religion" name="religion">
                     <mat-option value="HINDU">HINDU</mat-option>
@@ -101,7 +101,7 @@
               </mat-form-field>
         </div>
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Nationality</mat-label>
                 <mat-select formControlName="stdNatlty" name="nationality">
                     <mat-option *ngFor="let country of countryList"  value="country.name">{{country.name}}</mat-option>
@@ -109,7 +109,7 @@
             </mat-form-field>
         </div>
         <div class="col-md">
-        <mat-form-field appearance="outline">
+        <mat-form-field >
             <mat-label>Whether study discontinued, if yes mention</mat-label>
             <mat-select #study formControlName="stdBreak" name="student_break">
                 <mat-option value="YES">Yes</mat-option>
@@ -124,7 +124,7 @@
     </div>
     <div class="row">
         <div class="col-lg-6">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Person with Disability</mat-label>
                 <mat-select #disability formControlName="stdDisability" name="stdudent_disability">
                     <mat-option value="YES" >Yes</mat-option>
@@ -137,7 +137,7 @@
             <textarea class="form-control" formControlName="stdDisabilityDet" name="stdudent_disability_details"></textarea>
           </div>
         <div class="col-lg-6">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Distance From Home To College</mat-label>
                 <input matInput  formControlName="disToColl" name="distance_college">
               </mat-form-field>
@@ -158,7 +158,7 @@
           <br>
         
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Select Category</mat-label>
                 <mat-select formControlName="aplCaste" name="applicant_caste">
                     <mat-option value="OBC">OBC</mat-option>
@@ -169,7 +169,7 @@
                 </mat-form-field>
         </div>
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Applying for Hostel</mat-label>
                 <mat-select  formControlName="aplHstl" name="applicant_hostel">
                     <mat-option value="YES">YES</mat-option>
@@ -179,7 +179,7 @@
         </div>
         
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Admission Type</mat-label>
                 <mat-select formControlName="aplAdmTyp" name="aplAdmTyp">
                 <mat-option value="FREE">FREE</mat-option>
@@ -190,7 +190,7 @@
     </div>
     <div class="row" *ngIf="stream.value == 'xi'">
         <div class="col-sm"  *ngIf="stream.value == 'xi'">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Compulsory Subject</mat-label>
                 <mat-select formControlName="aplCmpSub" name="applicant_cmp_sub">
                     <mat-option *ngFor="let compSub of compulsorySubList"value="compSub.subjectName">{{compSub.subjectName}}</mat-option>
@@ -198,7 +198,7 @@
               </mat-form-field>
         </div>
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>MIL Subject</mat-label>
                 <mat-select formControlName="aplMilSub" name="applicant_mil_sub">
                     <mat-option *ngFor="let mil of milList"value="mil.subjectName">{{mil.subjectName}}</mat-option>
@@ -206,7 +206,7 @@
               </mat-form-field>
         </div>
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Elective Choice 1</mat-label>
                 <mat-select formControlName="aplElecSub1" name="applicant_honr_sub_1">
                     <mat-option *ngFor="let honor of honorList"value="honor.subjectName">{{honor.subjectName}}</mat-option>
@@ -214,7 +214,7 @@
               </mat-form-field>
         </div>
         <div class="col-sm">
-              <mat-form-field appearance="outline">
+              <mat-form-field >
                 <mat-label>Elective Choice 2</mat-label>
                 <mat-select formControlName="aplElecSub2" name="applicant_honr_sub_2">
                     <mat-option *ngFor="let honor of honorList"value="honor.subjectName">{{honor.subjectName}}</mat-option>
@@ -222,7 +222,7 @@
                 </mat-form-field>
             </div>
         <div class="col-sm">
-              <mat-form-field appearance="outline">
+              <mat-form-field >
                 <mat-label>Elective Choice 3</mat-label>
                 <mat-select formControlName="aplElecSub3" name="applicant_honr_sub_3">
                     <mat-option *ngFor="let honor of honorList"value="honor.subjectName">{{honor.subjectName}}</mat-option>
@@ -230,7 +230,7 @@
                 </mat-form-field>
             </div>
         <div class="col-sm">
-              <mat-form-field appearance="outline">
+              <mat-form-field >
                 <mat-label>Elective Choice 4</mat-label>
                 <mat-select formControlName="aplElecSub4" name="applicant_elec_sub">
                     <mat-option *ngFor="let elec of electiveList"value="elec.subjectName">{{elec.subjectName}}</mat-option>
@@ -241,7 +241,7 @@
     <!-- #Graduation -->
     <div class="row" *ngIf="stream.value == 'graduation'">
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Compulsory Subject</mat-label>
                 <mat-select formControlName="aplCmpSub" name="applicant_cmp_sub">
                     <mat-option *ngFor="let compSub of compulsorySubList"value="compSub.subjectName">{{compSub.subjectName}}</mat-option>
@@ -249,7 +249,7 @@
               </mat-form-field>
         </div>
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>MIL Subject</mat-label>
                 <mat-select formControlName="aplMilSub" name="applicant_mil_sub">
                     <mat-option *ngFor="let mil of milList"value="mil.subjectName">{{mil.subjectName}}</mat-option>
@@ -257,7 +257,7 @@
               </mat-form-field>
         </div>
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Major Honours Choice 1</mat-label>
                 <mat-select formControlName="aplHnrSub1" name="applicant_honr_sub_1">
                     <mat-option *ngFor="let honor of honorList"value="honor.subjectName">{{honor.subjectName}}</mat-option>
@@ -265,7 +265,7 @@
               </mat-form-field>
         </div>
         <div class="col-sm">
-              <mat-form-field appearance="outline">
+              <mat-form-field >
                 <mat-label>Major Honours Choice 2</mat-label>
                 <mat-select formControlName="aplHnrSub2" name="applicant_honr_sub_2">
                     <mat-option *ngFor="let honor of honorList"value="honor.subjectName">{{honor.subjectName}}</mat-option>
@@ -273,7 +273,7 @@
                 </mat-form-field>
             </div>
         <div class="col-sm">
-              <mat-form-field appearance="outline">
+              <mat-form-field >
                 <mat-label>Major Honours Choice 3</mat-label>
                 <mat-select formControlName="aplHnrSub3" name="applicant_honr_sub_3">
                     <mat-option *ngFor="let honor of honorList"value="honor.subjectName">{{honor.subjectName}}</mat-option>
@@ -281,7 +281,7 @@
                 </mat-form-field>
             </div>
         <div class="col-sm">
-              <mat-form-field appearance="outline">
+              <mat-form-field >
                 <mat-label>Elective/Generic Elective</mat-label>
                 <mat-select formControlName="aplElecSub" name="applicant_elec_sub">
                     <mat-option *ngFor="let elec of electiveList"value="elec.subjectName">{{elec.subjectName}}</mat-option>
@@ -293,13 +293,13 @@
     <!-- <h2>Last Examination Marks</h2>
     <div class="row">
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Total Marks in Last Exam(Excluding Additional Subject)</mat-label>
                 <input matInput formControlName="aplLstExmTotMark" name="applicant_lastexam_tot_marks" (change)="getPercantage()">
               </mat-form-field>
         </div>
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Total Marks Obtained in Last Exam</mat-label>
                 <input matInput formControlName="aplLstExmMarkObt" name="applicant_lastexam_obt_marks" (change)="getPercantage()">
               </mat-form-field>
@@ -312,25 +312,25 @@
     <h2>Parent/Guardian's Details</h2>
     <div class="row">
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Enter Gurdian's Name</mat-label>
                 <input matInput formControlName="aplGuardNm" name="applicant_guardian_name">
               </mat-form-field>
         </div>
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Enter Guardian's Phone Number</mat-label>
                 <input matInput formControlName="aplGuardPhn" name="applicant_guardian_phn">
               </mat-form-field>
         </div>
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Enter Guardian's Occupation</mat-label>
                 <input matInput formControlName="aplGuardOcp" name="applicant_guardian_ocuptn">
               </mat-form-field>
         </div>
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Enter Guardian's Income</mat-label>
                 <input matInput formControlName="aplGuardInc" name="applicant_guardian_inc">
               </mat-form-field>
@@ -339,25 +339,25 @@
     
     <div class="row">
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Enter father's Name</mat-label>
                 <input matInput formControlName="aplFatNam" name="applicant_father_name">
               </mat-form-field>
         </div>
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Enter mother's Name</mat-label>
                 <input matInput formControlName="aplMotNam" name="applicant_mother_name">
               </mat-form-field>
         </div>
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Enter local guardian's Name</mat-label>
                 <input matInput formControlName="aplLclGuardNam" name="applicant_lguardian_name">
               </mat-form-field>
         </div>
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Enter local guardian's address</mat-label>
                 <input matInput formControlName="aplLclGuardAdd" name="applicant_lguardian_address">
               </mat-form-field>
@@ -366,50 +366,50 @@
     <br><br>
     <h2>Permanent Address Details</h2>
     <div class="row">
-        <div class="col-sm">
-            <mat-form-field appearance="outline">
+        <div class="form-group col-sm">
+            <mat-form-field >
                 <mat-label>Address</mat-label>
                 <input matInput formControlName="aplPerAdd" name="aplicant_permanent_address">
                 </mat-form-field>
         </div>
-        <div class="col-sm">
-            <mat-form-field appearance="outline">
+        <div class="form-group col-sm">
+            <mat-form-field >
                 <mat-label>Enter Guardian's Phone Number</mat-label>
                 <input matInput formControlName="aplPerGuardPhnNum" name="applicant_per_guardian_phnum">
                 </mat-form-field>
         </div>
-        <div class="col-sm">
-            <mat-form-field appearance="outline">
+        <div class="form-group col-sm">
+            <mat-form-field >
                 <mat-label>Locality</mat-label>
                 <input matInput formControlName="aplPerAddLoc" name="applicant_per_locality">
                 </mat-form-field>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm">
-            <mat-form-field appearance="outline">
+        <div class="form-group col">
+            <mat-form-field >
                 <mat-label>Enter Police Station</mat-label>
                 <input matInput formControlName="aplPerAddPs" name="applicant_per_policestation">
                 </mat-form-field>
         </div>
-        <div class="col-lg-6">
-            <mat-form-field appearance="outline">
+        <div class="form-group col">
+            <mat-form-field >
                 <mat-label>Select State</mat-label>
                 <mat-select  (ngModelChange)="getDistrictFromState($event)" formControlName="aplPerSta" name="applicant_per_state">
                     <mat-option *ngFor ='let state of stateList' value="{{state.state}}">{{state.state}}</mat-option>
                     </mat-select>
                 </mat-form-field>
         </div>
-        <div class="col-lg-6">
-            <mat-form-field appearance="outline">
+        <div class="form-group col">
+            <mat-form-field >
                 <mat-label>Select District</mat-label>
                 <mat-select [disabled] = "!isStateSelected('permanent')" formControlName="aplPerDist"  name="applicant_per_distrct">
                     <mat-option *ngFor="let district of districts" value="{{district}}" >{{district}}</mat-option>
                     </mat-select>
                 </mat-form-field>
         </div>
-        <div class="col-sm">
-            <mat-form-field appearance="outline">
+        <div class="form-group col-sm">
+            <mat-form-field >
                 <mat-label>Enter Pincode</mat-label>
                 <input matInput formControlName="aplPerPin" name="applicant_per_pincode">
                 </mat-form-field>
@@ -420,50 +420,50 @@
     <h2>Correspondance Address Details</h2>
     <mat-checkbox (click)="disableCorrAddr($event)" formControlName="aplyIsCorAdd" class="example-margin">Same as Permanent Address</mat-checkbox>
     <div class="row">
-        <div class="col-sm">
-            <mat-form-field appearance="outline" >
+        <div class="form-group col-sm">
+            <mat-form-field  >
                 <mat-label>Address</mat-label>
                 <input matInput formControlName="aplCorAdd" name="aplicant_corrs_address" >
                 </mat-form-field>
         </div>
-        <div class="col-sm">
-            <mat-form-field appearance="outline">
+        <div class="form-group col-sm">
+            <mat-form-field >
                 <mat-label>Enter Guardian's Phone Number</mat-label>
                 <input matInput formControlName="aplCorGuardPhnNum" name="applicant_corrs_guardian_phnum">
                 </mat-form-field>
         </div>
-        <div class="col-sm">
-            <mat-form-field appearance="outline">
+        <div class="form-group col-sm">
+            <mat-form-field >
                 <mat-label>Locality</mat-label>
                 <input matInput formControlName="aplCorAddLoc" name="applicant_corrs_locality">
                 </mat-form-field>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm">
-            <mat-form-field appearance="outline">
+        <div class="form-group col">
+            <mat-form-field >
                 <mat-label>Enter Police Station</mat-label>
                 <input matInput formControlName="aplCorAddPs" name="applicant_corrs_policestation">
                 </mat-form-field>
         </div>
-        <div class="col-lg-6">
-            <mat-form-field appearance="outline">
+        <div class="form-group col">
+            <mat-form-field >
                 <mat-label>Select State</mat-label>
                 <mat-select formControlName="aplCorSta" (ngModelChange)="getDistrictFromState($event)"  name="applicant_corrs_state">
                     <mat-option *ngFor ='let state of stateList' value="{{state.state}}">{{state.state}}</mat-option>
                 </mat-select>
                 </mat-form-field>
         </div>
-        <div class="col-lg-6">
-            <mat-form-field appearance="outline">
+        <div class="form-group col">
+            <mat-form-field >
                 <mat-label>Select District</mat-label>
                 <mat-select [disabled] = "!isStateSelected('correspondent')" formControlName="aplCorDist" name="applicant_corrs_distrct">
                     <mat-option *ngFor="let district of districts" value="{{district}}" >{{district}}</mat-option>
                 </mat-select>
                 </mat-form-field>
         </div>
-        <div class="col-sm">
-            <mat-form-field appearance="outline">
+        <div class="form-group col">
+            <mat-form-field >
                 <mat-label>Enter Pincode</mat-label>
                 <input matInput formControlName="aplCorPin" name="applicant_corrs_pincode">
                 </mat-form-field>
@@ -477,31 +477,31 @@
             <mat-label *ngIf="stream.value == 'master'">Graduation</mat-label>
         </div>
         <!-- <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Name of board/university</mat-label>
                 <input matInput formControlName="aplLastBoard" name="aplicant_12th_board">
                 </mat-form-field>
         </div>
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Enter Year of Passing</mat-label>
                 <input matInput formControlName="aplLastYOP" name="applicant_12th_YOP">
                 </mat-form-field>
         </div>
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Enter Toltal Marks/CGPA</mat-label>
                 <input matInput formControlName="aplLastMarks" name="applicant_12th_totmarks">
                 </mat-form-field>
         </div>
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Enter your obtained Marks/CGPA </mat-label>
                 <input matInput formControlName="apl12thScrdMarks" name="applicant_12th_scrdmarks">
                 </mat-form-field>
         </div>
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Enter % of marks </mat-label>
                 <input matInput formControlName="apl12thScrdPc" name="applicant_12th_scrdpc">
                 </mat-form-field>
@@ -509,26 +509,26 @@
     </div> 
     <div class="row" *ngIf="stream.value == 'xi' || stream.value == 'graduation' || stream.value == 'master'">
         <!-- <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Roll No of 12th/HS Exam</mat-label>
                 <input matInput formControlName="aplLastRoll" name="applicant_12th_roll">
                 </mat-form-field>
         </div> -->
         <div class="col-sm" *ngIf="stream.value == 'graduation'">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label >Enter Registaration Number of 12th Examination</mat-label>
                 <input matInput formControlName="apl12thRegNum" name="applicant_12th_regnum">
                 </mat-form-field>
         </div>
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label *ngIf="stream.value == 'graduation' || stream.value == 'master'">Enter Name of College/Institute</mat-label>
                 <mat-label *ngIf="stream.value == 'xi'">Enter Name of School</mat-label>
                 <input matInput formControlName="aplLastCol" name="applicant_12th_college">
                 </mat-form-field>
         </div>
         <!-- <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Percantage of Total Marks</mat-label>
                 <input matInput formControlName="aplLstExmPcObt" name="applicant_lastexam_obt_percent">
               </mat-form-field>
@@ -542,7 +542,7 @@
             <mat-label>English</mat-label> 
         </div>
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Select MIL Language</mat-label>
                 <mat-select matInput formControlName="apl12thSubMil" name="applicant_12th_mil">
                     <mat-option value="MIL1">MIL1</mat-option>
@@ -551,28 +551,28 @@
                 </mat-form-field>
         </div>
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label *ngIf="stream.value == 'graduation'">Name of Elective Subject 1</mat-label>
                 <mat-label *ngIf="stream.value == 'xi'">Name of Optional paper 1</mat-label>
                 <input matInput formControlName="aplLastElecSub1" name="applicant_12th_elec1">
                 </mat-form-field>
         </div>
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label  *ngIf="stream.value == 'graduation'">Name of Elective Subject 2</mat-label>
                 <mat-label *ngIf="stream.value == 'xi'">Name of Optional paper 2</mat-label>
                 <input matInput formControlName="aplLastElecSub2" name="applicant_12th_elec2">
                 </mat-form-field>
         </div>
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label *ngIf="stream.value == 'graduation'">Name of Elective Subject 3</mat-label>
                 <mat-label *ngIf="stream.value == 'xi'">Name of Optional paper 3</mat-label>
                 <input matInput formControlName="aplLastElecSub3" name="applicant_12th_elec3">
                 </mat-form-field>
         </div>
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label *ngIf="stream.value == 'graduation'">Name of Elective Subject 4</mat-label>
                 <mat-label *ngIf="stream.value == 'xi'">Name of Optional paper 4</mat-label>
                 <input matInput formControlName="aplLastElecSub4" name="applicant_12th_elec4">
@@ -581,40 +581,40 @@
     </div>
     <div class="row"  *ngIf="stream.value == 'xi' || stream.value == 'graduation'">
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Marks secured in English</mat-label>
                 <input matInput formControlName="aplLastEngMrk" (change)="getPercantage()" name="applicant_12th_mark_eng">
                 </mat-form-field>
         </div>
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Marks secured in MIL Language</mat-label>
                 <input matInput formControlName="aplLastMilMrk" (change)="getPercantage()" name="applicant_12th_mark_mil">
                 </mat-form-field>
         </div>
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label *ngIf="stream.value == 'graduation'">Marks secured in Elective Subject 1</mat-label>
                 <mat-label *ngIf="stream.value == 'xi'">Marks secured in Optional Paper 1</mat-label>
                 <input matInput formControlName="aplLastElec1Mrk" (change)="getPercantage()" name="applicant_12th_mark_elec1">
                 </mat-form-field>
         </div>
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label *ngIf="stream.value == 'graduation'">Marks secured in Elective Subject 2</mat-label>
                 <mat-label *ngIf="stream.value == 'xi'">Marks secured in Optional Paper 2</mat-label>
                 <input matInput formControlName="aplLastElec2Mrk" (change)="getPercantage()" name="applicant_12th_mark_elec2">
                 </mat-form-field>
         </div>
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label *ngIf="stream.value == 'graduation'">Marks secured in Elective Subject 3</mat-label>
                 <mat-label *ngIf="stream.value == 'xi'">Marks secured in Optional Paper 3</mat-label>
                 <input matInput formControlName="aplLastElec3Mrk" (change)="getPercantage()" name="applicant_12th_mark_elec3">
                 </mat-form-field>
         </div>
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label *ngIf="stream.value == 'graduation'">Marks secured in Elective Subject 4</mat-label>
                 <mat-label *ngIf="stream.value == 'xi'">Marks secured in Optional Paper 4</mat-label>
                 <input matInput formControlName="aplLastElec4Mrk" (change)="getPercantage()" name="applicant_12th_mark_elec4">
@@ -622,13 +622,13 @@
         </div>
     </div>
     <div class="col-sm" *ngIf="stream.value == 'xi' || stream.value == 'graduation'">
-        <mat-form-field appearance="outline">
+        <mat-form-field >
             <mat-label>Percantage Obtained in Last Exam</mat-label>
             <input matInput formControlName="aplLstExmPcObt" name="applicant_lastexam_obt_marks">
           </mat-form-field>
     </div>
     <div class="col-sm" *ngIf="stream.value == 'master'">
-        <mat-form-field appearance="outline">
+        <mat-form-field >
             <mat-label>CGPA/Pc Obtained in Last Exam</mat-label>
             <input matInput formControlName="aplLstExmPcObt" name="applicant_lastexam_obt_marks">
           </mat-form-field>
@@ -644,19 +644,19 @@
     <h4>Bank Account details</h4>
     <div class="row">
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Enter Bank A/c Holders Name</mat-label>
                 <input matInput formControlName="aplBnkHldrNm" name="applicant_bank_hldr_name">
                 </mat-form-field>
         </div>
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Enter Bank A/c Number</mat-label>
                 <input matInput formControlName="aplBnkAcNum" name="applicant_bank_ac_num">
                 </mat-form-field>
         </div>
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Confirm Bank A/c Number</mat-label>
                 <input matInput formControlName="aplBnkCnfAcNum" name="applicant_bank_cnfim_ac_num">
                 </mat-form-field>
@@ -664,36 +664,36 @@
     </div>
     <div class="row">
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Enter Bank Name</mat-label>
                 <input matInput formControlName="aplBnkNam" name="applicant_bank_name">
                 </mat-form-field>
         </div>
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Enter Branch Name</mat-label>
                 <input matInput formControlName="aplBnkBrnch" name="applicant_bank_branch">
                 </mat-form-field>
         </div>
         <div class="col-sm">
-            <mat-form-field appearance="outline">
+            <mat-form-field >
                 <mat-label>Enter branch IFSC Code</mat-label>
                 <input matInput formControlName="aplBnkIfsc" name="applicant_bank_ifsc">
                 </mat-form-field>
         </div>
     </div>
+    
+    <mat-divider class="mt-2"></mat-divider>
+    <div class="row mt-3" >
+        
+        <app-education-table></app-education-table>
+    </div>
+
     <mat-card-actions>
         <button mat-raised-button="" color="primary">Save</button>
         </mat-card-actions>
     </div>
     </form>
-    
-    <mat-divider class="mt-2"></mat-divider>
-
-    <div class="row mt-3" >
-        
-        <app-education-table></app-education-table>
-    </div>
     <!-- <mat-card-actions>
         <button mat-raised-button="" color="primary">Save</button>
         </mat-card-actions> -->

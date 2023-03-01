@@ -35,7 +35,7 @@ import { SubjectsComponent } from './wrapper/contentarea/academics/subjects/subj
 import { ModifycourceComponent } from './wrapper/contentarea/academics/courses/modifycource.component';
 import { ModifysubjectComponent } from './wrapper/contentarea/academics/subjects/modifysubject/modifysubject.component';
 import {MatDialogModule} from '@angular/material/dialog';
-import { TestDialogComponent } from './wrapper/contentarea/academics/courses/test-dialog/test-dialog.component';
+import { CourseDialogComponent } from './wrapper/contentarea/academics/courses/course-dialog/course-dialog.component';
 
 
 @NgModule({
@@ -52,7 +52,7 @@ import { TestDialogComponent } from './wrapper/contentarea/academics/courses/tes
     SubjectsComponent,
     ModifycourceComponent,
     ModifysubjectComponent,
-    TestDialogComponent
+    CourseDialogComponent
   ],
   imports: [
     BrowserModule,
