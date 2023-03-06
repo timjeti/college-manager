@@ -6,8 +6,16 @@ import { RegistrationImageHandlerComponent } from './wrapper/contentarea/registr
 import { ApplicantDocsComponent } from './wrapper/contentarea/applicant-review/applicant-docs/applicant-docs.component';
 import { CoursesComponent } from './wrapper/contentarea/academics/courses/courses.component';
 import { SubjectsComponent } from './wrapper/contentarea/academics/subjects/subjects.component';
+import { RegistrationviewComponent } from './wrapper/contentarea/registration/registrationview/registrationview.component';
 
-export const routingComponents = [RegistrationComponent,RegistrationImageHandlerComponent,ApplicantdetailsComponent,CoursesComponent,SubjectsComponent]
+export const routingComponents = [
+  RegistrationComponent,
+  RegistrationImageHandlerComponent,
+  ApplicantdetailsComponent,
+  CoursesComponent,
+  SubjectsComponent,
+  RegistrationviewComponent
+]
 
 const routes: Routes = [
     { path: 'registration1', component: RegistrationComponent},
@@ -15,7 +23,8 @@ const routes: Routes = [
     { path: 'registeredList', component: ApplicantdetailsComponent },
     { path: 'registeredList/docs', component: ApplicantDocsComponent },
     { path: 'registeredList/courses', component: CoursesComponent },
-    { path: 'registeredList/subjects', component: SubjectsComponent }
+    { path: 'registeredList/subjects', component: SubjectsComponent },
+    { path: 'registeredList/view', component: RegistrationviewComponent }
 ];
 
 

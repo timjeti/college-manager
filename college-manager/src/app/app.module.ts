@@ -36,6 +36,7 @@ import { ModifycourceComponent } from './wrapper/contentarea/academics/courses/m
 import { ModifysubjectComponent } from './wrapper/contentarea/academics/subjects/modifysubject/modifysubject.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { CourseDialogComponent } from './wrapper/contentarea/academics/courses/course-dialog/course-dialog.component';
+import { RegistrationviewComponent } from './wrapper/contentarea/registration/registrationview/registrationview.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { CourseDialogComponent } from './wrapper/contentarea/academics/courses/c
     SubjectsComponent,
     ModifycourceComponent,
     ModifysubjectComponent,
-    CourseDialogComponent
+    CourseDialogComponent,
+    RegistrationviewComponent
   ],
   imports: [
     BrowserModule,
