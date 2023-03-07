@@ -16,16 +16,4 @@ export class SidenavAutosize {
   isShowing = false;
   showSubSubMenu: boolean = false;
   appTitle = "Its a Demo"
-
-  mouseenter() {
-    if (!this.isExpanded) {
-      this.isShowing = true;
-    }
-  }
-
-  mouseleave() {
-    if (!this.isExpanded) {
-      this.isShowing = false;
-    }
-  }
 }

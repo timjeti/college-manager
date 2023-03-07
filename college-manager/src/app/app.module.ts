@@ -37,6 +37,7 @@ import { ModifysubjectComponent } from './wrapper/contentarea/academics/subjects
 import { MatDialogModule } from '@angular/material/dialog';
 import { CourseDialogComponent } from './wrapper/contentarea/academics/courses/course-dialog/course-dialog.component';
 import { SidenavAutosize } from './sidenavbar/sidenavbar.component';
+import { MatMenuModule} from '@angular/material/menu'
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import { SidenavAutosize } from './sidenavbar/sidenavbar.component';
     FormsModule,
     PdfViewerModule,
     MatDialogModule,
+    MatMenuModule
   ],
   providers: [],
   //bootstrap: [AppComponent],

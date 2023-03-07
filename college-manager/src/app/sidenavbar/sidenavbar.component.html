@@ -1,36 +1,72 @@
 <mat-toolbar color="primary" class="example-toolbar">
-	<button mat-icon-button (click)="isExpanded = !isExpanded"><mat-icon>menu</mat-icon></button>
-	<h1 class="example-app-name">{{appTitle}}</h1>
+  <span class="fill-remaining-space">
+    <button mat-icon-button (click)="isExpanded = !isExpanded">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </span>
+  <span class="fill-remaining-space">{{ appTitle }}</span>
+  <span class="fill-remaining-space">
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>person</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" [overlapTrigger]="false">
+      <button mat-menu-item>
+        <mat-icon>people_outline</mat-icon>
+        <span>Jeevan</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+  </span>
+
+  <!-- <div class="row">
+    <div class="column">
+      <button mat-icon-button (click)="isExpanded = !isExpanded">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+    <div class="column">
+      <h1>{{ appTitle }}</h1>
+    </div>
+    <div class="column" style="align-items: flex-end">
+      <button mat-icon-button>
+        <mat-icon>person</mat-icon>
+      </button>
+    </div>
+  </div> -->
 </mat-toolbar>
 <mat-sidenav-container class="example-container" autosize>
-	<mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true">
-		<mat-nav-list>
-			<mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
-				<mat-icon mat-list-icon>home</mat-icon>
-				<span class="full-width" *ngIf="isExpanded || isShowing">Parent Menu</span>
-				<mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}"
-					*ngIf="isExpanded || isShowing">expand_more</mat-icon>
-			</mat-list-item>
-			<div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
-				<a mat-list-item href="...">Submenu Item 1</a>
-				<a mat-list-item href="...">Submenu Item 2</a>
-				<mat-list-item (click)="showSubSubMenu = !showSubSubMenu" class="parent">
-					<span class="full-width" *ngIf="isExpanded || isShowing">Nested Menu</span>
-					<mat-icon class="menu-button" [ngClass]="{'rotated' : showSubSubMenu}"
-						*ngIf="isExpanded || isShowing">expand_more</mat-icon>
-				</mat-list-item>
-				<div class="submenu" [ngClass]="{'expanded' : showSubSubMenu}" *ngIf="isShowing || isExpanded">
-					<mat-list-item>SubSubmenu Item 1</mat-list-item>
-					<mat-list-item>SubSubmenu Item 2</mat-list-item>
-				</div>
-			</div>
-		</mat-nav-list>
-		<mat-nav-list>
-		</mat-nav-list>
-	</mat-sidenav>
-
-	<div class="example-sidenav-content">
-		<app-root></app-root>
-	</div>
-
+  <mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true">
+    <mat-nav-list>
+      <mat-list-item class="menu-item">
+        <div class="row">
+          <div class="column">
+            <mat-icon mat-list-icon>home</mat-icon>
+          </div>
+          <div class="column" *ngIf="isExpanded || isShowing">
+            <span class="full-width">Home</span>
+          </div>
+        </div>
+        <!-- <mat-icon mat-list-icon>home</mat-icon>
+        <span class="full-width" *ngIf="isExpanded || isShowing">Home</span> -->
+      </mat-list-item>
+      <mat-list-item class="menu-item">
+        <div class="row">
+          <div class="column">
+            <mat-icon mat-list-icon>folder</mat-icon>
+          </div>
+          <div class="column" *ngIf="isExpanded || isShowing">
+            <span class="full-width">Folder</span>
+          </div>
+        </div>
+        <!-- <mat-icon mat-list-icon>folder</mat-icon>
+        <span class="full-width" *ngIf="isExpanded || isShowing">Folder</span> -->
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <div class="example-sidenav-content">
+    <app-root></app-root>
+  </div>
 </mat-sidenav-container>
