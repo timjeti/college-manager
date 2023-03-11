@@ -368,6 +368,9 @@ export class RegistrationComponent {
   // emitStreamEventToChild() {
   //   this.eventsStream.next(this.regForm.value.applStream);
   // }
-  
+  logTableChanged(event){
+    console.log("Received chld obj")
+    console.log(event)
+  }
 
 }

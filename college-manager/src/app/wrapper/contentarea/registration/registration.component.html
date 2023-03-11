@@ -6,9 +6,9 @@
                 <mat-form-field>
                     <mat-label>Select your stream</mat-label>
                     <mat-select  #stream formControlName="applStream" name="gender">
-                        <mat-option value="HS" (click)="getAllCoursesByType('HS')">XI</mat-option>
+                        <mat-option value="HS" (click)="getAllCoursesByType('HS')">HS</mat-option>
                         <mat-option value="graduation" (click)="getAllCoursesByType('GRADUATION')">Graduation</mat-option>
-                        <mat-option value="master" (click)="getAllCoursesByType('MASTERS')">Master</mat-option>
+                        <mat-option value="master" (click)="getAllCoursesByType('MASTERS')">Masters</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
@@ -699,7 +699,7 @@
     <mat-divider class="mt-2"></mat-divider>
     <div class="row mt-3" >
         
-        <app-education-table [expectedProp] = "parentProp"></app-education-table>
+        <app-education-table [expectedProp] = "parentProp" (tableChanged)="logTableChanged($event)"></app-education-table>
     </div>
 
     <mat-card-actions>

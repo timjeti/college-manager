@@ -24,6 +24,12 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 
 export class EducationTableComponent implements OnChanges{
+
+  @Output() 
+  tableChanged = new EventEmitter<String>();
+  @Input()
+  expectedProp: { stream: string };
+
   displayedColumns: string[] = ['courseName', 'board', 'roll', 'percentage', 'position','passYear'];
   dataToDisplay = [...ELEMENT_DATA];
 
@@ -36,8 +42,8 @@ export class EducationTableComponent implements OnChanges{
       this.years.push(year);
     }
   }
-  @Input()
-  expectedProp: { stream: string };
+
+  dataSource = new ExampleDataSource(this.dataToDisplay);
 
   ngOnChanges(changes: SimpleChanges): void {
     // if(changes['expectedProp'].previousValue != changes['expectedProp'].currentValue){
@@ -62,22 +68,10 @@ export class EducationTableComponent implements OnChanges{
       }
   }
 
-
-
-
-  // private eventsSubscription: Subscription;
-
-  // @Input() events: Observable<void>;
-
-  // ngOnInit(){
-  //   this.eventsSubscription = this.events.subscribe(() => this.addData());
-  // }
-
-  // ngOnDestroy() {
-  //   this.eventsSubscription.unsubscribe();
-  // }
-
-  dataSource = new ExampleDataSource(this.dataToDisplay);
+  public onTableChange(element) {
+    console.log("Something changed")
+    this.tableChanged.emit(element);
+}
 
   // addData() {
   //   // this.dataToDisplay = [...this.dataToDisplay, {courseName: '', board: '', percentage: '', position: '', passYear: '', state:'float'}];
