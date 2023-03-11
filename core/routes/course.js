@@ -34,14 +34,11 @@ router.put('/:id', (req, res) => {
 
 //api to get details of all the courses
 router.get('/courses', (req, res) => {
-    const query = 'SELECT * from coll_course'
-    restUtils.executeQuery(query, res)
-})
-
-//api to get details of all the courses basd on courseType
-router.get('/courses', (req, res) => {
     const courseType = req.query.courseType
-    const query = `SELECT * FROM coll_course WHERE courseType='${courseType}'`
+    query = 'SELECT * from coll_course'
+    if( courseType !== undefined ){
+        query = `SELECT * FROM coll_course WHERE courseType='${courseType}'`
+    }
     restUtils.executeQuery(query, res)
 })
 

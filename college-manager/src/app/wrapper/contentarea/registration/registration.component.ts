@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Subject } from 'rxjs/internal/Subject';
 import { RegisterService } from 'src/app/services/register.service';
 import Countries from './util/countries.json'
 import States from './util/indian.json'
@@ -24,12 +25,15 @@ interface State{
 
 export class RegistrationComponent {
 
+  // eventsStream: Subject<void> = new Subject<void>();
+  parentProp = { stream: 'HS' }
+
   aplPerSta : String
 
   countryList: Country[]
   stateList: State[]
-
-  applicantId = Date.now();
+  applicantId: String
+  
   
   disability: string = 'no';
   disabilityDetails: string = '';
@@ -58,7 +62,8 @@ export class RegistrationComponent {
   
   //load the form values from the registration form at runtime
   ngOnInit(){
-    
+    //here while calling this api we will have to check if this applicant is fresh application or saved applicant
+    this.getRegistrationId('fresh')
     this.regForm = this.formbuilder.group({
       applStream : [''],
       //Student Details
@@ -86,23 +91,18 @@ export class RegistrationComponent {
       aplCaste: [''],
       aplHstl: [''],
       aplAdmTyp: [''],
+      //xi and grad below
       aplCmpSub: [''],
       aplMilSub: [''],
       aplHnrSub1: [''],
       aplHnrSub2: [''],
       aplHnrSub3: [''],
       aplElecSub: [''],
-
       //XIth
       aplElecSub1: [''],
       aplElecSub2: [''],
       aplElecSub3: [''],
       aplElecSub4: [''],
-
-      //Last Examination Marks
-      aplLstExmTotMark: [''],
-      aplLstExmMarkObt: [''],
-      aplLstExmPcObt: [{value  :'', disabled : true}],
 
       //Parent/Guardian's Details
       aplGuardNm: [''],
@@ -141,10 +141,17 @@ export class RegistrationComponent {
       // apl12thScrdMarks: [''],
       // apl12thScrdPc: [''],
       // apl12thRoll: [''],
+      //grad field
       apl12thRegNum: [''],
+      //masters/grad/xi
       aplLastCol: [''],
+      //grad/xi
+      aplLstExmPcObt: [{value  :'', disabled : true}],
+      //masters below
+      aplGradCourseTaken: [''],
+      aplGradExmPcObt: [''],
 
-      //HS Examination Marks Details
+      //HS & Grad Examination Marks Details
       apl12thSubMil: [''],
       aplLastElecSub1: [''],
       aplLastElecSub2: [''],
@@ -169,7 +176,7 @@ export class RegistrationComponent {
       aplBnkIfsc: ['']
     })
     //Get all the courses
-    this.getAllCourses()
+    // this.getAllCourses()
   }
 
   // studyGapstatus(event){
@@ -325,11 +332,45 @@ export class RegistrationComponent {
       
     }
 
-    enableCGPABlock(){
-      console.log("CGPA Block hit")
-      this.regForm.controls['aplLstExmPcObt'].enable()
-    }
+    // enableCGPABlock(){
+    //   console.log("CGPA Block hit")
+    //   this.regForm.controls['aplLstExmPcObt'].enable()
+    //   this.getAllCoursesByType('MASTERS')
+    // }
 
   // type Employee = Array<{ id: number; name: string }>;
+
+      //Get registration details of a single student
+  getAllCoursesByType(courseType){
+    this.parentProp = { stream: courseType }
+    this.regService.getAllCoursesByType(courseType)
+    .subscribe({
+      next:(res)=>{
+        console.log(res)
+        this.courses = res
+      },
+      error:()=>{
+        console.log("Something went wrong")
+      }
+    })
+  }
+
+  getRegistrationId(status: String){
+    if(status = 'cont'){
+      console.log("GET THE REGISTRATION ID FROM DB")
+    }else if(status = 'fresh'){
+      this.applicantId = `${Date.now()}`;
+      this.applicantId = 'REG' + this.applicantId
+      console.log(this.applicantId)
+    }
+  }
+
+  // emitStreamEventToChild() {
+  //   this.eventsStream.next(this.regForm.value.applStream);
+  // }
+  logTableChanged(event){
+    console.log("Received chld obj")
+    console.log(event)
+  }
 
 }

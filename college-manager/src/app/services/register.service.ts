@@ -70,6 +70,16 @@ export class RegisterService {
     )
   }
 
+    //get all courses
+    getAllCoursesByType(courseType): any{
+      return this.client.get<any>(`http://localhost:3000/course/courses?courseType=${courseType}`).pipe(
+        map(res=>{
+          return res;
+      }),
+      )
+    }
+  
+
   //get all subjects based on course type 
   getSubjectsbyCourse(courseName, subjectType): any{
     console.log(`http://localhost:3000/course/${courseName}/subjects?subjectType=${subjectType}`)
