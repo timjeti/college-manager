@@ -12,7 +12,7 @@ export class RegisterService {
 
   constructor(private client: HttpClient) { }
 
-  registerStudent(data : any){
+  registerStudent(registrationId:String, data : any){
     return this.client.post<any>("http://localhost:3000/register", data);
   }
 

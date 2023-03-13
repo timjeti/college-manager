@@ -1,9 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs/internal/Subject';
 import { RegisterService } from 'src/app/services/register.service';
 import Countries from './util/countries.json'
 import States from './util/indian.json'
+import { Router, NavigationEnd } from '@angular/router';
+import { EducationTable } from './Educationtable';
 
 
 interface Country{
@@ -26,6 +28,7 @@ interface State{
 export class RegistrationComponent {
 
   // eventsStream: Subject<void> = new Subject<void>();
+  registrationId : String
   parentProp = { stream: 'HS' }
 
   aplPerSta : String
@@ -49,10 +52,11 @@ export class RegistrationComponent {
   milList : [{subjectName : string}]
   honorList : [{subjectName : string}]
   compulsorySubList : [{subjectName : string}]
+  tableData = new Map<string, EducationTable>();
 
 
   regForm !: FormGroup;
-  constructor(private formbuilder : FormBuilder, private regService: RegisterService){
+  constructor(private formbuilder : FormBuilder, private regService: RegisterService, private router: Router){
     this.countryList  = Countries
     console.log(this.countryList)
 
@@ -63,7 +67,7 @@ export class RegistrationComponent {
   //load the form values from the registration form at runtime
   ngOnInit(){
     //here while calling this api we will have to check if this applicant is fresh application or saved applicant
-    this.getRegistrationId('fresh')
+    this.registrationId = this.getRegistrationId('fresh')
     this.regForm = this.formbuilder.group({
       applStream : [''],
       //Student Details
@@ -152,7 +156,7 @@ export class RegistrationComponent {
       aplGradExmPcObt: [''],
 
       //HS & Grad Examination Marks Details
-      apl12thSubMil: [''],
+      aplLastMilSub: [''],
       aplLastElecSub1: [''],
       aplLastElecSub2: [''],
       aplLastElecSub3: [''],
@@ -239,13 +243,24 @@ export class RegistrationComponent {
 
   //Submit registration form of a student
   register(){
-    
-    console.log("Registered: ")
+
+    let jsonObject = {};
+    this.tableData.forEach((value, key) => {
+      jsonObject[key] = value;
+    });
+    console.log(JSON.stringify(jsonObject));
+    let data = {
+      "registrationId": this.registrationId,
+      "formData":this.regForm.value,
+      "tableData" :jsonObject
+    }
+    console.log("Sending Registration data: ")
+    console.log(data)
     // console.log("DOB: "+ this.dBirth)
     // console.log("Gender: "+ this.gender)
     console.log(this.regForm.value.fName)
     if(this.regForm.valid){
-      this.regService.registerStudent(this.regForm.value)
+      this.regService.registerStudent(this.registrationId, data)
       .subscribe({
         next:(res) =>{
           console.log(res)
@@ -358,19 +373,31 @@ export class RegistrationComponent {
   getRegistrationId(status: String){
     if(status = 'cont'){
       console.log("GET THE REGISTRATION ID FROM DB")
+      return "reg1234";
     }else if(status = 'fresh'){
       this.applicantId = `${Date.now()}`;
       this.applicantId = 'REG' + this.applicantId
       console.log(this.applicantId)
+      return this.applicantId
     }
+    return ""
   }
 
   // emitStreamEventToChild() {
   //   this.eventsStream.next(this.regForm.value.applStream);
   // }
-  logTableChanged(event){
-    console.log("Received chld obj")
-    console.log(event)
+  //Get the updated values from education table component
+  updateEducationTable(event){
+    let eTable = new EducationTable(event.board, event.passYear, event.percentage, event.position,  event.roll)
+    if(event.courseName == "Metriculation"){
+      this.tableData.set("metriculation", eTable)
+    }else if(event.courseName == "Higher Secondary"){
+      this.tableData.set("hs", eTable)
+    }else if(event.courseName == "Graduation"){
+      this.tableData.set("graduation", eTable)
+    }
+    console.log(this.tableData)
+
   }
 
 }

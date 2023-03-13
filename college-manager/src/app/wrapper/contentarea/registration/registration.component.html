@@ -557,7 +557,7 @@
         <div class="col-sm">
             <mat-form-field >
                 <mat-label>Select MIL Language</mat-label>
-                <mat-select matInput formControlName="apl12thSubMil" name="applicant_12th_mil">
+                <mat-select matInput formControlName="aplLastMilSub" name="applicant_12th_mil">
                     <mat-option value="MIL1">MIL1</mat-option>
                     <mat-option value="MIL2">MIL2</mat-option>
                     </mat-select>
@@ -699,7 +699,7 @@
     <mat-divider class="mt-2"></mat-divider>
     <div class="row mt-3" >
         
-        <app-education-table [expectedProp] = "parentProp" (tableChanged)="logTableChanged($event)"></app-education-table>
+        <app-education-table [expectedProp] = "parentProp" (tableChanged)="updateEducationTable($event)"></app-education-table>
     </div>
 
     <mat-card-actions>
