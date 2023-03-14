@@ -1,6 +1,7 @@
 import { Component, Output, EventEmitter, Input, OnChanges, SimpleChanges } from '@angular/core';
 import {DataSource} from '@angular/cdk/collections';
 import {BehaviorSubject, Observable, ReplaySubject, Subscription} from 'rxjs';
+import { EducationTable } from '../Educationtable';
 
 export interface PeriodicElement {
   courseName: string;
@@ -30,6 +31,9 @@ export class EducationTableComponent implements OnChanges{
   @Input()
   expectedProp: { stream: string };
 
+  @Input()
+  eduhistory_tableMap = new Map<string, EducationTable>();
+
   displayedColumns: string[] = ['courseName', 'board', 'roll', 'percentage', 'position','passYear'];
   dataToDisplay = [...ELEMENT_DATA];
 
@@ -51,22 +55,51 @@ export class EducationTableComponent implements OnChanges{
       // ELEMENT_DATA.push({courseName: 'Metriculation', board: '', roll:'', percentage: '', position: '', passYear: '', state:'float'})
       // ELEMENT_DATA.push({courseName: 'Higher Secondary', board: '', roll:'', percentage: '', position: '', passYear: '', state:'float'})
       // ELEMENT_DATA.push({courseName: 'Graduation', board: '', roll:'', percentage: '', position: '', passYear: '', state:'float'})
-      
-      
+
+
       if(changes['expectedProp'].currentValue.stream == "HS"){
-          console.log("Inside HS")
-          let temp = ELEMENT_DATA.slice(0,1)
-          this.dataSource.setData(temp);
+        console.log("Inside HS")
+        let temp = ELEMENT_DATA.slice(0,1)
+        this.dataSource.setData(temp);
       }else if(changes['expectedProp'].currentValue.stream == "GRADUATION"){
-          console.log("Inside GRAD")
-          let temp = ELEMENT_DATA.slice(0,2)
-          this.dataSource.setData(temp);
+        console.log("Inside GRAD")
+        let temp = ELEMENT_DATA.slice(0,2)
+        this.dataSource.setData(temp);
       }else if(changes['expectedProp'].currentValue.stream == "MASTERS"){
-          console.log("Inside MASTERS")
-          let temp = ELEMENT_DATA.slice(0,3)
-          this.dataSource.setData(temp);
+        console.log("Inside MASTERS")
+        let temp = ELEMENT_DATA.slice(0,3)
+        this.dataSource.setData(temp);
       }
-  }
+
+      if(changes['eduhistory_tableMap'] && changes['eduhistory_tableMap'].currentValue.size > 0){
+        console.log("Some edu history changed")
+        let table_map = changes['eduhistory_tableMap'].currentValue
+        if(table_map.size > 0){
+          ELEMENT_DATA.splice(0,3)
+        
+        
+        for (let [key, value] of table_map) {
+          console.log(key, value); 
+          // console.log(table_map);
+          if(key == "metriculation"){
+            console.log("final metriculation");
+            ELEMENT_DATA[0] = {courseName: 'Metriculation', board: value.board, roll:value.roll, percentage: value.percentage, position: value.position, passYear: value.passYear}
+            console.log(ELEMENT_DATA[0])
+          }else if(key == "hs"){
+            console.log("final hs");
+            ELEMENT_DATA[1] = {courseName: 'Higher Secondary', board: value.board, roll:value.roll, percentage: value.percentage, position: value.position, passYear: value.passYear}
+            console.log(ELEMENT_DATA[1])
+          }else if(key == "graduation"){
+            console.log("final master");
+            ELEMENT_DATA[2] = {courseName: 'Graduation', board: value.board, roll:value.roll, percentage: value.percentage, position: value.position, passYear: value.passYear}
+          }
+        }
+        this.dataSource.setData(ELEMENT_DATA)
+      }
+      }
+    }
+
+
 
   public onTableChange(element) {
     console.log("Something changed")

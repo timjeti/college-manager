@@ -259,7 +259,7 @@
         <div class="col-sm">
             <mat-form-field >
                 <mat-label>Major Honours Choice 1</mat-label>
-                <mat-select formControlName="aplHnrSub1" name="applicant_honr_sub_1">
+                <mat-select formControlName="aplElecSub1" name="applicant_honr_sub_1">
                     <mat-option *ngFor="let honor of honorList"value="honor.subjectName">{{honor.subjectName}}</mat-option>
                   </mat-select>
               </mat-form-field>
@@ -267,7 +267,7 @@
         <div class="col-sm">
               <mat-form-field >
                 <mat-label>Major Honours Choice 2</mat-label>
-                <mat-select formControlName="aplHnrSub2" name="applicant_honr_sub_2">
+                <mat-select formControlName="aplElecSub2" name="applicant_honr_sub_2">
                     <mat-option *ngFor="let honor of honorList"value="honor.subjectName">{{honor.subjectName}}</mat-option>
                   </mat-select>
                 </mat-form-field>
@@ -275,7 +275,7 @@
         <div class="col-sm">
               <mat-form-field >
                 <mat-label>Major Honours Choice 3</mat-label>
-                <mat-select formControlName="aplHnrSub3" name="applicant_honr_sub_3">
+                <mat-select formControlName="aplElecSub3" name="applicant_honr_sub_3">
                     <mat-option *ngFor="let honor of honorList"value="honor.subjectName">{{honor.subjectName}}</mat-option>
                   </mat-select>
                 </mat-form-field>
@@ -283,7 +283,7 @@
         <div class="col-sm">
               <mat-form-field >
                 <mat-label>Elective/Generic Elective</mat-label>
-                <mat-select formControlName="aplElecSub" name="applicant_elec_sub">
+                <mat-select formControlName="aplElecSub4" name="applicant_elec_sub">
                     <mat-option *ngFor="let elec of electiveList"value="elec.subjectName">{{elec.subjectName}}</mat-option>
                   </mat-select>
                 </mat-form-field>
@@ -699,7 +699,7 @@
     <mat-divider class="mt-2"></mat-divider>
     <div class="row mt-3" >
         
-        <app-education-table [expectedProp] = "parentProp" (tableChanged)="updateEducationTable($event)"></app-education-table>
+        <app-education-table [eduhistory_tableMap] = "eduhistory_tableMap" [expectedProp] = "parentProp" (tableChanged)="updateEducationTable($event)"></app-education-table>
     </div>
 
     <mat-card-actions>

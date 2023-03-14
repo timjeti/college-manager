@@ -6,6 +6,7 @@ import Countries from './util/countries.json'
 import States from './util/indian.json'
 import { Router, NavigationEnd } from '@angular/router';
 import { EducationTable } from './Educationtable';
+import { RegistrationModel } from './registration.model';
 
 
 interface Country{
@@ -28,6 +29,8 @@ interface State{
 export class RegistrationComponent {
 
   // eventsStream: Subject<void> = new Subject<void>();
+  initialFormValueFromDB: RegistrationModel;
+  userId="jeevan"
   registrationId : String
   parentProp = { stream: 'HS' }
 
@@ -53,6 +56,8 @@ export class RegistrationComponent {
   honorList : [{subjectName : string}]
   compulsorySubList : [{subjectName : string}]
   tableData = new Map<string, EducationTable>();
+  eduhistory_table : string
+  eduhistory_tableMap = new Map<string, EducationTable>();
 
 
   regForm !: FormGroup;
@@ -67,7 +72,12 @@ export class RegistrationComponent {
   //load the form values from the registration form at runtime
   ngOnInit(){
     //here while calling this api we will have to check if this applicant is fresh application or saved applicant
-    this.registrationId = this.getRegistrationId('fresh')
+    // this.registrationId = this.getRegistrationId('fresh')
+    this.getRegistrationDetails(this.userId)
+    // console.log(this.initialFormValueFromDB)
+    // console.log(this.initialFormValueFromDB.registrationId)
+
+
     this.regForm = this.formbuilder.group({
       applStream : [''],
       //Student Details
@@ -98,11 +108,6 @@ export class RegistrationComponent {
       //xi and grad below
       aplCmpSub: [''],
       aplMilSub: [''],
-      aplHnrSub1: [''],
-      aplHnrSub2: [''],
-      aplHnrSub3: [''],
-      aplElecSub: [''],
-      //XIth
       aplElecSub1: [''],
       aplElecSub2: [''],
       aplElecSub3: [''],
@@ -250,6 +255,7 @@ export class RegistrationComponent {
     });
     console.log(JSON.stringify(jsonObject));
     let data = {
+      "userId" : this.userId,
       "registrationId": this.registrationId,
       "formData":this.regForm.value,
       "tableData" :jsonObject
@@ -278,12 +284,132 @@ export class RegistrationComponent {
     this.regService.getRegisteredStudentDetails(id)
     .subscribe({
       next:(res)=>{
-        console.log(res)
+        // console.log(res)
+        this.initialFormValueFromDB = res
+        console.log(this.initialFormValueFromDB)
+        if(this.initialFormValueFromDB.registrationId == undefined){
+          this.registrationId = this.getRegistrationId("fresh")
+          console.log(this.registrationId)
+        }else{
+          this.regForm.controls['applStream'].setValue(this.initialFormValueFromDB.applStream)
+          console.log("changing unwanted data")
+          this.parentProp = { stream: this.initialFormValueFromDB.applStream }
+
+          this.regForm.controls['fName'].setValue(this.initialFormValueFromDB.fName)
+          this.regForm.controls['mName'].setValue(this.initialFormValueFromDB.mName)
+          this.regForm.controls['lName'].setValue(this.initialFormValueFromDB.lName)
+          this.regForm.controls['dBirth'].setValue(this.initialFormValueFromDB.dBirth)
+          this.regForm.controls['gender'].setValue(this.initialFormValueFromDB.gender)
+
+          this.regForm.controls['stdCaste'].setValue(this.initialFormValueFromDB.stdCaste)
+          this.regForm.controls['bGroup'].setValue(this.initialFormValueFromDB.bGroup)
+          this.regForm.controls['stdPhnNumber'].setValue(this.initialFormValueFromDB.stdPhnNumber)
+          this.regForm.controls['stdEmail'].setValue(this.initialFormValueFromDB.stdEmail)
+          this.regForm.controls['religion'].setValue(this.initialFormValueFromDB.religion)
+          this.regForm.controls['stdNatlty'].setValue(this.initialFormValueFromDB.stdNatlty)
+          this.regForm.controls['stdBreak'].setValue(this.initialFormValueFromDB.stdBreak)
+          this.regForm.controls['stdGapRsn'].setValue(this.initialFormValueFromDB.stdGapRsn)
+          this.regForm.controls['stdDisability'].setValue(this.initialFormValueFromDB.stdDisability)
+          this.regForm.controls['stdDisabilityDet'].setValue(this.initialFormValueFromDB.stdDisabilityDet)
+          this.regForm.controls['disToColl'].setValue(this.initialFormValueFromDB.disToColl)
+
+          //Application Details
+          this.regForm.controls['aplCourse'].setValue(this.initialFormValueFromDB.aplCourse)
+          this.regForm.controls['aplCaste'].setValue(this.initialFormValueFromDB.aplCaste)
+          this.regForm.controls['aplHstl'].setValue(this.initialFormValueFromDB.aplHstl)
+          this.regForm.controls['aplAdmTyp'].setValue(this.initialFormValueFromDB.aplAdmTyp)
+          //xi and grad below
+          this.regForm.controls['aplCmpSub'].setValue(this.initialFormValueFromDB.aplCmpSub)
+          this.regForm.controls['aplMilSub'].setValue(this.initialFormValueFromDB.aplMilSub)
+          this.regForm.controls['aplElecSub1'].setValue(this.initialFormValueFromDB.aplElecSub1)
+          this.regForm.controls['aplElecSub2'].setValue(this.initialFormValueFromDB.aplElecSub2)
+          this.regForm.controls['aplElecSub3'].setValue(this.initialFormValueFromDB.aplElecSub3)
+          this.regForm.controls['aplElecSub4'].setValue(this.initialFormValueFromDB.aplElecSub4)
+
+          //Parent/Guardian's Details
+          this.regForm.controls['aplGuardNm'].setValue(this.initialFormValueFromDB.aplGuardNm)
+          this.regForm.controls['aplGuardPhn'].setValue(this.initialFormValueFromDB.aplGuardPhn)
+          this.regForm.controls['aplGuardOcp'].setValue(this.initialFormValueFromDB.aplGuardOcp)
+          this.regForm.controls['aplGuardInc'].setValue(this.initialFormValueFromDB.aplGuardInc)
+          this.regForm.controls['aplFatNam'].setValue(this.initialFormValueFromDB.aplFatNam)
+          this.regForm.controls['aplMotNam'].setValue(this.initialFormValueFromDB.aplMotNam)
+          this.regForm.controls['aplLclGuardNam'].setValue(this.initialFormValueFromDB.aplLclGuardNam)
+          this.regForm.controls['aplLclGuardAdd'].setValue(this.initialFormValueFromDB.aplLclGuardAdd)
+
+          //Permanent Address Details
+
+          this.regForm.controls['aplPerAdd'].setValue(this.initialFormValueFromDB.aplPerAdd)
+          this.regForm.controls['aplPerGuardPhnNum'].setValue(this.initialFormValueFromDB.aplPerGuardPhnNum)
+          this.regForm.controls['aplPerAddLoc'].setValue(this.initialFormValueFromDB.aplPerAddLoc)
+          this.regForm.controls['aplPerSta'].setValue(this.initialFormValueFromDB.aplPerSta)
+          this.regForm.controls['aplPerAddPs'].setValue(this.initialFormValueFromDB.aplPerAddPs)
+          this.regForm.controls['aplPerDist'].setValue(this.initialFormValueFromDB.aplPerDist)
+          this.regForm.controls['aplPerPin'].setValue(this.initialFormValueFromDB.aplPerPin)
+
+          //Correspondance Address Details
+          this.regForm.controls['aplyIsCorAdd'].setValue(this.initialFormValueFromDB.aplyIsCorAdd)
+          this.regForm.controls['aplCorAdd'].setValue(this.initialFormValueFromDB.aplCorAdd)
+          this.regForm.controls['aplCorGuardPhnNum'].setValue(this.initialFormValueFromDB.aplCorGuardPhnNum)
+          this.regForm.controls['aplCorAddLoc'].setValue(this.initialFormValueFromDB.aplCorAddLoc)
+          this.regForm.controls['aplCorAddPs'].setValue(this.initialFormValueFromDB.aplCorAddPs)
+          this.regForm.controls['aplCorSta'].setValue(this.initialFormValueFromDB.aplCorSta)
+          this.regForm.controls['aplCorDist'].setValue(this.initialFormValueFromDB.aplCorDist)
+          this.regForm.controls['aplCorPin'].setValue(this.initialFormValueFromDB.aplCorPin)
+
+          //Details of Academic Qualification
+          //grad field
+          this.regForm.controls['apl12thRegNum'].setValue(this.initialFormValueFromDB.apl12thRegNum)
+          //masters/grad/xi
+          this.regForm.controls['aplLastCol'].setValue(this.initialFormValueFromDB.aplLastCol)
+          //grad/xi
+          this.regForm.controls['aplLstExmPcObt'].setValue(this.initialFormValueFromDB.aplLstExmPcObt)
+          //masters below
+          this.regForm.controls['aplGradCourseTaken'].setValue(this.initialFormValueFromDB.aplGradCourseTaken)
+          this.regForm.controls['aplGradExmPcObt'].setValue(this.initialFormValueFromDB.aplGradExmPcObt)
+
+          //HS & Grad Examination Marks Details
+          this.regForm.controls['aplLastMilSub'].setValue(this.initialFormValueFromDB.aplLastMilSub)
+          this.regForm.controls['aplLastElecSub1'].setValue(this.initialFormValueFromDB.aplLastElecSub1)
+          this.regForm.controls['aplLastElecSub2'].setValue(this.initialFormValueFromDB.aplLastElecSub2)
+          this.regForm.controls['aplLastElecSub3'].setValue(this.initialFormValueFromDB.aplLastElecSub3)
+          this.regForm.controls['aplLastElecSub4'].setValue(this.initialFormValueFromDB.aplLastElecSub4)
+          this.regForm.controls['aplLastEngMrk'].setValue(this.initialFormValueFromDB.aplLastEngMrk)
+          this.regForm.controls['aplLastMilMrk'].setValue(this.initialFormValueFromDB.aplLastMilMrk)
+          this.regForm.controls['aplLastElec1Mrk'].setValue(this.initialFormValueFromDB.aplLastElec1Mrk)
+          this.regForm.controls['aplLastElec2Mrk'].setValue(this.initialFormValueFromDB.aplLastElec2Mrk)
+          this.regForm.controls['aplLastElec3Mrk'].setValue(this.initialFormValueFromDB.aplLastElec3Mrk)
+          this.regForm.controls['aplLastElec4Mrk'].setValue(this.initialFormValueFromDB.aplLastElec4Mrk)
+
+          //Extra Curricular Activities
+          this.regForm.controls['aplExtraCur'].setValue(this.initialFormValueFromDB.aplExtraCur)
+
+          //Bank Account details
+          this.regForm.controls['aplBnkHldrNm'].setValue(this.initialFormValueFromDB.aplBnkHldrNm)
+          this.regForm.controls['aplBnkAcNum'].setValue(this.initialFormValueFromDB.aplBnkAcNum)
+          this.regForm.controls['aplBnkCnfAcNum'].setValue(this.initialFormValueFromDB.aplBnkCnfAcNum)
+          this.regForm.controls['aplBnkNam'].setValue(this.initialFormValueFromDB.aplBnkNam)
+          this.regForm.controls['aplBnkBrnch'].setValue(this.initialFormValueFromDB.aplBnkBrnch)
+          this.regForm.controls['aplBnkIfsc'].setValue(this.initialFormValueFromDB.aplBnkIfsc)
+          this.eduhistory_table = this.initialFormValueFromDB.eduhistory_table
+          let eduhstry_table = JSON.parse( this.eduhistory_table);
+          // console.log(eduhstry_table)
+          // console.log(Object.keys(this.eduhistory_table))
+          this.eduhistory_tableMap = new Map<string, EducationTable>();
+          for(let key of Object.keys(eduhstry_table)){
+            let tablerow = eduhstry_table[key]
+            let eTable = new EducationTable(tablerow['board'], tablerow['passYear'], tablerow['percentage'], tablerow['position'],  tablerow['roll'])
+            this.eduhistory_tableMap.set(key, eTable)
+          }
+          // this.eduhistory_table.hs
+          // console.log(this.eduhistory_tableMap)
+        }
       },
       error:()=>{
         console.log("Something went wrong")
+        return new RegistrationModel()
       }
     })
+    return new RegistrationModel()
   }
 
     //Get registration details of a single student
@@ -358,6 +484,7 @@ export class RegistrationComponent {
       //Get registration details of a single student
   getAllCoursesByType(courseType){
     this.parentProp = { stream: courseType }
+    console.log(this.parentProp)
     this.regService.getAllCoursesByType(courseType)
     .subscribe({
       next:(res)=>{
@@ -397,7 +524,13 @@ export class RegistrationComponent {
       this.tableData.set("graduation", eTable)
     }
     console.log(this.tableData)
-
   }
+
+  jsonParser(stringValue, key) {
+    var stringVal = JSON.stringify(stringValue);
+    var objectValue = JSON.parse(stringVal);
+    console.log(objectValue[key])
+    return objectValue[key];
+   }
 
 }
