@@ -266,15 +266,27 @@ export class RegistrationComponent {
     // console.log("Gender: "+ this.gender)
     console.log(this.regForm.value.fName)
     if(this.regForm.valid){
-      this.regService.registerStudent(this.registrationId, data)
-      .subscribe({
-        next:(res) =>{
-          console.log(res)
-        },
-        error:()=>{
-          console.log("Something went wrong: ${error}")
-        }
-      })
+      if(this.registrationId == undefined){
+        this.regService.registerStudent(this.registrationId, data)
+        .subscribe({
+          next:(res) =>{
+            console.log("User registered successfully")
+          },
+          error:()=>{
+            console.log("Something went wrong: ${error}")
+          }
+        })
+      }else{
+        this.regService.updateRegistrationDetails(this.registrationId, data)
+        .subscribe({
+          next:(res) =>{
+            console.log("User registration updated successfully")
+          },
+          error:()=>{
+            console.log("Something went wrong: ${error}")
+          }
+        })
+      }
     }
   }
 
@@ -286,13 +298,13 @@ export class RegistrationComponent {
       next:(res)=>{
         // console.log(res)
         this.initialFormValueFromDB = res
-        console.log(this.initialFormValueFromDB)
+        // console.log(this.initialFormValueFromDB)
         if(this.initialFormValueFromDB.registrationId == undefined){
           this.registrationId = this.getRegistrationId("fresh")
-          console.log(this.registrationId)
+          // console.log(this.registrationId)
         }else{
+          this.registrationId = this.initialFormValueFromDB.registrationId
           this.regForm.controls['applStream'].setValue(this.initialFormValueFromDB.applStream)
-          console.log("changing unwanted data")
           this.parentProp = { stream: this.initialFormValueFromDB.applStream }
 
           this.regForm.controls['fName'].setValue(this.initialFormValueFromDB.fName)
@@ -498,10 +510,8 @@ export class RegistrationComponent {
   }
 
   getRegistrationId(status: String){
-    if(status = 'cont'){
-      console.log("GET THE REGISTRATION ID FROM DB")
-      return "reg1234";
-    }else if(status = 'fresh'){
+    if(status == 'fresh'){
+      console.log("CREATING FRESH REGISTRATION ID")
       this.applicantId = `${Date.now()}`;
       this.applicantId = 'REG' + this.applicantId
       console.log(this.applicantId)
@@ -523,7 +533,7 @@ export class RegistrationComponent {
     }else if(event.courseName == "Graduation"){
       this.tableData.set("graduation", eTable)
     }
-    console.log(this.tableData)
+    // console.log(this.tableData)
   }
 
   jsonParser(stringValue, key) {

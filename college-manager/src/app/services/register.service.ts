@@ -16,6 +16,10 @@ export class RegisterService {
     return this.client.post<any>("http://localhost:3000/register", data);
   }
 
+  updateRegistrationDetails(registrationId:String, data : any){
+    return this.client.put<any>("http://localhost:3000/register", data);
+  }
+
   getRegisteredStudentDetails(id : string){
     return this.client.get<any>(`http://localhost:3000/register?userId=${id}`).pipe(
       map(res=>{

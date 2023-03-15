@@ -83,6 +83,35 @@ router.get('/',(req, res) => {
 	}
 })
 
+router.put('/',(req, res) => {
+	try{
+		console.log('Inside register update api')
+		// console.log(req.query)
+		// userId  = req.query.userId
+		console.log(req.body)
+	  	let query = updateRegistrationQuery(req)
+		connection.query(query, (err, rows, fields) => {
+			if (err) {
+				console.log(err)
+				console.log(res.body)
+				if(res.body == undefined){
+					console.log("Inside Empty")
+					res.status(200).json({})
+				}else{
+					res.status(404).json({ message: 'User not found' })
+				}
+			} else {
+				// console.log(res)
+				res.status(200).json(rows[0])
+			}
+	  })
+	}
+	catch(error){
+		console.log(error)
+		res.status(500).json({ message: 'Internal server error' })
+	}
+})
+
 router.get('/applicantList',async (req, res) => {
 	try{
 		console.log('Inside get all applicant list')
@@ -164,5 +193,22 @@ function prepareRegistrationQuery(req) {
 	return query1;
 }
 
+function updateRegistrationQuery(req) {
+
+	const { userId, registrationId, formData, tableData  } = req.body // destructure the request body
+	console.log(registrationId)
+	let applStream = jsonParser(formData,"applStream")
+
+	let query1 = `UPDATE register SET registrationId='${registrationId}',applStream='${applStream}',fName='${formData.fName}',mName='${formData.mName}',lName='${formData.lName}',dBirth='${formData.dBirth}',gender='${formData.gender}',stdCaste='${formData.stdCaste}',bGroup='${formData.bGroup}', 
+		stdPhnNumber='${formData.stdPhnNumber}',stdEmail='${formData.stdEmail}',religion='${formData.religion}',stdNatlty='${formData.stdNatlty}',stdBreak='${formData.stdBreak}',stdGapRsn='${formData.stdGapRsn}',stdDisability='${formData.stdDisability}',stdDisabilityDet=${formData.stdDisabilityDet}',disToColl='${formData.disToColl}',
+		aplCourse='${formData.aplCourse}',aplCaste='${formData.aplCaste}',aplHstl='${formData.aplHstl}',aplAdmTyp='${formData.aplAdmTyp}',aplCmpSub'=${formData.aplCmpSub}',aplMilSub='${formData.aplMilSub}',aplElecSub1='${formData.aplElecSub1}',aplElecSub2='${formData.aplElecSub2}',aplElecSub3='${formData.aplElecSub3}',aplElecSub4='${formData.aplElecSub4}',aplGuardNm='${formData.aplGuardNm}',
+		aplGuardPhn='${formData.aplGuardPhn}',aplGuardOcp='${formData.aplGuardOcp}',aplGuardInc='${formData.aplGuardInc}',aplFatNam='${formData.aplFatNam}',aplMotNam='${formData.aplMotNam}',aplLclGuardNam='${formData.aplLclGuardNam}',aplLclGuardAdd='${formData.aplLclGuardAdd}',aplPerAdd=${formData.aplPerAdd}',aplPerGuardPhnNum='${formData.aplPerGuardPhnNum}',aplPerAddLoc='${formData.aplPerAddLoc}',
+		aplPerSta='${formData.aplPerSta}',aplPerAddPs='${formData.aplPerAddPs}',aplPerDist='${formData.aplPerDist}',aplPerPin='${formData.aplPerPin}',aplyIsCorAdd='${formData.aplyIsCorAdd}',aplCorAdd='${formData.aplCorAdd}',aplCorGuardPhnNum='${formData.aplCorGuardPhnNum}',aplCorAddLoc='${formData.aplCorAddLoc}',aplCorAddPs='${formData.aplCorAddPs}',aplCorSta='${formData.aplCorSta}',
+		aplCorDist='${formData.aplCorDist}',aplCorPin='${formData.aplCorPin}',apl12thRegNum='${formData.apl12thRegNum}',aplLastCol='${formData.aplLastCol}',aplLstExmPcObt='${formData.aplLstExmPcObt}',aplLastMilSub='${formData.aplLastMilSub}',aplLastElecSub1='${formData.aplLastElecSub1}',aplLastElecSub2='${formData.aplLastElecSub2}',aplLastElecSub3='${formData.aplLastElecSub3}',aplLastElecSub4='${formData.aplLastElecSub4}',
+		aplLastEngMrk='${formData.aplLastEngMrk}',aplLastMilMrk='${formData.aplLastMilMrk}',aplLastElec1Mrk='${formData.aplLastElec1Mrk}',aplLastElec2Mrk='${formData.aplLastElec2Mrk}',aplLastElec3Mrk='${formData.aplLastElec3Mrk}',aplLastElec4Mrk='${formData.aplLastElec4Mrk}',aplGradCourseTaken='${formData.aplGradCourseTaken}',aplGradExmPcObt='${formData.aplGradExmPcObt}',aplExtraCur='${formData.aplExtraCur}',aplBnkHldrNm='${formData.aplBnkHldrNm}',
+		aplBnkAcNum='${formData.aplBnkAcNum}',aplBnkCnfAcNum='${formData.aplBnkCnfAcNum}',aplBnkNam='${formData.aplBnkNam}',aplBnkBrnch='${formData.aplBnkBrnch}',aplBnkIfsc='${formData.aplBnkIfsc}',eduhistory_table='${JSON.stringify(tableData)}' WHERE userId='${userId}'`
+	
+	return query1;
+}
 
 module.exports = router
