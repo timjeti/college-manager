@@ -9,7 +9,4 @@ import { RegistrationModel } from '../wrapper/contentarea/registration/registrat
 export class UserService {
     userId : String
     registrationId : String
-
-
-
 }

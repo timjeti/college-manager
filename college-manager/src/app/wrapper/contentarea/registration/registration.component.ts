@@ -33,6 +33,7 @@ export class RegistrationComponent {
   userId="jeevan"
   registrationId : String
   parentProp = { stream: 'HS' }
+  isFreshRegistration : Boolean
 
   aplPerSta : String
 
@@ -130,7 +131,7 @@ export class RegistrationComponent {
       aplPerAddLoc: [''],
       aplPerSta: [''],
       aplPerAddPs: [''],
-      aplPerDist: [ {value  :'', disabled : true} ],
+      aplPerDist: [''],
       aplPerPin: [''],
 
       //Correspondance Address Details
@@ -140,7 +141,7 @@ export class RegistrationComponent {
       aplCorAddLoc: [''],
       aplCorAddPs: [''],
       aplCorSta: [''],
-      aplCorDist: [ {value  :'', disabled : true} ],
+      aplCorDist: [''],
       aplCorPin: [''],
 
       //Details of Academic Qualification
@@ -155,7 +156,7 @@ export class RegistrationComponent {
       //masters/grad/xi
       aplLastCol: [''],
       //grad/xi
-      aplLstExmPcObt: [{value  :'', disabled : true}],
+      aplLstExmPcObt: [''],
       //masters below
       aplGradCourseTaken: [''],
       aplGradExmPcObt: [''],
@@ -184,6 +185,12 @@ export class RegistrationComponent {
       aplBnkBrnch: [''],
       aplBnkIfsc: ['']
     })
+    this.regForm.controls['aplCorAdd'].disable()
+    this.regForm.controls['aplPerDist'].disable()
+    this.regForm.controls['aplCorDist'].disable()
+    this.regForm.controls['aplyIsCorAdd'].setValue(false)
+
+    
     //Get all the courses
     // this.getAllCourses()
   }
@@ -211,28 +218,54 @@ export class RegistrationComponent {
   }
 
   //get the districts given a particular state loaded from state json file
-  getDistrictFromState(event) : any{
+  getCorDistrictFromState(event) : any{
     for (let index = 0; index < this.stateList.length; index++) {
       const element = this.stateList[index];
       if(element.state == event){
-        console.log(this.regForm.value.aplPerSta)
+        // console.log(this.regForm.value.aplPerSta)
+        // console.log(event)
+        // console.log(element.state)
         this.districts = this.stateList[index].districts
+        this.regForm.controls['aplCorDist'].enable()
+        // console.log(this.districts)
+      }
+    }
+  }
+
+  getPerDistrictFromState(event) : any{
+    for (let index = 0; index < this.stateList.length; index++) {
+      const element = this.stateList[index];
+      if(element.state == event){
+        // console.log(this.regForm.value.aplPerSta)
+        // console.log(event)
+        // console.log(element.state)
+        this.districts = this.stateList[index].districts
+        this.regForm.controls['aplPerDist'].enable()
+        // console.log(this.districts)
       }
     }
   }
 
   //handle corresponding addres checkbox value changes
   disableCorrAddr(event){
+
     if(event.target.checked)
        {  
         console.log("correspondence address disabled");
         this.regForm.controls['aplCorAdd'].disable()
+        this.regForm.controls['aplCorAdd'].setValue("")
         this.regForm.controls['aplCorGuardPhnNum'].disable()
+        this.regForm.controls['aplCorGuardPhnNum'].setValue("")
         this.regForm.controls['aplCorAddLoc'].disable()
+        this.regForm.controls['aplCorAddLoc'].setValue("")
         this.regForm.controls['aplCorAddPs'].disable()
+        this.regForm.controls['aplCorAddPs'].setValue("")
         this.regForm.controls['aplCorSta'].disable()
-        // this.regForm.controls['aplCorDist'].disable()
-        this.regForm.controls['aplCorPin'].disable()  
+        this.regForm.controls['aplCorSta'].setValue("")
+        this.regForm.controls['aplCorDist'].disable()
+        this.regForm.controls['aplCorDist'].setValue("")
+        this.regForm.controls['aplCorPin'].disable()
+        this.regForm.controls['aplCorPin'].setValue("")  
        }
        else{
         console.log("correspondence address enabled");
@@ -241,13 +274,30 @@ export class RegistrationComponent {
         this.regForm.controls['aplCorAddLoc'].enable()
         this.regForm.controls['aplCorAddPs'].enable()
         this.regForm.controls['aplCorSta'].enable()
-        // this.regForm.controls['aplCorDist'].enable()
+        this.regForm.controls['aplCorDist'].enable()
         this.regForm.controls['aplCorPin'].enable()  
        }
   }
 
   //Submit registration form of a student
   register(){
+    //handle correspondance address if sanme as permanent address
+    if(this.regForm.controls['aplyIsCorAdd'].value){
+      this.regForm.controls['aplCorAdd'].enable()
+      this.regForm.controls['aplCorAdd'].setValue(this.regForm.controls['aplPerAdd'].value)
+      this.regForm.controls['aplCorGuardPhnNum'].enable()
+      this.regForm.controls['aplCorGuardPhnNum'].setValue(this.regForm.controls['aplPerGuardPhnNum'].value)
+      this.regForm.controls['aplCorAddLoc'].enable()
+      this.regForm.controls['aplCorAddLoc'].setValue(this.regForm.controls['aplPerAddLoc'].value)
+      this.regForm.controls['aplCorAddPs'].enable()
+      this.regForm.controls['aplCorAddPs'].setValue(this.regForm.controls['aplPerAddPs'].value)
+      this.regForm.controls['aplCorSta'].enable()
+      this.regForm.controls['aplCorSta'].setValue(this.regForm.controls['aplPerSta'].value)
+      this.regForm.controls['aplCorDist'].enable()
+      this.regForm.controls['aplCorDist'].setValue(this.regForm.controls['aplPerDist'].value)
+      this.regForm.controls['aplCorPin'].enable()
+      this.regForm.controls['aplCorPin'].setValue(this.regForm.controls['aplPerPin'].value)
+    }
 
     let jsonObject = {};
     this.tableData.forEach((value, key) => {
@@ -266,7 +316,7 @@ export class RegistrationComponent {
     // console.log("Gender: "+ this.gender)
     console.log(this.regForm.value.fName)
     if(this.regForm.valid){
-      if(this.registrationId == undefined){
+      if(this.isFreshRegistration){
         this.regService.registerStudent(this.registrationId, data)
         .subscribe({
           next:(res) =>{
@@ -288,6 +338,16 @@ export class RegistrationComponent {
         })
       }
     }
+    // Once the values are stored in db disable controls again for corresponding address
+    if(this.regForm.controls['aplyIsCorAdd'].value){
+      this.regForm.controls['aplCorAdd'].disable()
+      this.regForm.controls['aplCorGuardPhnNum'].disable()
+      this.regForm.controls['aplCorAddLoc'].disable()
+      this.regForm.controls['aplCorAddPs'].disable()
+      this.regForm.controls['aplCorSta'].disable()
+      this.regForm.controls['aplCorDist'].disable()
+      this.regForm.controls['aplCorPin'].disable()
+    }
   }
 
   //Get registration details of a single student
@@ -301,10 +361,14 @@ export class RegistrationComponent {
         // console.log(this.initialFormValueFromDB)
         if(this.initialFormValueFromDB.registrationId == undefined){
           this.registrationId = this.getRegistrationId("fresh")
+          this.isFreshRegistration = true
           // console.log(this.registrationId)
         }else{
+          this.isFreshRegistration = false
           this.registrationId = this.initialFormValueFromDB.registrationId
           this.regForm.controls['applStream'].setValue(this.initialFormValueFromDB.applStream)
+          //we have to reload the courses again, otherwise course wont be shown
+          this.getAllCoursesByType(this.initialFormValueFromDB.applStream)
           this.parentProp = { stream: this.initialFormValueFromDB.applStream }
 
           this.regForm.controls['fName'].setValue(this.initialFormValueFromDB.fName)

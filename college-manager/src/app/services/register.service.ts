@@ -29,6 +29,15 @@ export class RegisterService {
     )
   }
 
+  getRegisteredStudentDetailsFromRegistration(registrationId : string){
+    return this.client.get<any>(`http://localhost:3000/register?registrationId=${registrationId}`).pipe(
+      map(res=>{
+        // console.log(res)
+        return Object.assign(new RegistrationModel(), res)
+    }),
+    )
+  }
+
   getAllRegisteredStudentDetails(): any{
     return this.client.get<any>("http://localhost:3000/register/applicantList").pipe(
       map(res=>{

@@ -31,6 +31,7 @@ var upload = multer({ storage : storage})
 
 router.post('/', (req, res) => {
 	try{
+	  console.log('Create single user registration db details')
       console.log(req.body)
 	  let query = prepareRegistrationQuery(req)
 
@@ -59,20 +60,30 @@ function jsonParser(stringValue, key) {
 
 router.get('/',(req, res) => {
 	try{
-		console.log('Inside db api')
+		console.log('Get single user registration db data')
 		console.log(req.query)
 		userId  = req.query.userId
-		connection.query(`SELECT * FROM register where userId = '${userId}'`, (err, rows, fields) => {
+		registrationId = req.query.registrationId
+		console.log(userId)
+		console.log(registrationId)
+		let query = ''
+		if(userId !== undefined){
+			query = `SELECT * FROM register where userId = '${userId}'`
+		}else if(registrationId !== undefined){
+			query = `SELECT * FROM register where registrationId = '${registrationId}'`
+		}
+		console.log(query)
+		connection.query(query, (err, rows, fields) => {
 			if (err) {
 				console.log(res.body)
 				if(res.body == undefined){
-					console.log("Inside Empty")
+					// console.log("Inside Empty")
 					res.status(200).json({})
 				}else{
 					res.status(404).json({ message: 'User not found' })
 				}
 			} else {
-				// console.log(res)
+				console.log(rows)
 				res.status(200).json(rows[0])
 			}
 	  })
@@ -85,10 +96,10 @@ router.get('/',(req, res) => {
 
 router.put('/',(req, res) => {
 	try{
-		console.log('Inside register update api')
+		console.log('Update single user registration db data')
 		// console.log(req.query)
 		// userId  = req.query.userId
-		console.log(req.body)
+		// console.log(req.body)
 	  	let query = updateRegistrationQuery(req)
 		connection.query(query, (err, rows, fields) => {
 			if (err) {
@@ -189,7 +200,7 @@ function prepareRegistrationQuery(req) {
 		'${formData.aplCorDist}','${formData.aplCorPin}','${formData.apl12thRegNum}','${formData.aplLastCol}','${formData.aplLstExmPcObt}','${formData.aplLastMilSub}','${formData.aplLastElecSub1}','${formData.aplLastElecSub2}','${formData.aplLastElecSub3}','${formData.aplLastElecSub4}',
 		'${formData.aplLastEngMrk}','${formData.aplLastMilMrk}','${formData.aplLastElec1Mrk}','${formData.aplLastElec2Mrk}','${formData.aplLastElec3Mrk}','${formData.aplLastElec4Mrk}','${formData.aplGradCourseTaken}','${formData.aplGradExmPcObt}','${formData.aplExtraCur}','${formData.aplBnkHldrNm}',
 		'${formData.aplBnkAcNum}','${formData.aplBnkCnfAcNum}','${formData.aplBnkNam}','${formData.aplBnkBrnch}','${formData.aplBnkIfsc}','${JSON.stringify(tableData)}')`
-	
+
 	return query1;
 }
 
@@ -199,15 +210,34 @@ function updateRegistrationQuery(req) {
 	console.log(registrationId)
 	let applStream = jsonParser(formData,"applStream")
 
-	let query1 = `UPDATE register SET registrationId='${registrationId}',applStream='${applStream}',fName='${formData.fName}',mName='${formData.mName}',lName='${formData.lName}',dBirth='${formData.dBirth}',gender='${formData.gender}',stdCaste='${formData.stdCaste}',bGroup='${formData.bGroup}', 
-		stdPhnNumber='${formData.stdPhnNumber}',stdEmail='${formData.stdEmail}',religion='${formData.religion}',stdNatlty='${formData.stdNatlty}',stdBreak='${formData.stdBreak}',stdGapRsn='${formData.stdGapRsn}',stdDisability='${formData.stdDisability}',stdDisabilityDet=${formData.stdDisabilityDet}',disToColl='${formData.disToColl}',
-		aplCourse='${formData.aplCourse}',aplCaste='${formData.aplCaste}',aplHstl='${formData.aplHstl}',aplAdmTyp='${formData.aplAdmTyp}',aplCmpSub'=${formData.aplCmpSub}',aplMilSub='${formData.aplMilSub}',aplElecSub1='${formData.aplElecSub1}',aplElecSub2='${formData.aplElecSub2}',aplElecSub3='${formData.aplElecSub3}',aplElecSub4='${formData.aplElecSub4}',aplGuardNm='${formData.aplGuardNm}',
-		aplGuardPhn='${formData.aplGuardPhn}',aplGuardOcp='${formData.aplGuardOcp}',aplGuardInc='${formData.aplGuardInc}',aplFatNam='${formData.aplFatNam}',aplMotNam='${formData.aplMotNam}',aplLclGuardNam='${formData.aplLclGuardNam}',aplLclGuardAdd='${formData.aplLclGuardAdd}',aplPerAdd=${formData.aplPerAdd}',aplPerGuardPhnNum='${formData.aplPerGuardPhnNum}',aplPerAddLoc='${formData.aplPerAddLoc}',
-		aplPerSta='${formData.aplPerSta}',aplPerAddPs='${formData.aplPerAddPs}',aplPerDist='${formData.aplPerDist}',aplPerPin='${formData.aplPerPin}',aplyIsCorAdd='${formData.aplyIsCorAdd}',aplCorAdd='${formData.aplCorAdd}',aplCorGuardPhnNum='${formData.aplCorGuardPhnNum}',aplCorAddLoc='${formData.aplCorAddLoc}',aplCorAddPs='${formData.aplCorAddPs}',aplCorSta='${formData.aplCorSta}',
-		aplCorDist='${formData.aplCorDist}',aplCorPin='${formData.aplCorPin}',apl12thRegNum='${formData.apl12thRegNum}',aplLastCol='${formData.aplLastCol}',aplLstExmPcObt='${formData.aplLstExmPcObt}',aplLastMilSub='${formData.aplLastMilSub}',aplLastElecSub1='${formData.aplLastElecSub1}',aplLastElecSub2='${formData.aplLastElecSub2}',aplLastElecSub3='${formData.aplLastElecSub3}',aplLastElecSub4='${formData.aplLastElecSub4}',
-		aplLastEngMrk='${formData.aplLastEngMrk}',aplLastMilMrk='${formData.aplLastMilMrk}',aplLastElec1Mrk='${formData.aplLastElec1Mrk}',aplLastElec2Mrk='${formData.aplLastElec2Mrk}',aplLastElec3Mrk='${formData.aplLastElec3Mrk}',aplLastElec4Mrk='${formData.aplLastElec4Mrk}',aplGradCourseTaken='${formData.aplGradCourseTaken}',aplGradExmPcObt='${formData.aplGradExmPcObt}',aplExtraCur='${formData.aplExtraCur}',aplBnkHldrNm='${formData.aplBnkHldrNm}',
-		aplBnkAcNum='${formData.aplBnkAcNum}',aplBnkCnfAcNum='${formData.aplBnkCnfAcNum}',aplBnkNam='${formData.aplBnkNam}',aplBnkBrnch='${formData.aplBnkBrnch}',aplBnkIfsc='${formData.aplBnkIfsc}',eduhistory_table='${JSON.stringify(tableData)}' WHERE userId='${userId}'`
-	
+	let query1 = `UPDATE register SET applStream='${applStream}',fName='${formData.fName}',mName='${formData.mName}'
+	,lName='${formData.lName}',dBirth='${formData.dBirth}',gender='${formData.gender}',stdCaste='${formData.stdCaste}',bGroup='${formData.bGroup}', 
+		stdPhnNumber='${formData.stdPhnNumber}',stdEmail='${formData.stdEmail}',religion='${formData.religion}',stdNatlty='${formData.stdNatlty}',
+		stdBreak='${formData.stdBreak}',stdGapRsn='${formData.stdGapRsn}',stdDisability='${formData.stdDisability}',
+		stdDisabilityDet='${formData.stdDisabilityDet}',disToColl='${formData.disToColl}',aplCourse='${formData.aplCourse}',
+		aplCaste='${formData.aplCaste}',aplHstl='${formData.aplHstl}',aplAdmTyp='${formData.aplAdmTyp}',aplCmpSub='${formData.aplCmpSub}',
+		aplMilSub='${formData.aplMilSub}',aplElecSub1='${formData.aplElecSub1}',aplElecSub2='${formData.aplElecSub2}',
+		aplElecSub3='${formData.aplElecSub3}',aplElecSub4='${formData.aplElecSub4}',
+		aplGuardNm='${formData.aplGuardNm}',aplGuardPhn='${formData.aplGuardPhn}',aplGuardOcp='${formData.aplGuardOcp}',
+		aplGuardInc='${formData.aplGuardInc}',aplFatNam='${formData.aplFatNam}',aplMotNam='${formData.aplMotNam}',
+		aplLclGuardNam='${formData.aplLclGuardNam}',aplLclGuardAdd='${formData.aplLclGuardAdd}',
+		aplPerAdd='${formData.aplPerAdd}',aplPerGuardPhnNum='${formData.aplPerGuardPhnNum}',aplPerAddLoc='${formData.aplPerAddLoc}',
+		aplPerSta='${formData.aplPerSta}',aplPerAddPs='${formData.aplPerAddPs}',aplPerDist='${formData.aplPerDist}',aplPerPin='${formData.aplPerPin}',
+		aplyIsCorAdd='${formData.aplyIsCorAdd}',aplCorAdd='${formData.aplCorAdd}',aplCorGuardPhnNum='${formData.aplCorGuardPhnNum}',
+		aplCorAddLoc='${formData.aplCorAddLoc}',aplCorAddPs='${formData.aplCorAddPs}',aplCorSta='${formData.aplCorSta}',
+		aplCorDist='${formData.aplCorDist}',aplCorPin='${formData.aplCorPin}',apl12thRegNum='${formData.apl12thRegNum}',
+		aplLastCol='${formData.aplLastCol}',aplLstExmPcObt='${formData.aplLstExmPcObt}',aplLastMilSub='${formData.aplLastMilSub}',
+		aplLastElecSub1='${formData.aplLastElecSub1}',aplLastElecSub2='${formData.aplLastElecSub2}',aplLastElecSub3='${formData.aplLastElecSub3}',
+		aplLastElecSub4='${formData.aplLastElecSub4}',aplLastEngMrk='${formData.aplLastEngMrk}',aplLastMilMrk='${formData.aplLastMilMrk}',
+		aplLastElec1Mrk='${formData.aplLastElec1Mrk}',aplLastElec2Mrk='${formData.aplLastElec2Mrk}',aplLastElec3Mrk='${formData.aplLastElec3Mrk}',
+		aplLastElec4Mrk='${formData.aplLastElec4Mrk}',aplGradCourseTaken='${formData.aplGradCourseTaken}',aplGradExmPcObt='${formData.aplGradExmPcObt}',
+		aplExtraCur='${formData.aplExtraCur}',aplBnkHldrNm='${formData.aplBnkHldrNm}',aplBnkAcNum='${formData.aplBnkAcNum}',
+		aplBnkCnfAcNum='${formData.aplBnkCnfAcNum}',aplBnkNam='${formData.aplBnkNam}',aplBnkBrnch='${formData.aplBnkBrnch}',
+		aplBnkIfsc='${formData.aplBnkIfsc}',eduhistory_table='${JSON.stringify(tableData)}' WHERE userId='${userId}'`
+	console.log(query1)
+	console.log("")
+	query1 = query1.replace(/(\r\n|\n|\r)/gm, "");
+	console.log(query1)
 	return query1;
 }
 
