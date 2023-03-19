@@ -49,6 +49,8 @@ export class EducationTableComponent implements OnChanges{
 
   dataSource = new ExampleDataSource(this.dataToDisplay);
 
+  //1.when a stream is selected in parent register component, create a table of appropriate sixe based on stream
+  //2.for a half registered form fetched from db, set the data and size of table accordingly 
   ngOnChanges(changes: SimpleChanges): void {
     // if(changes['expectedProp'].previousValue != changes['expectedProp'].currentValue){
       
@@ -56,7 +58,7 @@ export class EducationTableComponent implements OnChanges{
       // ELEMENT_DATA.push({courseName: 'Higher Secondary', board: '', roll:'', percentage: '', position: '', passYear: '', state:'float'})
       // ELEMENT_DATA.push({courseName: 'Graduation', board: '', roll:'', percentage: '', position: '', passYear: '', state:'float'})
 
-
+      //set the table size based on applStream received from parent
       if(changes['expectedProp'].currentValue.stream == "HS"){
         // console.log("Inside HS")
         let temp = ELEMENT_DATA.slice(0,1)
@@ -71,6 +73,7 @@ export class EducationTableComponent implements OnChanges{
         this.dataSource.setData(temp);
       }
 
+      //once the table data is received from db for half registered form, set the table and load the incoming data
       if(changes['eduhistory_tableMap'] && changes['eduhistory_tableMap'].currentValue.size > 0){
         // console.log("Some edu history changed")
         let table_map = changes['eduhistory_tableMap'].currentValue
@@ -100,7 +103,8 @@ export class EducationTableComponent implements OnChanges{
     }
 
 
-
+  //inform the parent register component, that data is entered into the table, so 
+  //that the parent componenet can use this table data and store it in db
   public onTableChange(element) {
     // console.log("Something changed")
     this.tableChanged.emit(element);
@@ -134,6 +138,7 @@ class ExampleDataSource extends DataSource<PeriodicElement> {
 
   private _dataStream = new ReplaySubject<PeriodicElement[]>();
 
+  //Initialize the table
   constructor(initialData: PeriodicElement[]) {
     super();
     this.setData(initialData);

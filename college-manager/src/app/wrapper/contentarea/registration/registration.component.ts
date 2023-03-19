@@ -217,7 +217,8 @@ export class RegistrationComponent {
     return true
   }
 
-  //get the districts given a particular state loaded from state json file
+  //get the districts for corresponding address given a particular state loaded from state json file
+  //also handle the district control once district is fetched
   getCorDistrictFromState(event) : any{
     for (let index = 0; index < this.stateList.length; index++) {
       const element = this.stateList[index];
@@ -232,6 +233,7 @@ export class RegistrationComponent {
     }
   }
 
+  //get the districts for permanent address given a particular state loaded from state json file
   getPerDistrictFromState(event) : any{
     for (let index = 0; index < this.stateList.length; index++) {
       const element = this.stateList[index];
@@ -247,6 +249,7 @@ export class RegistrationComponent {
   }
 
   //handle corresponding addres checkbox value changes
+  //if corressponding address same as permanent address or vice versa, disable or enable the corr address controls
   disableCorrAddr(event){
 
     if(event.target.checked)
@@ -280,6 +283,7 @@ export class RegistrationComponent {
   }
 
   //Submit registration form of a student
+  //this api will be used for both creating a new registration as well as updating a new registration
   register(){
     //handle correspondance address if sanme as permanent address
     if(this.regForm.controls['aplyIsCorAdd'].value){
@@ -351,6 +355,7 @@ export class RegistrationComponent {
   }
 
   //Get registration details of a single student
+  //once the value is received from the db, set the values in the registration form  
   getRegistrationDetails(id : string){
     
     this.regService.getRegisteredStudentDetails(id)
@@ -470,6 +475,7 @@ export class RegistrationComponent {
           let eduhstry_table = JSON.parse( this.eduhistory_table);
           // console.log(eduhstry_table)
           // console.log(Object.keys(this.eduhistory_table))
+          //load the education table
           this.eduhistory_tableMap = new Map<string, EducationTable>();
           for(let key of Object.keys(eduhstry_table)){
             let tablerow = eduhstry_table[key]
@@ -488,7 +494,8 @@ export class RegistrationComponent {
     return new RegistrationModel()
   }
 
-    //Get registration details of a single student
+    //Get all the courses
+    //this api is not used, just for example purpose
     getAllCourses(){
     
       this.regService.getAllCourses()
@@ -503,6 +510,7 @@ export class RegistrationComponent {
       })
     }
 
+    //once a student selects a course in registration form, only show the subjects that belong to the course
     getSubjectsByCourse(courseName){
       // console.log(event)
       this.getSubjectsByType(courseName, 'elec')
@@ -534,6 +542,7 @@ export class RegistrationComponent {
       })
     }
 
+    //Calculate the percentage once the student enters marks in registration form for last examination
     getPercantage(){
       console.log("Percentage Block hit")
       let totalMarksSecured = 0
@@ -557,7 +566,8 @@ export class RegistrationComponent {
 
   // type Employee = Array<{ id: number; name: string }>;
 
-      //Get registration details of a single student
+  //Get registration details of a single student
+  //Based on applicant stream selected in registration form get the courses
   getAllCoursesByType(courseType){
     this.parentProp = { stream: courseType }
     console.log(this.parentProp)
@@ -573,6 +583,8 @@ export class RegistrationComponent {
     })
   }
 
+  //if user comes to fill up registration form for first time, create a registration id
+  //else use from db
   getRegistrationId(status: String){
     if(status == 'fresh'){
       console.log("CREATING FRESH REGISTRATION ID")
@@ -588,6 +600,7 @@ export class RegistrationComponent {
   //   this.eventsStream.next(this.regForm.value.applStream);
   // }
   //Get the updated values from education table component
+  //Api to load value in to the map tableData once revcieved from child component
   updateEducationTable(event){
     let eTable = new EducationTable(event.board, event.passYear, event.percentage, event.position,  event.roll)
     if(event.courseName == "Metriculation"){
@@ -600,6 +613,7 @@ export class RegistrationComponent {
     // console.log(this.tableData)
   }
 
+  //Parse json and return value for a given key
   jsonParser(stringValue, key) {
     var stringVal = JSON.stringify(stringValue);
     var objectValue = JSON.parse(stringVal);
