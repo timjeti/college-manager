@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RegisterService } from 'src/app/services/register.service';
 import { UserService } from 'src/app/services/user.service';
 import { RegistrationModel } from 'src/app/wrapper/contentarea/registration/registration.model';
+import { EducationTable } from '../Educationtable';
 
 @Component({
   selector: 'app-registrationview',
@@ -107,14 +108,25 @@ export class RegistrationviewComponent {
   aplBnkBrnch
   aplBnkIfsc
 
+  //To store Education History
+  eduhistory_table
+  eduhistory_tableMap = new Map<string, EducationTable>();
+  metriculation_table
+  hs_table
+  graduation_table 
+
+  total_marks
+
   constructor(private regService: RegisterService){
     this.getRegistrationDetails(this.id)
   }
 
+  //Assign the values for registration form recieved from DB
   initializeTable(){
     this.fullname = this.registrationModel.fName + this.registrationModel.mName + this.registrationModel.lName
     this.registrationId = this.registrationModel.registrationId
     this.applStream=this.registrationModel.applStream
+    // console.log(this.applStream)
     // this.parentProp = { stream: this.registrationModel.applStream }
     this.dBirth=this.registrationModel.dBirth
     this.gender=this.registrationModel.gender
@@ -200,6 +212,8 @@ export class RegistrationviewComponent {
     this.aplLastElec3Mrk=this.registrationModel.aplLastElec3Mrk
     this.aplLastElec4Mrk=this.registrationModel.aplLastElec4Mrk
 
+    this.total_marks = this.aplLastEngMrk+this.aplLastMilMrk+this.aplLastElec1Mrk+this.aplLastElec2Mrk+this.aplLastElec3Mrk+this.aplLastElec4Mrk
+
     //Extra Curricular Activities
     this.aplExtraCur=this.registrationModel.aplExtraCur
 
@@ -210,15 +224,37 @@ export class RegistrationviewComponent {
     this.aplBnkNam=this.registrationModel.aplBnkNam
     this.aplBnkBrnch=this.registrationModel.aplBnkBrnch
     this.aplBnkIfsc=this.registrationModel.aplBnkIfsc
-  }
 
+    this.eduhistory_table = this.registrationModel.eduhistory_table
+    let eduhstry_table = JSON.parse( this.eduhistory_table);
+    // console.log(eduhstry_table)
+    // console.log(Object.keys(this.eduhistory_table))
+    //load the education table
+
+    this.eduhistory_tableMap = new Map<string, EducationTable>();
+    for(let key of Object.keys(eduhstry_table)){
+      let tablerow = eduhstry_table[key]
+      let eTable = new EducationTable(tablerow['board'], tablerow['passYear'], tablerow['percentage'], tablerow['position'],  tablerow['roll'])
+      this.eduhistory_tableMap.set(key, eTable)
+    }
+    this.metriculation_table = this.eduhistory_tableMap.get('metriculation')
+    this.hs_table = this.eduhistory_tableMap.get('hs')
+    this.graduation_table = this.eduhistory_tableMap.get('graduation')
+    // console.log(this.metriculation_table)
+    // console.log(this.hs_table)
+    // console.log(this.graduation_table)
+    // console.log( this.metriculation_table.roll)
+
+}
+
+  //Given a registration id, get the registration form from db
   getRegistrationDetails(registrationId : string){
     this.regService.getRegisteredStudentDetailsFromRegistration(registrationId)
     .subscribe({
       next:(res)=>{
         this.registrationModel = res
-        this.initializeTable()
         console.log(this.registrationModel)
+        this.initializeTable()
       },
       error:()=>{
         console.log("Something went wrong")
@@ -226,8 +262,6 @@ export class RegistrationviewComponent {
       }
     })
   }
-
-
 
   
 }
