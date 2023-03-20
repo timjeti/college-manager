@@ -18,7 +18,7 @@ class FileUtils {
     console.log(file.mimetype)
     if(file.mimetype == 'image/jpeg' || file.mimetype == 'image/jpg'  || file.mimetype == 'image/png'){
       console.log(type)
-      if(type !== 'profile' && type !== 'caste' && type !== 'disability' && type !== 'bank' && type !== 'signature'){
+      if(type !== 'profile' && type !== 'caste' && type !== 'disability' && type !== 'bank' && type !== 'signature' &&  type !== 'income'){
         throw new Error('Unidentified upload type, not supported!!')
       }
       console.log("image type is jpeg")

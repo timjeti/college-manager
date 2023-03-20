@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
 	console.log("cb function called")
 	// fileUtils.someMethod();
 	reg_id  = req.query.id
-	dir_path = `uploads/${formData.reg_id}`
+	dir_path = `uploads/${reg_id}`
 	fileUtils.createDirectory(dir_path)
 	cb(null, dir_path);
 	},
