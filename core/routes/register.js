@@ -167,7 +167,7 @@ router.get('/upload',async (req, res) => {
 		var fileName = fileUtils.getUploadedFileName(id, type)
 		var absolutePath = fileUtils.getAbsolutePath(fileName);
 		console.log(absolutePath)
-		res.setHeader('content-type', `${formData.contentType}`);
+		res.setHeader('content-type', `${contentType}`);
 		res.status(200)
 		return res.sendFile(absolutePath)
 	}
