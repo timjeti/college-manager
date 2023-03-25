@@ -1,0 +1,53 @@
+<div class="container">
+    <div class = "row mx-auto">
+        <div class = "col-md-10">
+            <h2 mat-dialog-title>Subject Modification</h2>
+        </div>
+    </div>
+    
+    <div class="form-group row mt-4">
+        <label for="subjectId" class="col-sm-2 col-form-label">Subject ID</label>
+        <div class="col-sm-10">
+            <input  class="form-control form-control-lg" id="subjectId" placeholder="Enter the subject Id" [(ngModel)]="data.subjectId">
+        </div>
+    </div>
+    
+    <div class="form-group row mt-4">
+        <label for="subjectName" class="col-sm-2 col-form-label">Subject Name</label>
+        <div class="col-sm-10">
+            <input class="form-control form-control-lg" id="subjectName" placeholder="Enter the subject name" [(ngModel)]="data.subjectName">
+        </div>
+    </div>
+
+    <div class="form-group row mt-4">
+        <label for="courseName" class="col-sm-2 col-form-label">Course Name</label>
+        <div class="col-sm-10">
+            <input class="form-control form-control-lg" id="courseName" placeholder="Enter the course name" [(ngModel)]="data.courseName">
+        </div>
+    </div>
+
+    <div class="form-group row mt-4">
+        <label for="facultyId" class="col-sm-2 col-form-label">Faculty Id</label>
+        <div class="col-sm-10">
+            <input class="form-control form-control-lg" id="facultyId" placeholder="Enter the faculty id" [(ngModel)]="data.facultyId">
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-sm">
+            <mat-form-field>
+                <mat-label>Subject Type</mat-label>
+                <mat-select id="subjectType" [(ngModel)]="data.subjectType" name="subjectType">
+                    <mat-option value="mil">MIL</mat-option>
+                    <mat-option value="hon">HONOURS</mat-option>
+                    <mat-option value="comp">COMP</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    
+      <div mat-dialog-actions class="mt-3 ml-4">
+        <button mat-button class = "btn btn-danger" (click) = onNoClick()>Cancel</button>
+        <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+    </div>
+    </div>

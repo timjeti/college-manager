@@ -10,14 +10,14 @@ export class RegistrationImageHandlerComponent {
 
   constructor(private regService: RegisterService){}
 
-  reg_id : string;
+  registrationId : string;
   applicantUploadType: string;
   formData = new FormData();
 
 
   onUpload(){
-    console.log(`Sending the call to ui with data ${this.reg_id}, ${this.applicantUploadType}, ${this.formData}`)
-    this.regService.uploadRegistrationBinaries(this.reg_id,this.applicantUploadType, this.formData)
+    console.log(`Sending the call to ui with data ${this.registrationId}, ${this.applicantUploadType}, ${this.formData}`)
+    this.regService.uploadRegistrationBinaries(this.registrationId,this.applicantUploadType, this.formData)
   }
 
   loadImage(event) {

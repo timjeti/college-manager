@@ -43,7 +43,7 @@ router.put('/:id', (req, res) => {
     const id = req.params.id
     const { subjectId, subjectName, courseName, facultyId, subjectType } = req.body
     const query = `UPDATE coll_subject SET subjectId='${subjectId}',  subjectName='${subjectName}',
-    courseName='${courseName}', facultyId='${courseName}', subjectType='${subjectType}' WHERE id='${id}'`
+    courseName='${courseName}', facultyId='${facultyId}', subjectType='${subjectType}' WHERE id='${id}'`
     restUtils.executeQuery(query, res)
 })
 

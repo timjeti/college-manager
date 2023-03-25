@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { RegisterService } from 'src/app/services/register.service';
-import { UserService } from 'src/app/services/user.service';
 import { RegistrationModel } from 'src/app/wrapper/contentarea/registration/registration.model';
 import { EducationTable } from '../Educationtable';
+import  Properties  from 'src/app/util/properties.json';
 
 @Component({
   selector: 'app-registrationview',
@@ -11,6 +11,7 @@ import { EducationTable } from '../Educationtable';
 })
 export class RegistrationviewComponent {
 
+  collegeName : any
   id = "REG1679260382014"
   registrationModel : RegistrationModel
   fullname
@@ -117,12 +118,17 @@ export class RegistrationviewComponent {
 
   total_marks
 
+
   constructor(private regService: RegisterService){
+    //Get the college name from properties json file
+    this.collegeName = Properties.collegeName
     this.getRegistrationDetails(this.id)
   }
 
   //Assign the values for registration form recieved from DB
   initializeTable(){
+    console.log()
+    // new CollProperty()
     this.fullname = this.registrationModel.fName + this.registrationModel.mName + this.registrationModel.lName
     this.registrationId = this.registrationModel.registrationId
     this.applStream=this.registrationModel.applStream
@@ -244,7 +250,6 @@ export class RegistrationviewComponent {
     // console.log(this.hs_table)
     // console.log(this.graduation_table)
     // console.log( this.metriculation_table.roll)
-
 }
 
   //Given a registration id, get the registration form from db

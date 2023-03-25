@@ -32,13 +32,12 @@ import { ApplicantDocsComponent } from './wrapper/contentarea/applicant-review/a
 import { EducationTableComponent } from './wrapper/contentarea/registration/education-table/education-table.component';
 import { CoursesComponent } from './wrapper/contentarea/academics/courses/courses.component';
 import { SubjectsComponent } from './wrapper/contentarea/academics/subjects/subjects.component';
-import { ModifycourceComponent } from './wrapper/contentarea/academics/courses/modifycource.component';
-import { ModifysubjectComponent } from './wrapper/contentarea/academics/subjects/modifysubject/modifysubject.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CourseDialogComponent } from './wrapper/contentarea/academics/courses/course-dialog/course-dialog.component';
 import { SidenavAutosize } from './sidenavbar/sidenavbar.component';
 import { MatMenuModule} from '@angular/material/menu'
 import { RegistrationviewComponent } from './wrapper/contentarea/registration/registrationview/registrationview.component';
+import { SubjectDialogComponent } from './wrapper/contentarea/academics/subjects/subject-dialog/subject-dialog.component';
 
 
 @NgModule({
@@ -53,10 +52,9 @@ import { RegistrationviewComponent } from './wrapper/contentarea/registration/re
     EducationTableComponent,
     CoursesComponent,
     SubjectsComponent,
-    ModifycourceComponent,
-    ModifysubjectComponent,
     CourseDialogComponent,
-    SidenavAutosize
+    SidenavAutosize,
+    SubjectDialogComponent
   ],
   imports: [
     BrowserModule,

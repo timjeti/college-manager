@@ -16,7 +16,7 @@ export class RegisterService {
     return this.client.post<any>("http://localhost:3000/register", data);
   }
 
-  updateRegistrationDetails(registrationId:String, data : any){
+  updateRegistrationDetails(data : any){
     return this.client.put<any>("http://localhost:3000/register", data);
   }
 
@@ -46,20 +46,21 @@ export class RegisterService {
     )
   }
 
+  //upload an image to the server and insert its details in db
   async uploadRegistrationBinaries(id : string, type : string, formData : FormData) {
     console.log("Uploading upload data")
     
     try {
-      console.log(`http://localhost:3000/register/upload?id=${id}&type=${type}`)
+      console.log(`http://localhost:3000/register/upload?registrationId=${id}&type=${type}`)
       if(type == 'collegeDetails'){
-        this.client.post<any>(`http://localhost:3000/register/upload?id=${id}&type=${type}`, formData, this.options)
+        this.client.post<any>(`http://localhost:3000/register/upload?registrationId=${id}&type=${type}`, formData, this.options)
       .subscribe((res)=>{
         console.log('Image uploaded successfully');
         console.log(res);
       })
       }
       else{
-        this.client.post<any>(`http://localhost:3000/register/upload?id=${id}&type=${type}`, formData)
+        this.client.post<any>(`http://localhost:3000/register/upload?registrationId=${id}&type=${type}`, formData)
         .subscribe((res)=>{
           console.log('Image uploaded successfully');
           console.log(res);
@@ -70,48 +71,19 @@ export class RegisterService {
     }
   }
 
-  //get all uploaded data by student during registration
+  //get all uploaded data by providing resistration id
   getRegisteredBinaries(id : string, type : String ): Observable<Blob>{
     return this.client.get(`http://localhost:3000/register/upload?id=${id}&type=${type}`, { responseType: 'blob' });
   }
 
-  //get all courses
-  getAllCourses(): any{
-    return this.client.get<any>("http://localhost:3000/course/courses").pipe(
+  //get the uploaded details of socuments by providind registration form id
+  getUploadDocumentsDetails(registrationId : string){
+    return this.client.get<any>(`http://localhost:3000/register/upload/details?registrationId=${registrationId}`).pipe(
       map(res=>{
-        return res;
+        // console.log(res)
+        return res
     }),
     )
   }
-
-    //get all courses
-    getAllCoursesByType(courseType): any{
-      return this.client.get<any>(`http://localhost:3000/course/courses?courseType=${courseType}`).pipe(
-        map(res=>{
-          return res;
-      }),
-      )
-    }
-  
-
-  //get all subjects based on course type 
-  getSubjectsbyCourse(courseName, subjectType): any{
-    console.log(`http://localhost:3000/course/${courseName}/subjects?subjectType=${subjectType}`)
-    return this.client.get<any>(`http://localhost:3000/course/${courseName}/subjects?subjectType=${subjectType}`).pipe(
-      map(res=>{
-        return res;
-    }),
-    )
-  }
-
-    //get all subjects based on course type 
-    getAllSubjects(): any{
-      console.log(`http://localhost:3000/subject/subjects`)
-      return this.client.get<any>('http://localhost:3000/subject/subjects').pipe(
-        map(res=>{
-          return res;
-      }),
-      )
-    }
 
 }

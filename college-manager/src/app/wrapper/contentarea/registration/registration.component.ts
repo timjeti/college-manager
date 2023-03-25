@@ -2,11 +2,13 @@ import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs/internal/Subject';
 import { RegisterService } from 'src/app/services/register.service';
-import Countries from './util/countries.json'
-import States from './util/indian.json'
+import Countries from '../../../util/countries.json'
+import States from '../../../util/indian.json'
 import { Router, NavigationEnd } from '@angular/router';
 import { EducationTable } from './Educationtable';
 import { RegistrationModel } from './registration.model';
+import { CoursesService } from 'src/app/services/academics/courses.service';
+import { SubjectsService } from 'src/app/services/academics/subjects.service';
 
 
 interface Country{
@@ -62,7 +64,7 @@ export class RegistrationComponent {
 
 
   regForm !: FormGroup;
-  constructor(private formbuilder : FormBuilder, private regService: RegisterService, private router: Router){
+  constructor(private formbuilder : FormBuilder, private regService: RegisterService, private router: Router, private courseService: CoursesService, private subService : SubjectsService){
     this.countryList  = Countries
     console.log(this.countryList)
 
@@ -331,7 +333,7 @@ export class RegistrationComponent {
           }
         })
       }else{
-        this.regService.updateRegistrationDetails(this.registrationId, data)
+        this.regService.updateRegistrationDetails(data)
         .subscribe({
           next:(res) =>{
             console.log("User registration updated successfully")
@@ -493,23 +495,6 @@ export class RegistrationComponent {
     })
     return new RegistrationModel()
   }
-
-    //Get all the courses
-    //this api is not used, just for example purpose
-    getAllCourses(){
-    
-      this.regService.getAllCourses()
-      .subscribe({
-        next:(res)=>{
-          console.log(res)
-          this.courses = res
-        },
-        error:()=>{
-          console.log("Something went wrong")
-        }
-      })
-    }
-
     //once a student selects a course in registration form, only show the subjects that belong to the course
     getSubjectsByCourse(courseName){
       // console.log(event)
@@ -522,7 +507,7 @@ export class RegistrationComponent {
 
     //get all the elective subjects for a course
     getSubjectsByType(event, type): any{
-      this.regService.getSubjectsbyCourse(event, type)
+      this.subService.getSubjectsbyCourse(event, type)
       .subscribe({
         next:(res)=>{
           if(type == 'elec'){
@@ -571,7 +556,7 @@ export class RegistrationComponent {
   getAllCoursesByType(courseType){
     this.parentProp = { stream: courseType }
     console.log(this.parentProp)
-    this.regService.getAllCoursesByType(courseType)
+    this.courseService.getAllCoursesByType(courseType)
     .subscribe({
       next:(res)=>{
         console.log(res)

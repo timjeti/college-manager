@@ -3,7 +3,7 @@
 <h3>Applicant: Enter Document Proof</h3>
 <form (submit)="onUpload()">
   <label for="image">Enter your registration id:</label>
-  <input  [(ngModel)]="reg_id" name="id" placeholder="Enter your registrationid">
+  <input  [(ngModel)]="registrationId" name="registrationId" placeholder="Enter your registrationid">
     <br>
     <br>
     <label for="image">Select an image:</label>
@@ -16,7 +16,8 @@
       <br>
       <mat-select name="gender" [(ngModel)]="applicantUploadType">
           <mat-option value="profile" >Profile Image</mat-option>
-          <mat-option value="educationDetails">Certificates</mat-option>
+          <mat-option value="education">Certificates</mat-option>
+          <mat-option value="income">Income Certificate</mat-option>
         </mat-select>
     </mat-form-field>
     <br>

@@ -16,16 +16,16 @@ export class ApplicantDocsComponent {
   formData = new FormData();
 
   type : any;
-  id :any;
+  registrationId :any;
   isPdf = false;
   src = ''
 
 
 
-
-  getRegistrationBinaries(id : string, type : any) {
+  //Get the document blob from backend server based on type
+  getRegistrationBinaries(registrationId : string, type : any) {
     this.isImageLoading = true;
-    (this.regService.getRegisteredBinaries(id, type)).subscribe({
+    (this.regService.getRegisteredBinaries(registrationId, type)).subscribe({
       next:(res) => {
         console.log("Upload data receeived")
       this.createImageFromBlob(res);
@@ -37,6 +37,7 @@ export class ApplicantDocsComponent {
   }); 
 }
 
+//Convert the blob recieved from server to loadable url
 createImageFromBlob(image: Blob) {
   let reader = new FileReader();
   reader.addEventListener("load", () => {
@@ -59,8 +60,21 @@ createImageFromBlob(image: Blob) {
   }
 }
 
+//This API will return the status of documents, which one got uploaded and which one didnt
+getUploadedDocumentDetails(registrationId : string) {
+  this.isImageLoading = true;
+  (this.regService.getUploadDocumentsDetails(registrationId)).subscribe({
+    next:(res) => {
+      console.log(res)
+  }, error:(err)=> {
+    console.log(err);
+  }
+}); 
+}
+
 onSubmit(){
-  this.getRegistrationBinaries(this.id, this.type)
+  this.getUploadedDocumentDetails(this.registrationId)
+  this.getRegistrationBinaries(this.registrationId, this.type)
 }
 
 

@@ -1,8 +1,17 @@
+<div class = "row">
+
+<div class = "coll-sm">
 <mat-form-field class="filter">
     <mat-label>Search</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. BA" #input>
   </mat-form-field>
+</div>
 
+<div class = "coll-sm">
+  <button type="button" (click)="createDialog()">Add Course</button>
+</div>
+
+</div>
   <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort>
   
@@ -35,7 +44,7 @@
         <td mat-cell *matCellDef="let element; let i = index">
           <!-- <mat-form-field > -->
             <!-- <input matInput placeholder="" [value]="element.position" [(ngModel)]="element.position"> -->
-            <button mat-button color="primary" (click)="openDialog()" >Edit</button>
+            <button mat-button color="primary" (click)="editDialog(element)" >Edit</button>
           <!-- </mat-form-field> -->
         </td>
       </ng-container>

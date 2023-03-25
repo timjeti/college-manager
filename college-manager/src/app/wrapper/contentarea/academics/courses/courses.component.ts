@@ -2,15 +2,21 @@ import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
-import { RegisterService } from 'src/app/services/register.service';
 import {MatDialog} from '@angular/material/dialog';
 import { CourseDialogComponent } from './course-dialog/course-dialog.component';
+import { CoursesService } from 'src/app/services/academics/courses.service';
 
 export interface courseMap{
   id: number,
   courseId: string,
   courseName: string,
   courseType: string
+}
+
+export interface DialogData {
+  courseId: String,
+  courseName:  String,
+  courseType: String
 }
 
 @Component({
@@ -26,11 +32,12 @@ export class CoursesComponent {
   displayedColumns: string[] = ['id', 'courseId', 'courseName', 'courseType', 'action'];
 
   // courses : [{courseId : string, courseName : string}]
+  
   animal: string;
   name: string;
 
   // constructor(public dialog: MatDialog) {}
-  constructor(public dialog: MatDialog, private regService: RegisterService){
+  constructor(public dialog: MatDialog, private courseService: CoursesService){
     // this.countryList  = Countries
     // console.log(this.countryList)
 
@@ -38,17 +45,53 @@ export class CoursesComponent {
     // console.log(this.stateList)
   }
 
-  openDialog() {
+  editDialog(row) {
+    // console.log(row)
     console.log('Inside Dialog')
-    this.dialog.open(CourseDialogComponent, {
+    const dialogRef = this.dialog.open(CourseDialogComponent, {
       width:'70%',
       height:'50%',
       data: {
-        id: this.dataSource.id,
-        courseId: this.dataSource.courseId,
-        courseName:  this.dataSource.courseName,
-        courseType: this.dataSource.courseType
+        id: row.id,
+        courseId: row.courseId,
+        courseName:  row.courseName,
+        courseType: row.courseType
       }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+      if(result !== undefined){
+        console.log(result)
+        this.dataSource.courseId=result.courseId
+        this.dataSource.courseName=result.courseName
+        this.dataSource.courseType=result.courseType
+        this.updateCourseById(result.id, result)
+      }
+      // console.log(this.data)
+    });
+  }
+
+  createDialog() {
+    // console.log(row)
+    console.log('Inside Dialog')
+    const dialogRef = this.dialog.open(CourseDialogComponent, {
+      width:'70%',
+      height:'50%',
+      data: {
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+      if(result !== undefined){
+        console.log(result)
+        this.dataSource.courseId=result.courseId
+        this.dataSource.courseName=result.courseName
+        this.dataSource.courseType=result.courseType
+        this.createNewCourse(result)
+      }
+      // console.log(this.data)
     });
   }
 
@@ -72,7 +115,7 @@ export class CoursesComponent {
   //Get registration details of a single student
   getAllCourses(){
 
-    this.regService.getAllCourses()
+    this.courseService.getAllCourses()
     .subscribe({
       next:(res)=>{
         console.log(res)
@@ -81,6 +124,44 @@ export class CoursesComponent {
         console.log(this.dataSource)
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+      },
+      error:()=>{
+        console.log("Something went wrong")
+      }
+    })
+  }
+
+  //Get registration details of a single student
+  updateCourseById(id, data){
+    this.courseService.updateCourseDetails(id, data)
+    .subscribe({
+      next:(res)=>{
+        console.log(res)
+        this.getAllCourses()
+        // this.dataSource = new MatTableDataSource(res);
+        // // this.dataSource = res
+        // console.log(this.dataSource)
+        // this.dataSource.paginator = this.paginator;
+        // this.dataSource.sort = this.sort;
+      },
+      error:()=>{
+        console.log("Something went wrong")
+      }
+    })
+  }
+
+  //Get registration details of a single student
+  createNewCourse(data){
+    this.courseService.createNewCourse(data)
+    .subscribe({
+      next:(res)=>{
+        console.log(res)
+        this.getAllCourses()
+        // this.dataSource = new MatTableDataSource(res);
+        // // this.dataSource = res
+        // console.log(this.dataSource)
+        // this.dataSource.paginator = this.paginator;
+        // this.dataSource.sort = this.sort;
       },
       error:()=>{
         console.log("Something went wrong")

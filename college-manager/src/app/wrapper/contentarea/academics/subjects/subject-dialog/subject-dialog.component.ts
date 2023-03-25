@@ -1,13 +1,14 @@
 import { Component,Inject } from '@angular/core';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import { DialogData } from '../courses.component';
+import { CourseDialogComponent } from '../../courses/course-dialog/course-dialog.component';
+import { DialogData } from '../subjects.component';
 
 @Component({
-  selector: 'app-course-dialog',
-  templateUrl: './course-dialog.component.html',
-  styleUrls: ['./course-dialog.component.css']
+  selector: 'app-subject-dialog',
+  templateUrl: './subject-dialog.component.html',
+  styleUrls: ['./subject-dialog.component.css']
 })
-export class CourseDialogComponent {
+export class SubjectDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<CourseDialogComponent>,
@@ -19,6 +20,5 @@ export class CourseDialogComponent {
   onNoClick(): void {
     this.dialogRef.close();
   }
-
 
 }

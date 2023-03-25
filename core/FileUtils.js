@@ -11,11 +11,11 @@ class FileUtils {
     // var query = require('url').parse(req.url,true).query;
     console.log(req.query.type)
     var query = req.query
-    var reg_id  = query.id
+    var reg_id  = query.registrationId
     var type = query.type
     var dir_path = `./uploads/${reg_id}`
     console.log(file)
-    console.log(file.mimetype)
+    // console.log(file.mimetype)
     if(file.mimetype == 'image/jpeg' || file.mimetype == 'image/jpg'  || file.mimetype == 'image/png'){
       console.log(type)
       if(type !== 'profile' && type !== 'caste' && type !== 'disability' && type !== 'bank' && type !== 'signature' &&  type !== 'income'){
@@ -32,7 +32,7 @@ class FileUtils {
       return file_name;
     }else if(file.mimetype == 'application/pdf')
     {
-      if(type !== 'educationDetails'){
+      if(type !== 'education'){
         throw new Error('pdf file type is not supported')
       }
       console.log("Pdf file type")
@@ -56,7 +56,7 @@ class FileUtils {
     if(type == 'profile' || type == 'caste' || type == 'disability' || type == 'bank' || type == 'signature'){
       return 'image/png';
     }
-    else if(type == 'educationDetails'){
+    else if(type == 'education'){
       return 'application/pdf';
     }
     else{
@@ -66,7 +66,7 @@ class FileUtils {
 
   static getUploadedFileName(reg_id, type){
     var extension = 'png'
-    if(type == 'educationDetails'){
+    if(type == 'education'){
       extension = 'pdf'
     }
     var fileDir = './uploads/'+ `${reg_id}`

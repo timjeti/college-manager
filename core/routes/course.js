@@ -10,7 +10,6 @@ var restUtils = require('./RestUtils.js')
 
 //api to create a new course
 router.post("/", (req,res) =>{
-
     const { courseId, courseName, courseType } = req.body
     query = `INSERT INTO coll_course (courseId, courseName, courseType) VALUES ('${courseId}', '${courseName}','${courseType}')`
     restUtils.executeCommitQuery(query, res)
