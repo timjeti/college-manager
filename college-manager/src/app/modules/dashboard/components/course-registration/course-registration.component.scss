@@ -1,0 +1,46 @@
+mat-card {
+    margin: 0.5rem;
+}
+
+.form-label {
+    font-size: small;
+    font-weight: 500;
+
+}
+
+.req {
+    color: red;
+    margin-left: 1px;
+}
+
+.form-control {
+    font-size: small;
+}
+
+.small-h6 {
+    font-size: small;
+}
+
+.container-elem {
+    margin-bottom: 1rem;
+    align-items: center;
+}
+
+.input-no-border {
+    border: 0;
+}
+
+.uplodImage {
+    height: 100px;
+    width: 100px;
+    border: solid;
+}
+
+.printTabel {
+    //border: 1px solid black;
+    border-collapse: collapse;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: small;
+    padding: 5px;
+    text-align: left;  
+}

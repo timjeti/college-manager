@@ -1,0 +1,2044 @@
+<mat-card class="example-card">
+  <!-- <mat-card-header>
+    <mat-card-title>Test: Title for the application form</mat-card-title>
+    <mat-card-subtitle> Sub-title: Any subtitle to display</mat-card-subtitle>
+  </mat-card-header> -->
+  <mat-horizontal-stepper [linear]="true" #stepper>
+    <mat-step [stepControl]="regFormGroup">
+      <form [formGroup]="regFormGroup">
+        <ng-template matStepLabel>Application Form</ng-template>
+        <!--start-->
+        <h6>Student details</h6>
+        <hr />
+        <!--1st row-->
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-outline">
+              <label for="stream" class="form-label"
+                >Stream/Course applied for<span class="text-danger"
+                  >*</span
+                ></label
+              >
+              <select
+                id="stream"
+                name="stream"
+                class="form-control"
+                formControlName="applStream"
+                (change)="selectStream()"
+              >
+                <option value="" disabled selected hidden>
+                  Select your Stream
+                </option>
+                <option value="HS">HS</option>
+                <option value="Graduation">Graduation</option>
+                <option value="Masters">Masters</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-9"></div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-outline">
+              <label class="form-label"
+                >First Name<span class="text-danger">*</span></label
+              >
+              <input type="text" class="form-control" formControlName="fName"/>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-outline">
+              <label class="form-label">Middle Name</label>
+              <input type="text" class="form-control" formControlName="mName" />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-outline">
+              <label class="form-label"
+                >Last Name<span class="req">*</span></label
+              >
+              <input type="text" class="form-control" formControlName="lName" />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-outline">
+              <label class="form-label"
+                >Date of Birth<span class="req">*</span></label
+              >
+              <input
+                type="date"
+                class="form-control"
+                id="start"
+                name="trip-start"
+                formControlName="dBirth"
+              />
+            </div>
+          </div>
+        </div>
+        <!--2nd row-->
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-outline">
+              <label class="form-label"
+                >Email Address<span class="req">*</span></label
+              >
+              <input
+                type="email"
+                class="form-control"
+                formControlName="stdEmail"
+              />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-outline">
+              <label class="form-label"
+                >Mobile No<span class="req">*</span></label
+              >
+              <input
+                type="number"
+                class="form-control"
+                formControlName="stdPhnNumber"
+              />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-outline">
+              <label for="bloodgroup" class="form-label"
+                >Blood Group<span class="req">*</span></label
+              >
+              <select
+                id="bloodgroup"
+                name="bloodgroup"
+                class="form-control"
+                formControlName="bGroup"
+              >
+                <option value="" disabled selected hidden>
+                  Select your blood gorup
+                </option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-outline">
+              <label for="gender" class="form-label"
+                >Gender<span class="req">*</span></label
+              >
+              <select
+                id="gender"
+                name="gender"
+                class="form-control"
+                formControlName="gender"
+              >
+                <option value="" disabled selected hidden>Select gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Others">Others</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <!--3rd row-->
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-outline">
+              <label for="religion" class="form-label"
+                >Religion<span class="req">*</span></label
+              >
+              <select
+                id="religion"
+                name="religion"
+                class="form-control"
+                formControlName="religion"
+              >
+                <option value="" disabled selected hidden>
+                  Select religion
+                </option>
+                <option value="Hindu">Hindu</option>
+                <option value="Muslim">Muslim</option>
+                <option value="Sikh">Sikh</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-outline">
+              <label for="stdNatlty" class="form-label"
+                >Nationality<span class="req">*</span></label
+              >
+              <select
+                id="stdNatlty"
+                name="stdNatlty"
+                class="form-control"
+                formControlName="stdNatlty"
+              >
+                <option value="" disabled selected hidden>
+                  Select nationality
+                </option>
+                <!-- <option value="Indian" >Indian</option> -->
+                <option
+                  *ngFor="let country of countryList"
+                  value="{{ country.name }}"
+                >
+                  {{ country.name }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-outline">
+              <label for="caste" class="form-label"
+                >Caste<span class="req">*</span></label
+              >
+              <select
+                id="stdCaste"
+                name="stdCaste"
+                class="form-control"
+                formControlName="stdCaste"
+                (change)="
+                  openDialog(
+                    'Later you have to upload/submit the caste certificate'
+                  )
+                "
+              >
+                <option value="" disabled selected hidden>
+                  Select your caste
+                </option>
+                <option value="General">General</option>
+                <option value="OBC">OBC</option>
+                <option value="MOBC">MOBC</option>
+                <option value="SC">SC</option>
+                <option value="ST">ST</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-outline">
+              <label class="form-label">Distance from home to college</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="disToColl"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-outline">
+              <label for="stdBreak" class="form-label"
+                >Whether study discontinued, if yes mention<span class="req"
+                  >*</span
+                ></label
+              >
+              <select
+                name="stdBreak"
+                class="form-control"
+                formControlName="stdBreak"
+              >
+                <option value="" disabled selected hidden>Select</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div
+              class="form-outline"
+              *ngIf="regFormGroup.controls['stdBreak'].value === 'Yes'"
+            >
+              <label class="form-label"
+                >Reason for Study Gap<span class="req">*</span></label
+              >
+              <textarea
+                class="form-control"
+                id="stdGapRsn"
+                rows="4"
+                formControlName="stdGapRsn"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-outline">
+              <label for="stdDisability" class="form-label"
+                >Person with Disability<span class="req">*</span></label
+              >
+              <select
+                name="stdDisability"
+                class="form-control"
+                formControlName="stdDisability"
+              >
+                <option value="" disabled selected hidden>Select</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div
+              class="form-outline"
+              *ngIf="regFormGroup.controls['stdDisability'].value === 'Yes'"
+            >
+              <label class="form-label"
+                >Mention the disability<span class="req">*</span></label
+              >
+              <textarea
+                class="form-control"
+                id="stdDisabilityDet"
+                rows="4"
+                formControlName="stdDisabilityDet"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+        <br />
+        <h6>Parent/Guardian details</h6>
+        <hr />
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-outline">
+              <label class="form-label"
+                >Guardian's Name<span class="req">*</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                formControlName="aplGuardNm"
+              />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-outline">
+              <label class="form-label"
+                >Guardian's Mobile No<span class="req">*</span></label
+              >
+              <input
+                type="number"
+                class="form-control"
+                formControlName="aplGuardPhn"
+              />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-outline">
+              <label class="form-label"
+                >Guardian's Occupation<span class="req">*</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                formControlName="aplGuardOcp"
+              />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-outline">
+              <label class="form-label"
+                >Guardian's Income<span class="req">*</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                formControlName="aplGuardInc"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-outline">
+              <label class="form-label"
+                >Father's Name<span class="req">*</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                formControlName="aplFatNam"
+              />
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-outline">
+              <label class="form-label"
+                >Mother's Name<span class="req">*</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                formControlName="aplMotNam"
+              />
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-outline">
+              <label class="form-label"
+                >Local guardian's Name<span class="req">*</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                formControlName="aplLclGuardNam"
+              />
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-outline">
+              <label class="form-label"
+                >Local guardian's Mobile<span class="req">*</span></label
+              >
+              <input type="number"
+                class="form-control"
+                formControlName="aplLocGuardPhnNum"/>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-outline">
+              <label class="form-label"
+                >Local guardian's address<span class="req">*</span></label
+              >
+              <!-- <input type="text" class="form-control" formControlName="aplLclGuardAdd"/> -->
+              <textarea
+                class="form-control"
+                rows="4"
+                formControlName="aplLclGuardAdd"
+              ></textarea>
+            </div>
+          </div>
+          <div class="col-md-9"></div>
+        </div>
+        <br />
+        <h6>Address details</h6>
+        <hr />
+        <h6 class="small-h6">Permanent Address</h6>
+        <div class="row">
+          <div class="col-md-2">
+            <div class="form-outline">
+              <label for="perState" class="form-label"
+                >State<span class="req">*</span></label
+              >
+              <select
+                id="perState"
+                name="perState"
+                #stateAd
+                (change)="getPerDistrictFromState(stateAd.value)"
+                class="form-control"
+                formControlName="aplPerSta"
+              >
+                <!-- <option value="Assam">Assam</option> -->
+                <option value="" disabled selected hidden>
+                  --Select state--
+                </option>
+                <option
+                  *ngFor="let state of stateList"
+                  value="{{ state.state }}"
+                >
+                  {{ state.state }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-outline">
+              <label for="aplPerDist" class="form-label"
+                >District<span class="req">*</span></label
+              >
+              <select
+                id="aplPerDist"
+                name="aplPerDist"
+                class="form-control"
+                formControlName="aplPerDist"
+              >
+                <option value="" disabled selected hidden>
+                  --Select district--
+                </option>
+                <option
+                  *ngFor="let district of districts"
+                  value="{{ district }}"
+                >
+                  {{ district }}
+                </option>
+                <!-- <option value="Jorhat">Jorhat</option>
+                <option value="other">other</option> -->
+              </select>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-outline">
+              <label class="form-label">Police Station</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="aplPerAddPs"
+              />
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-outline">
+              <label class="form-label"
+                >Guardian Mobile No<span class="req">*</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                formControlName="aplPerGuardPhnNum"
+              />
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-outline">
+              <label class="form-label">Locality</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="aplPerAddLoc"
+              />
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-outline">
+              <label class="form-label"
+                >Pin Code<span class="req">*</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                formControlName="aplPerPin"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-outline">
+              <label class="form-label"
+                >Address<span class="req">*</span></label
+              >
+              <textarea
+                class="form-control"
+                rows="2"
+                formControlName="aplPerAdd"
+              ></textarea>
+            </div>
+          </div>
+          <div class="col-md-8"></div>
+        </div>
+        <br />
+        <h6 class="small-h6">Correspondance Address</h6>
+        <div class="form-check-outline">
+          <label class="form-check-label small-h6">
+            <input
+              type="checkbox"
+              (click)="fillCorrespondanceAdd()"
+              formControlName="aplyIsCorAdd"
+              class="form-check-input"
+              value=""
+            />
+            Same as Permanent Address
+          </label>
+        </div>
+        <div class="row">
+          <div class="row">
+            <div class="col-md-2">
+              <div class="form-outline">
+                <label for="corState" class="form-label"
+                  >State<span class="req">*</span></label
+                >
+                <select
+                  id="corState"
+                  name="corStateC"
+                  #stateAdC
+                  (change)="getPerDistrictFromState(stateAdC.value)"
+                  class="form-control"
+                  formControlName="aplCorSta"
+                >
+                  <option value="" disabled selected hidden>
+                    --Select state--
+                  </option>
+                  <option
+                    *ngFor="let state of stateList"
+                    value="{{ state.state }}"
+                  >
+                    {{ state.state }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-outline">
+                <label for="aplCorDist" class="form-label"
+                  >District<span class="req">*</span></label
+                >
+                <select
+                  id="aplCorDist"
+                  name="aplCorDist"
+                  class="form-control"
+                  formControlName="aplCorDist"
+                >
+                  <option value="" disabled selected hidden>
+                    --Select district--
+                  </option>
+                  <option
+                    *ngFor="let district of districts"
+                    value="{{ district }}"
+                  >
+                    {{ district }}
+                  </option>
+                  <!-- <option value="other">other</option>  -->
+                </select>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-outline">
+                <label class="form-label">Police Station</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="aplCorAddPs"
+                />
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-outline">
+                <label class="form-label"
+                  >Guardian Mobile No<span class="req">*</span></label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="aplCorGuardPhnNum"
+                />
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-outline">
+                <label class="form-label">Locality</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="aplCorAddLoc"
+                />
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-outline">
+                <label class="form-label"
+                  >Pin Code<span class="req">*</span></label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="aplCorPin"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-outline">
+                <label class="form-label"
+                  >Address<span class="req">*</span></label
+                >
+                <textarea
+                  class="form-control"
+                  rows="2"
+                  formControlName="aplCorAdd"
+                ></textarea>
+              </div>
+            </div>
+            <div class="col-md-8"></div>
+          </div>
+        </div>
+        <br />
+        <h6>Bank Account details</h6>
+        <hr />
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-outline">
+              <label class="form-label">Account Holder Name</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="aplBnkHldrNm"
+              />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-outline">
+              <label class="form-label">Account Number</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="aplBnkAcNum"
+              />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-outline">
+              <label class="form-label">Confirm Account Number</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="aplBnkCnfAcNum"
+              />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-outline">
+              <label class="form-label">IFSC code</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="aplBnkIfsc"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-outline">
+              <label class="form-label">Bank Name</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="aplBnkNam"
+              />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-outline">
+              <label class="form-label">Branch Name</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="aplBnkBrnch"
+              />
+            </div>
+          </div>
+          <div class="col-md-6"></div>
+        </div>
+        <br />
+        <h6>Application details</h6>
+        <hr />
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-outline">
+              <label for="aplCourse" class="form-label"
+                >Select Course<span class="req">*</span></label
+              >
+              <select
+                id="aplCourse"
+                #appliedCourse
+                (change)="getSubjectsByCourse(appliedCourse.value)"
+                name="aplCourse"
+                class="form-control"
+                formControlName="aplCourse"
+              >
+                <option value="" disabled selected hidden>Select course</option>
+                <option
+                  *ngFor="let course of courses"
+                  value="{{ course.courseName }}"
+                >
+                  {{ course.courseName }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-outline">
+              <label for="aplAdmTyp" class="form-label"
+                >Admission Type<span class="req">*</span></label
+              >
+              <select
+                id="aplAdmTyp"
+                (change)="checkForAdmissionType()"
+                name="aplAdmTyp"
+                class="form-control"
+                formControlName="aplAdmTyp"
+              >
+                <option value="" disabled selected hidden>Select type</option>
+                <option value="Paid">Paid</option>
+                <option value="Free">Free</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-outline">
+              <label for="aplHstl" class="form-label"
+                >Applying for Hostel<span class="req">*</span></label
+              >
+              <select
+                id="aplHstl"
+                name="aplHstl"
+                class="form-control"
+                formControlName="aplHstl"
+              >
+                <option value="" disabled selected hidden>Select</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-outline">
+              <label for="aplHstl" class="form-label"
+                >Category<span class="req">*</span></label
+              >
+              <input
+                type="text"
+                readonly
+                class="form-control"
+                formControlName="aplCaste"
+              />
+            </div>
+          </div>
+        </div>
+        <!--application detais of student who is applied for HS for Graduation-->
+        <div *ngIf="regFormGroup.controls['applStream'].value != 'Masters'">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-outline">
+                <label for="aplCmpSub" class="form-label"
+                  >Compulsory subject<span class="req">*</span></label
+                >
+                <select
+                  id="aplCmpSub"
+                  name="aplCmpSub"
+                  class="form-control"
+                  formControlName="aplCmpSub"
+                >
+                  <option value="" disabled selected hidden>
+                    Select subject
+                  </option>
+                  <option
+                    *ngFor="let compSub of compulsorySubList"
+                    value="compSub.subjectName"
+                  >
+                    {{ compSub.subjectName }}
+                  </option>
+                  <!-- <option value="Sub-2">Sub-2</option> -->
+                </select>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-outline">
+                <label for="aplMilSub" class="form-label"
+                  >MIL subject<span class="req">*</span></label
+                >
+                <select
+                  id="aplMilSub"
+                  name="aplMilSub"
+                  class="form-control"
+                  formControlName="aplMilSub"
+                >
+                  <option value="" disabled selected hidden>
+                    Select subject
+                  </option>
+                  <option *ngFor="let mil of milList" value="mil.subjectName">
+                    {{ mil.subjectName }}
+                  </option>
+                  <!-- <option value="MIL-2">MIL-2</option> -->
+                </select>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-outline">
+                <label
+                  for="aplElecSub1"
+                  *ngIf="
+                    regFormGroup.controls['applStream'].value === 'HS' ||
+                    regFormGroup.controls['applStream'].value === ''
+                  "
+                  class="form-label"
+                  >Elective subject-1<span class="req">*</span></label
+                >
+                <label
+                  for="aplElecSub1"
+                  *ngIf="
+                    regFormGroup.controls['applStream'].value === 'Graduation'
+                  "
+                  class="form-label"
+                  >Major Honours Choice-1<span class="req">*</span></label
+                >
+                <select
+                  id="aplElecSub1"
+                  name="aplElecSub1"
+                  class="form-control"
+                  formControlName="aplElecSub1"
+                >
+                  <option value="" disabled selected hidden>
+                    Select subject
+                  </option>
+                  <option
+                    *ngFor="let honor of honorList"
+                    value="honor.subjectName"
+                  >
+                    {{ honor.subjectName }}
+                  </option>
+                  <!-- <option value="EL-12">EL-12</option> -->
+                </select>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-outline">
+                <label
+                  for="aplElecSub2"
+                  *ngIf="
+                    regFormGroup.controls['applStream'].value === 'HS' ||
+                    regFormGroup.controls['applStream'].value === ''
+                  "
+                  class="form-label"
+                  >Elective subject-2<span class="req">*</span></label
+                >
+                <label
+                  for="aplElecSub2"
+                  *ngIf="
+                    regFormGroup.controls['applStream'].value === 'Graduation'
+                  "
+                  class="form-label"
+                  >Major Honours Choice-2<span class="req">*</span></label
+                >
+                <select
+                  id="aplElecSub2"
+                  name="aplElecSub2"
+                  class="form-control"
+                  formControlName="aplElecSub2"
+                >
+                  <option value="" disabled selected hidden>
+                    Select subject
+                  </option>
+                  <option
+                    *ngFor="let honor of honorList"
+                    value="honor.subjectName"
+                  >
+                    {{ honor.subjectName }}
+                  </option>
+                  <!-- <option value="EL-22">EL-22</option> -->
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-outline">
+                <label
+                  for="aplElecSub3"
+                  *ngIf="
+                    regFormGroup.controls['applStream'].value === 'HS' ||
+                    regFormGroup.controls['applStream'].value === ''
+                  "
+                  class="form-label"
+                  >Elective subject-3<span class="req">*</span></label
+                >
+                <label
+                  for="aplElecSub3"
+                  *ngIf="
+                    regFormGroup.controls['applStream'].value === 'Graduation'
+                  "
+                  class="form-label"
+                  >Major Honours Choice-3<span class="req">*</span></label
+                >
+                <select
+                  id="aplElecSub3"
+                  name="aplElecSub3"
+                  class="form-control"
+                  formControlName="aplElecSub3"
+                >
+                  <option value="" disabled selected hidden>
+                    Select subject
+                  </option>
+                  <option
+                    *ngFor="let honor of honorList"
+                    value="honor.subjectName"
+                  >
+                    {{ honor.subjectName }}
+                  </option>
+                  <!-- <option value="EL-32">EL-32</option> -->
+                </select>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-outline">
+                <label
+                  for="aplElecSub4"
+                  *ngIf="
+                    regFormGroup.controls['applStream'].value === 'HS' ||
+                    regFormGroup.controls['applStream'].value === ''
+                  "
+                  class="form-label"
+                  >Elective subject-4<span class="req">*</span></label
+                >
+                <label
+                  for="aplElecSub4"
+                  *ngIf="
+                    regFormGroup.controls['applStream'].value === 'Graduation'
+                  "
+                  class="form-label"
+                  >Elective/Generic Elective<span class="req">*</span></label
+                >
+                <select
+                  id="aplElecSub4"
+                  name="aplElecSub4"
+                  class="form-control"
+                  formControlName="aplElecSub4"
+                >
+                  <option value="" disabled selected hidden>
+                    Select subject
+                  </option>
+                  <option
+                    *ngFor="let elec of electiveList"
+                    value="elec.subjectName"
+                  >
+                    {{ elec.subjectName }}
+                  </option>
+                  <!-- <option value="EL-42">EL-42</option> -->
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6"></div>
+          </div>
+        </div>
+
+        <br />
+        <h6 class="small-h6">Last Academic Qualification Details</h6>
+        <!-- <div id="forHS"> -->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-outline">
+              <label class="form-label"
+                >Name of School/College/University/Institute
+                <span class="req">*</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                formControlName="aplLastCol"
+              />
+            </div>
+          </div>
+
+          <div
+            class="col-md-6"
+            *ngIf="regFormGroup.controls['applStream'].value === 'Graduation'"
+          >
+            <div class="form-outline">
+              <label class="form-label"
+                >12th Registration No <span class="req">*</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                formControlName="apl12thRegNum"
+              />
+            </div>
+          </div>
+
+          <div
+            class="col-md-3"
+            *ngIf="regFormGroup.controls['applStream'].value === 'Masters'"
+          >
+            <div class="form-outline">
+              <label class="form-label"
+                >Course Name <span class="req">*</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                formControlName="aplGradCourseTaken"
+              />
+            </div>
+          </div>
+          <div
+            class="col-md-3"
+            *ngIf="regFormGroup.controls['applStream'].value === 'Masters'"
+          >
+            <div class="form-outline">
+              <label class="form-label"
+                >CGPA/PC obtained in the Last Exam
+                <span class="req">*</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                formControlName="aplGradExmPcObt"
+              />
+            </div>
+          </div>
+        </div>
+        <br />
+        <div
+          class="row"
+          *ngIf="regFormGroup.controls['applStream'].value != 'Masters'"
+        >
+          <div id="table">
+            <table class="table table-responsive-md text-center">
+              <thead>
+                <tr>
+                  <th class="text-center small-h6">Subject</th>
+                  <th class="text-center small-h6">Marks</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="pt-3-half">
+                    <div class="form-outline">
+                      <input
+                        type="text"
+                        readonly
+                        class="form-control"
+                        value="English"
+                        (change)="getPercantage()"
+                      />
+                    </div>
+                  </td>
+                  <td class="pt-3-half">
+                    <div class="form-outline">
+                      <input
+                        type="number"
+                        placeholder="Enter Marks"
+                        class="form-control"
+                        formControlName="aplLastEngMrk"
+                        (change)="getPercantage()"
+                      />
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="pt-3-half">
+                    <div class="form-outline">
+                      <select
+                        id="MIL"
+                        name="MIL"
+                        class="form-control"
+                        formControlName="aplLastMilSub"
+                      >
+                        <option value="" disabled selected hidden>
+                          Select your MIL
+                        </option>
+                        <option value="MIL1">MIL1</option>
+                        <option value="MIL2">MIL2</option>
+                      </select>
+                    </div>
+                  </td>
+                  <td class="pt-3-half">
+                    <div class="form-outline">
+                      <input
+                        type="number"
+                        placeholder="Enter Marks"
+                        class="form-control"
+                        formControlName="aplLastMilMrk"
+                      />
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="pt-3-half">
+                    <div class="form-outline">
+                      <input
+                        type="text"
+                        placeholder="Name of {{ subjectPlaaceHolderText }} 1"
+                        class="form-control"
+                        formControlName="aplLastElecSub1"
+                      />
+                    </div>
+                  </td>
+                  <td class="pt-3-half">
+                    <div class="form-outline">
+                      <input
+                        type="number"
+                        placeholder="Enter Marks"
+                        class="form-control"
+                        formControlName="aplLastElec1Mrk"
+                        (change)="getPercantage()"
+                      />
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="pt-3-half">
+                    <div class="form-outline">
+                      <input
+                        type="text"
+                        placeholder="Name of {{ subjectPlaaceHolderText }} 2"
+                        class="form-control"
+                        formControlName="aplLastElecSub2"
+                      />
+                    </div>
+                  </td>
+                  <td class="pt-3-half">
+                    <div class="form-outline">
+                      <input
+                        type="number"
+                        placeholder="Enter Marks"
+                        class="form-control"
+                        formControlName="aplLastElec2Mrk"
+                        (change)="getPercantage()"
+                      />
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="pt-3-half">
+                    <div class="form-outline">
+                      <input
+                        type="text"
+                        placeholder="Name of {{ subjectPlaaceHolderText }} 3"
+                        class="form-control"
+                        formControlName="aplLastElecSub3"
+                      />
+                    </div>
+                  </td>
+                  <td class="pt-3-half">
+                    <div class="form-outline">
+                      <input
+                        type="number"
+                        placeholder="Enter Marks"
+                        class="form-control"
+                        formControlName="aplLastElec3Mrk"
+                        (change)="getPercantage()"
+                      />
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="pt-3-half">
+                    <div class="form-outline">
+                      <input
+                        type="text"
+                        placeholder="Name of {{ subjectPlaaceHolderText }} 4"
+                        class="form-control"
+                        formControlName="aplLastElecSub4"
+                      />
+                    </div>
+                  </td>
+                  <td class="pt-3-half">
+                    <div class="form-outline">
+                      <input
+                        type="number"
+                        placeholder="Enter Marks"
+                        class="form-control"
+                        formControlName="aplLastElec4Mrk"
+                        (change)="getPercantage()"
+                      />
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="pt-3-half">Total obtained %</td>
+                  <td class="pt-3-half">
+                    <div class="form-outline">
+                      <input
+                        type="text"
+                        readonly
+                        class="form-control"
+                        formControlName="aplLstExmPcObt"
+                      />
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br />
+        <h6>Others</h6>
+        <hr />
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-outline">
+              <label class="form-label"
+                >Extra Curricular Activities<span class="req">*</span></label
+              >
+              <textarea
+                class="form-control"
+                rows="3"
+                formControlName="aplExtraCur"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      </form>
+      <br />
+      <h6>Education Qualification</h6>
+      <hr />
+      <div class="container">
+        <!-- <h3>Education Qualification</h3> -->
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr class="small-h6">
+                <th>Qualification</th>
+                <th>Board/University</th>
+                <th>Roll No</th>
+                <th>Percentage/CGPA</th>
+                <th>Position</th>
+                <th>Pasing Year</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let education of studentEducations; let i = index">
+                <td>
+                  <input
+                    type="text"
+                    class="form-control input-no-border"
+                    [(ngModel)]="education.courseName"
+                    readonly
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="education.board"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="education.roll"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="education.percentage"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="education.position"
+                  />
+                </td>
+                <td>
+                  <select
+                    id="aplCorDist"
+                    name="aplCorDist"
+                    class="form-control"
+                    [(ngModel)]="education.passYear"
+                  >
+                    <option value="" disabled selected hidden>
+                      --Select year--
+                    </option>
+                    <option *ngFor="let year of years" value="{{ year }}">
+                      {{ year }}
+                    </option>
+                  </select>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <div>
+        <button mat-button *ngIf="isNewRegistration" (click)="formValidate()">Save</button>
+        <button mat-button *ngIf="!isNewRegistration" (click)="formValidate()">Update</button>
+        <button mat-button matStepperNext >Next</button>
+      </div>
+      <!-- </form> -->
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+      <!-- <form [formGroup]="secondFormGroup"> -->
+      <ng-template matStepLabel>Upload Scanned Documents</ng-template>
+      <br />
+      <h6>Upload all your documents</h6>
+      <hr />
+      <div class="row container-elem" id="uploadProfilePhoto">
+        <div class="col-md-5">
+          <div class="form-outline">
+            <label for="profilephoto" class="form-label"
+              >Student Profile Photo (.jpeg/.jpg/.png)</label
+            >
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-outline">
+            <input
+              type="file"
+              name="image"
+              id="profile"
+              class="form-control"
+              (change)="loadImage($event)"
+            />
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-outline" *ngIf="fileUrls.profile != null">
+            <img [src]="fileUrls.profile" class="uplodImage" alt="No image" />
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-outline">
+            <span *ngIf="fileUrls.profile != null" class="badge text-bg-success"
+              >Success</span
+            >
+            <span *ngIf="fileUrls.profile == null" class="badge text-bg-warning"
+              >Pending</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="row container-elem" id="uploadSignature">
+        <div class="col-md-5">
+          <div class="form-outline">
+            <label for="profilephoto" class="form-label"
+              >Student Signature (.jpeg/.jpg/.png)</label
+            >
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-outline">
+            <input
+              type="file"
+              name="image"
+              id="signature"
+              class="form-control"
+              (change)="loadImage($event)"
+            />
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-outline" *ngIf="fileUrls.signature != null">
+            <img [src]="fileUrls.signature" class="uplodImage" alt="No image" />
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-outline">
+            <span
+              *ngIf="fileUrls.signature != null"
+              class="badge text-bg-success"
+              >Success</span
+            >
+            <span
+              *ngIf="fileUrls.signature == null"
+              class="badge text-bg-warning"
+              >Pending</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="row container-elem" id="uploadEdQualification">
+        <div class="col-md-5">
+          <div class="form-outline">
+            <label for="profilephoto" class="form-label"
+              >Education Qualification Certificates (.pdf)</label
+            >
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-outline">
+            <input
+              type="file"
+              name="image"
+              id="education"
+              class="form-control"
+              (change)="loadImage($event)"
+            />
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-outline" *ngIf="fileUrls.education != null">
+            <pdf-viewer
+              [src]="fileUrls.education"
+              [rotation]="0"
+              [original-size]="false"
+              [show-all]="true"
+              [fit-to-page]="false"
+              [zoom]="1"
+              [zoom-scale]="'page-width'"
+              [stick-to-page]="false"
+              [render-text]="true"
+              [external-link-target]="'blank'"
+              [autoresize]="true"
+              [show-borders]="false"
+              style="width: 100px; height: 100px; border: solid"
+            ></pdf-viewer>
+            <!-- <img [src]="fileUrls.education"  class="uplodImage"  alt="No image"> -->
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-outline">
+            <span
+              *ngIf="fileUrls.education != null"
+              class="badge text-bg-success"
+              >Success</span
+            >
+            <span
+              *ngIf="fileUrls.education == null"
+              class="badge text-bg-warning"
+              >Pending</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="row container-elem" id="uploadBankdoc">
+        <div class="col-md-5">
+          <div class="form-outline">
+            <label for="profilephoto" class="form-label"
+              >Active Bank Passbook (front page with photo and account no)
+              (.jpeg/.jpg/.png)</label
+            >
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-outline">
+            <input
+              type="file"
+              name="image"
+              id="bank"
+              class="form-control"
+              (change)="loadImage($event)"
+            />
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-outline" *ngIf="fileUrls.bank != null">
+            <img [src]="fileUrls.bank" class="uplodImage" alt="No image" />
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-outline">
+            <span *ngIf="fileUrls.bank != null" class="badge text-bg-success"
+              >Success</span
+            >
+            <span *ngIf="fileUrls.bank == null" class="badge text-bg-warning"
+              >Pending</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="row container-elem"
+        id="uploadIncomedoc"
+        *ngIf="regFormGroup.controls['aplAdmTyp'].value === 'Free'"
+      >
+        <div class="col-md-5">
+          <div class="form-outline">
+            <label for="profilephoto" class="form-label"
+              >Income Certificate (.jpeg/.jpg/.png)</label
+            >
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-outline">
+            <input
+              type="file"
+              name="image"
+              id="income"
+              class="form-control"
+              (change)="loadImage($event)"
+            />
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-outline" *ngIf="fileUrls.income != null">
+            <img [src]="fileUrls.income" class="uplodImage" alt="No image" />
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-outline">
+            <span *ngIf="fileUrls.income != null" class="badge text-bg-success"
+              >Success</span
+            >
+            <span *ngIf="fileUrls.income == null" class="badge text-bg-warning"
+              >Pending</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="row container-elem"
+        id="uploadCastedoc"
+        *ngIf="
+          regFormGroup.controls['stdCaste'].value != 'General' &&
+          regFormGroup.controls['stdCaste'].value != ''
+        "
+      >
+        <div class="col-md-5">
+          <div class="form-outline">
+            <label for="profilephoto" class="form-label"
+              >Caste Certificate (.jpeg/.jpg/.png)</label
+            >
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-outline">
+            <input
+              type="file"
+              name="image"
+              id="caste"
+              class="form-control"
+              (change)="loadImage($event)"
+            />
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-outline" *ngIf="fileUrls.caste != null">
+            <img [src]="fileUrls.caste" class="uplodImage" alt="No image" />
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-outline">
+            <span *ngIf="fileUrls.caste != null" class="badge text-bg-success"
+              >Success</span
+            >
+            <span *ngIf="fileUrls.caste == null" class="badge text-bg-warning"
+              >Pending</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="row container-elem"
+        id="uploadDisabdoc"
+        *ngIf="regFormGroup.controls['stdDisability'].value === 'Yes'"
+      >
+        <div class="col-md-5">
+          <div class="form-outline">
+            <label for="profilephoto" class="form-label"
+              >Student Disability Certificate (.jpeg/.jpg/.png)</label
+            >
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-outline">
+            <input
+              type="file"
+              name="image"
+              id="disability"
+              class="form-control"
+              (change)="loadImage($event)"
+            />
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-outline" *ngIf="fileUrls.disability != null">
+            <img
+              [src]="fileUrls.disability"
+              class="uplodImage"
+              alt="No image"
+            />
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-outline">
+            <span
+              *ngIf="fileUrls.disability != null"
+              class="badge text-bg-success"
+              >Success</span
+            >
+            <span
+              *ngIf="fileUrls.disability == null"
+              class="badge text-bg-warning"
+              >Pending</span
+            >
+          </div>
+        </div>
+      </div>
+      <!-- <mat-form-field>
+          <input
+            matInput
+            placeholder="Address"
+            formControlName="secondCtrl"
+            required
+          />
+        </mat-form-field> -->
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>
+          Next
+        </button>
+        <!-- <button mat-button matStepperNext (click)="getRegistrationDetails()">
+          Next
+        </button> -->
+      </div>
+      <!-- </form> -->
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel icon
+        >Print/Download Application Form</ng-template
+      >
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th colspan="2">Lakhimpur Girls College</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="2">
+              Application No:&nbsp;{{
+                regFormGroup.value.registrationId
+              }}
+              &nbsp; Registration Number:&nbsp;{{
+                regFormGroup.value.registrationId
+              }}, &nbsp; Marks/CGPA Secured: 500/600,&nbsp; Percentage(%): 85
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <table class="table table-bordered printTabel">
+                <thead>
+                  <tr>
+                    <th style="width: 150px">Course applied :</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Course:</td>
+                    <td>{{ regFormGroup.value.aplCourse }}</td>
+                  </tr>
+                  <tr>
+                    <!-- <td>Student Name: </td>
+                    <td>{{regFormGroup.value.fName}}&nbsp;{{regFormGroup.value.mName}}&nbsp;{{regFormGroup.value.lName}}</td> -->
+                    <td>Admission Type:</td>
+                    <td>{{ regFormGroup.value.aplAdmTyp }}</td>
+                  </tr>
+                  <tr>
+                    <!-- <td>Gender: </td>
+                    <td>{{regFormGroup.value.gender}}</td> -->
+                    <td>Applying for Hostel:</td>
+                    <td>{{ regFormGroup.value.aplHstl }}</td>
+                  </tr>
+                  <tr>
+                    <td>Category:</td>
+                    <td>{{ regFormGroup.value.stdCaste }}</td>
+                    <!-- <td>Subjects: </td>
+                    <td>..................</td> -->
+                  </tr>
+                  <tr>
+                    <td>Subjects:</td>
+                    <td>
+                      {{ regFormGroup.value.aplCmpSub }},&nbsp;{{
+                        regFormGroup.value.aplMilSub
+                      }},&nbsp;{{ regFormGroup.value.aplElecSub1 }},&nbsp;{{
+                        regFormGroup.value.aplElecSub2
+                      }},&nbsp;{{ regFormGroup.value.aplElecSub3 }},&nbsp;{{
+                        regFormGroup.value.aplElecSub4
+                      }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td style="text-align: center; width: 100px">
+              <div class="form-outline" *ngIf="fileUrls.profile != null">
+                <img
+                  [src]="fileUrls.profile"
+                  style="width: 100px; height: 150px"
+                  alt="No image"
+                />
+              </div>
+              <div class="form-outline" *ngIf="fileUrls.signature != null">
+                <img
+                  [src]="fileUrls.signature"
+                  style="width: 100px; height: 50px"
+                  alt="No image"
+                />
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">Personal Details</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <table class="table table-bordered printTabel">
+                <tbody>
+                  <tr>
+                    <td>Candidate Name:</td>
+                    <td>
+                      {{ regFormGroup.value.fName }}&nbsp;{{
+                        regFormGroup.value.mName
+                      }}&nbsp;{{ regFormGroup.value.lName }}
+                    </td>
+                    <td>DOB:</td>
+                    <td>{{ regFormGroup.value.dBirth }}</td>
+                  </tr>
+                  <tr>
+                    <td>Nationality:</td>
+                    <td>{{ regFormGroup.value.stdNatlty }}</td>
+                    <td>Gender:</td>
+                    <td>{{ regFormGroup.value.gender }}</td>
+                  </tr>
+                  <tr>
+                    <td>Blood Group:</td>
+                    <td>{{ regFormGroup.value.bGroup }}</td>
+                    <td>Religion:</td>
+                    <td>{{ regFormGroup.value.religion }}</td>
+                  </tr>
+                  <tr>
+                    <td>Phone No:</td>
+                    <td>{{ regFormGroup.value.stdPhnNumber }}</td>
+                    <td>Email:</td>
+                    <td>{{ regFormGroup.value.stdEmail }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">Parent/Guardian Details</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <table class="table table-bordered printTabel">
+                <tbody>
+                  <tr>
+                    <td>Father's Name:</td>
+                    <td>{{ regFormGroup.value.aplFatNam }}</td>
+                    <td>Mother's Name:</td>
+                    <td>{{ regFormGroup.value.aplMotNam }}</td>
+                  </tr>
+                  <tr>
+                    <td>Guardian Name:</td>
+                    <td>{{ regFormGroup.value.aplGuardNm }}</td>
+                    <td>Local Guardian's Name:</td>
+                    <td>{{ regFormGroup.value.aplLclGuardNam }}</td>
+                  </tr>
+                  <tr>
+                    <td>Guardian's Phone No:</td>
+                    <td>{{ regFormGroup.value.aplGuardPhn }}</td>
+                    <td>Guardian's Occupation:</td>
+                    <td>{{ regFormGroup.value.aplGuardOcp }}</td>
+                  </tr>
+                  <tr>
+                    <td>Guardian's annual Income:</td>
+                    <td>{{ regFormGroup.value.aplGuardInc }}</td>
+                    <td>Local Guardian's Address:</td>
+                    <td>{{ regFormGroup.value.aplLclGuardAdd }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">Permanent Address Details</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <table class="table table-bordered printTabel">
+                <tbody>
+                  <tr>
+                    <td>Address:</td>
+                    <td>{{ regFormGroup.value.aplPerAdd }}</td>
+                    <td>Pincode:</td>
+                    <td>{{ regFormGroup.value.aplPerPin }}</td>
+                  </tr>
+                  <tr>
+                    <td>District:</td>
+                    <td>{{ regFormGroup.value.aplPerDist }}</td>
+                    <td>State:</td>
+                    <td>{{ regFormGroup.value.aplPerSta }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">Correspondance Address Details</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <table class="table table-bordered printTabel">
+                <tbody>
+                  <tr>
+                    <td>Address:</td>
+                    <td>{{ regFormGroup.value.aplCorAdd }}</td>
+                    <td>Pincode:</td>
+                    <td>{{ regFormGroup.value.aplCorPin }}</td>
+                  </tr>
+                  <tr>
+                    <td>District:</td>
+                    <td>{{ regFormGroup.value.aplCorDist }}</td>
+                    <td>State:</td>
+                    <td>{{ regFormGroup.value.aplCorSta }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">Academic Qualification</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <table class="table table-bordered printTabel">
+                <thead>
+                  <tr>
+                    <th>Qualification</th>
+                    <th>Board/University</th>
+                    <th>Roll No</th>
+                    <th>Percentage/CGPA</th>
+                    <th>Position</th>
+                    <th>Pasing Year</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- <tr *ngFor="let exam of studentEducationQualification"> -->
+                  <tr *ngFor="let exam of studentEducations">
+                    <td>{{ exam.courseName }}</td>
+                    <td>{{ exam.board }}</td>
+                    <td>{{ exam.roll }}</td>
+                    <td>{{ exam.percentage }}</td>
+                    <td>{{ exam.position }}</td>
+                    <td>{{ exam.passYear }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">Last Exam Marks</td>
+          </tr>
+          <tr *ngIf="regFormGroup.controls['applStream'].value != 'Masters'">
+            <td colspan="2">
+              <table class="table table-bordered printTabel">
+                <thead>
+                  <tr>
+                    <td>ENGLISH</td>
+                    <td>{{ regFormGroup.value.aplLastMilSub | uppercase}}</td>
+                    <td>{{ regFormGroup.value.aplLastElecSub1 | uppercase }}</td>
+                    <td>{{ regFormGroup.value.aplLastElecSub2 | uppercase }}</td>
+                    <td>{{ regFormGroup.value.aplLastElecSub3 | uppercase }}</td>
+                    <td>{{ regFormGroup.value.aplLastElecSub4 | uppercase }}</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{ regFormGroup.value.aplLastEngMrk }}</td>
+                    <td>{{ regFormGroup.value.aplLastMilMrk }}</td>
+                    <td>{{ regFormGroup.value.aplLastElec1Mrk }}</td>
+                    <td>{{ regFormGroup.value.aplLastElec2Mrk }}</td>
+                    <td>{{ regFormGroup.value.aplLastElec3Mrk }}</td>
+                    <td>{{ regFormGroup.value.aplLastElec4Mrk }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+          <tr *ngIf="regFormGroup.controls['applStream'].value == 'Masters'">
+            <td colspan="2">
+              Course:&nbsp;{{ regFormGroup.value.aplGradCourseTaken}}&nbsp;&nbsp;Percentage:&nbsp;{{regFormGroup.value.aplGradExmPcObt}}
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">Documents Uploaded</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <span *ngFor="let doc of uploadedDocsInPrint" style="font-size: small;">
+                {{doc}},&nbsp;
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="declaration">
+                <p>I hereby declare that the details furnished above are true and commit to the best of my knowledge and belief.</p>
+              </div>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</mat-card>
+
+<!-- <div class="card">
+    <div class="card-header">
+      Featured
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Special title treatment</h5>
+      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+  </div> -->
+
+<!--vertical form-->
+<!-- <mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title>Test: Title for the application form</mat-card-title>
+      <mat-card-subtitle> Sub-title: Any subtitle to display</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-vertical-stepper [linear]="isLinear"  #linearVerticalStepper="matVerticalStepper">
+            <mat-step [stepControl]="firstFormGroup">
+              <form [formGroup]="firstFormGroup">
+                <ng-template matStepLabel>Application Form</ng-template>
+                <mat-form-field>
+                    <mat-label>Last name</mat-label>
+                  <input matInput placeholder="First name" formControlName="fName" required>
+                  <mat-error>This field is required</mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Last name</mat-label>
+                    <input matInput formControlName="lName" required>
+                    <mat-error>This field is required</mat-error>
+                  </mat-form-field>
+
+                <div>
+                  <button mat-button mat-raised-button color="primary" matStepperNext>Next</button>
+                </div>
+              </form>
+            </mat-step>
+            <mat-step [stepControl]="secondFormGroup">
+              <form [formGroup]="secondFormGroup">
+                <ng-template matStepLabel>Upload Scanned Documents</ng-template>
+                <mat-form-field>
+                  <input matInput placeholder="Address" formControlName="secondCtrl" required>
+                </mat-form-field>
+                <div>
+                  <button mat-button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                  <button mat-button mat-raised-button color="primary" matStepperNext>Next</button>
+                </div>
+              </form>
+            </mat-step>
+            <mat-step>
+              <ng-template matStepLabel icon>Print/Dowload Application Form</ng-template>
+              You are now done.
+              <div>
+                <button mat-button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                <button mat-button>Done</button>
+                <button type="button" mat-button (click)="linearVerticalStepper.reset()">Reset</button>
+              </div>
+            </mat-step>
+          </mat-vertical-stepper>
+    </mat-card-content>
+  </mat-card> -->

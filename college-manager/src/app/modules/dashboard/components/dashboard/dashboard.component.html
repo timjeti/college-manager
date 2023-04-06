@@ -1,0 +1,55 @@
+<!--header-->
+<mat-toolbar>
+    <button mat-icon-button *ngIf="!isExpanded" (click)="isExpanded = !isExpanded">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <button mat-icon-button *ngIf="isExpanded" (click)="isExpanded = !isExpanded">
+      <mat-icon>close</mat-icon>
+    </button>
+    <h1 class="fill-remaining-space" style="color: antiquewhite;" >{{ appTitle }}</h1>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>person</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" [overlapTrigger]="false">
+      <button mat-menu-item>
+        <mat-icon>people_outline</mat-icon>
+        <span>Jeevan</span>
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+</mat-toolbar>
+<!--sidebar-->
+<mat-sidenav-container class="example-container" autosize>
+  <mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true">
+    <mat-nav-list>
+      <mat-list-item class="menu-item" routerLink="./home">
+        <div class="row">
+          <div class="column">
+            <mat-icon mat-list-icon>home</mat-icon>
+          </div>
+          <div class="column" *ngIf="isExpanded || isShowing">
+            <span class="full-width">Home</span>
+          </div>
+        </div>
+      </mat-list-item>
+      <mat-list-item class="menu-item" routerLink="./course-register">
+        <div class="row">
+          <div class="column">
+            <mat-icon mat-list-icon>school</mat-icon>
+          </div>
+          <div class="column" *ngIf="isExpanded || isShowing">
+            <span class="full-width">Course Registration</span>
+          </div>
+        </div>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <!--main content area-->
+  <div class="example-sidenav-content">
+    <router-outlet> </router-outlet>
+  </div>
+</mat-sidenav-container>
+<!-- <router-outlet> </router-outlet> -->

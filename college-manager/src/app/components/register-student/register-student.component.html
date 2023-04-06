@@ -1,0 +1,43 @@
+<div class="signin-content">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title><fa-icon [icon]="faLock" class="fa-3x"></fa-icon></mat-card-title>
+            <mat-card-subtitle> 
+                Welcome to Admisssion Portal
+            </mat-card-subtitle>
+        </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="studentRegistrationForm" >
+          <p>Create your Student Account</p>
+          <div class="form-group">
+            <input type="text" class="form-control" matInput id="name" placeholder="Name"  formControlName="name" name="name" required>
+          </div>
+          <br/>
+          <div class="form-group">
+            <input type="text" class="form-control" matInput id="mobileNo" placeholder="Mobile No"  formControlName="mobileNo" name="mobileNo" required>
+          </div>
+          <br/>
+          <div class="form-group">
+            <input type="email" class="form-control" matInput id="email" placeholder="Email"  formControlName="email" name="email" required>
+          </div>
+          <br/>
+          <div class="form-group">
+            <input type="password" class="form-control" id="password" placeholder="Password" formControlName="password" name="password" required>
+          </div>
+          <br/>
+          <div class="form-group">
+            <input type="password" class="form-control" id="confirmpassword" placeholder="Confirm Password" formControlName="confirmpassword" name="confirmpassword" required>
+          </div>
+        </form>
+        <br/>
+        <!-- <button mat-raised-button color="primary" type="submit">Login</button> -->
+        <button mat-raised-button color="primary" (click)="register()">Register</button>
+      </mat-card-content>
+      <mat-card-actions>
+        <small><a routerLink="../forgot-password">Forgot Password</a></small>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <small><a routerLink="../login">Login</a></small>
+        <!-- <button type="submit" class="btn btn-primary">Sign in</button> -->
+      </mat-card-actions>
+    </mat-card>
+  </div>

@@ -1,0 +1,21 @@
+<!-- <mat-card>
+    <mat-card-header>
+        <mat-card-title>Information</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <p style="font-size:small"> Later you have to submit relevant documents </p>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="onNoClick()">Ok</button>
+      </mat-card-actions>
+</mat-card> -->
+
+<mat-dialog-content>
+	<p>
+		{{message}}
+	</p>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+	<button mat-raised-button color="primary" (click)="onConfirmClick()" tabindex="1">{{confirmButtonText}}</button>
+	<button *ngIf="cancelButtonText !== ''" mat-raised-button mat-dialog-close tabindex="-1">{{cancelButtonText}}</button>
+</mat-dialog-actions>

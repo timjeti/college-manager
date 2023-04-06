@@ -1,0 +1,36 @@
+<div class="signin-content">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title><fa-icon [icon]="faLock" class="fa-3x"></fa-icon></mat-card-title>
+            <mat-card-subtitle> 
+                Welcome to Admisssion Portal
+            </mat-card-subtitle>
+        </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <p>Please login to continue</p>
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Email address</label>
+            <input type="email" type="email" id="email" placeholder="Email"  formControlName="email"
+            name="email" required>
+          </div>
+          <mat-form-field class="full-width-input">
+            <input matInput type="email" id="email" placeholder="Email"  formControlName="email"
+                            name="email" required>
+                            <!-- <mat-error>
+                                Please eneter email
+                              </mat-error>  -->
+          </mat-form-field>
+          <mat-form-field class="full-width-input">
+            <input matInput type="password" id="password" placeholder="Password"
+                            formControlName="password" name="password" required>
+            <!--mat-error *ngIf="isFieldInvalid('userName')">
+              Please enter your password
+            </mat-error> -->
+          </mat-form-field>
+          <button mat-raised-button color="primary" type="submit">Login</button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+<!-- <p>login works!</p> -->

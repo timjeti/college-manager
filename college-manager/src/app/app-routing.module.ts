@@ -1,32 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RegistrationComponent} from './wrapper/contentarea/registration/registration.component'
-import { ApplicantdetailsComponent } from './wrapper/contentarea/applicant-review/applicantdetails/applicantdetails.component';
-import { RegistrationImageHandlerComponent } from './wrapper/contentarea/registration/registration-image-handler/registration-image-handler.component';
-import { ApplicantDocsComponent } from './wrapper/contentarea/applicant-review/applicant-docs/applicant-docs.component';
-import { CoursesComponent } from './wrapper/contentarea/academics/courses/courses.component';
-import { SubjectsComponent } from './wrapper/contentarea/academics/subjects/subjects.component';
-import { RegistrationviewComponent } from './wrapper/contentarea/registration/registrationview/registrationview.component';
-
-export const routingComponents = [
-  RegistrationComponent,
-  RegistrationImageHandlerComponent,
-  ApplicantdetailsComponent,
-  CoursesComponent,
-  SubjectsComponent,
-  RegistrationviewComponent
-]
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { LoginComponent } from './components/login/login.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { RegisterStudentComponent } from './components/register-student/register-student.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
-    { path: 'registration1', component: RegistrationComponent},
-    { path: 'registration2', component: RegistrationImageHandlerComponent},
-    { path: 'registeredList', component: ApplicantdetailsComponent },
-    { path: 'registeredList/docs', component: ApplicantDocsComponent },
-    { path: 'registeredList/courses', component: CoursesComponent },
-    { path: 'registeredList/subjects', component: SubjectsComponent },
-    { path: 'registeredList/view', component: RegistrationviewComponent }
+  {path: 'login', component: LoginComponent},
+  {path: 'forgot-password', component: ForgotPasswordComponent},
+  {path: 'student-registration', component: RegisterStudentComponent},
+  {path: '', redirectTo: '/login', pathMatch: 'full'},
+  {path: 'dashboard', canActivate: [AuthGuard], loadChildren: ()=>import('./modules/dashboard/dashboard.module').then((mod)=> mod.DashboardModule)},
+  {path: '**', component: NotFoundComponent},
 ];
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
