@@ -131,6 +131,9 @@ export class AuthService {
     console.log('from svc' + data);
     return this.http.post<any>(`${environment.apiUrl}/register`, data);
   }
+  updateRegistrationDetails(data : any){
+    return this.http.put<any>(`${environment.apiUrl}/register`, data);
+  }
 
   handleResponse(res: HttpResponse<any>) {
     console.log(JSON.stringify(res));

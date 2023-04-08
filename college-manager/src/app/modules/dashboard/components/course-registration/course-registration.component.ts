@@ -30,6 +30,7 @@ export class CourseRegistrationComponent {
 
   studentEducationQualification: any = [];
   registrationModel: any;
+  filteredEducations : Education[]=[];
   studentEducations: Education[] = [
     {
       courseName: 'Metriculation',
@@ -263,7 +264,8 @@ export class CourseRegistrationComponent {
       userId: this.registrationId,
       registrationId: this.registrationId,
       formData: this.regFormGroup.value,
-      tableData: this.convertEducationDetails(this.studentEducations),
+      //tableData: this.convertEducationDetails(this.studentEducations),
+      tableData: this.convertEducationDetails(this.filteredEducations),
     };
     console.log(data);
 
@@ -291,12 +293,40 @@ export class CourseRegistrationComponent {
     //}
     //}
   }
+  updateRegistration(){
+    let data = {
+      userId: this.registrationId,
+      registrationId: this.registrationId,
+      formData: this.regFormGroup.value,
+      tableData: this.convertEducationDetails(this.filteredEducations),
+    };
+    console.log(data)
+    this.regSvc.updateRegistrationDetails(data)
+        .subscribe({
+          next:(res) =>{
+            console.log("User registration updated successfully"+res)
+          },
+          error:()=>{
+            console.log("Something went wrong: ${error}")
+          }
+        })
+  }
   /**
    * Student select stream
    */
   selectStream() {
     var stream = this.regFormGroup.value.applStream;
-
+    console.log(stream)
+    if (stream === 'HS') {
+      this.filteredEducations = this.studentEducations.slice(0, 1);
+    } else if (stream === 'Graduation') {
+      this.filteredEducations = this.studentEducations.slice(0, 2);
+    } else if (stream=== 'Masters') {
+      this.filteredEducations = this.studentEducations;
+    } 
+    else {
+      this.filteredEducations = [];
+    }
     //alert(this.regFormGroup.value.applStream);
     this.subjectPlaaceHolderText =
       this.regFormGroup.value.applStream == 'HS'
@@ -531,9 +561,7 @@ export class CourseRegistrationComponent {
             //this.studentEducations = [];
             this.regFormGroup.reset(res);
             this.getPerDistrictFromState(res.aplPerSta);
-            this.selectStream();
             this.convertResponseToExams(JSON.parse(res.eduhistory_table));
-
             this.studentEducations = this.studentEducationQualification.map(
               (edu: any) => ({
                 courseName: edu.courseName,
@@ -544,7 +572,8 @@ export class CourseRegistrationComponent {
                 passYear: edu.passYear,
               })
             );
-            console.log(this.studentEducations);
+            this.selectStream();
+            //console.log(this.studentEducations);
             this.getUplodedDocs();
             //this.getAllCoursesByType(res.aplPerSta);
             // this.regFormGroup.patchValue({
@@ -641,13 +670,9 @@ export class CourseRegistrationComponent {
           }else{
             console.log("Is Registration type NEW:"+this.isNewRegistration);
           }
-          // this.registrationModel = res;
-          // this.studentEducationQualification = [];
-          // this.convertResponseToExams(JSON.parse(this.registrationModel.eduhistory_table));
         },
         error: () => {
           console.log('Something went wrong');
-          // return new RegistrationModel()
         },
       });
   }
@@ -679,6 +704,9 @@ export class CourseRegistrationComponent {
   //   })
   // }
 
+  /**
+   * get uploaded docs if the user has already uploaded before
+   */
   getUplodedDocs() {
     var docsType: string[] = [];
     this.regSvc
@@ -701,6 +729,11 @@ export class CourseRegistrationComponent {
       });
   }
 
+  /**
+   * convert uploaded docs json to an array
+   * @param jsonObj 
+   * @returns 
+   */
   convertJsonToArray(jsonObj: any): any {
     const docsWithName: string[] = [];
     const docsType: string[] = [];
@@ -741,6 +774,10 @@ export class CourseRegistrationComponent {
       docsType: docsType,
     };
   }
+  /**
+   * convert education hitory to an array
+   * @param response 
+   */
   convertResponseToExams(response: any) {
     for (const exam in response) {
       const examDetails = response[exam];

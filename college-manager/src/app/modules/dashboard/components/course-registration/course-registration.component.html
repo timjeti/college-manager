@@ -1293,7 +1293,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let education of studentEducations; let i = index">
+              <tr *ngFor="let education of filteredEducations; let i = index">
                 <td>
                   <input
                     type="text"
@@ -1353,7 +1353,7 @@
       
       <div>
         <button mat-button *ngIf="isNewRegistration" (click)="formValidate()">Save</button>
-        <button mat-button *ngIf="!isNewRegistration" (click)="formValidate()">Update</button>
+        <button mat-button *ngIf="!isNewRegistration" (click)="updateRegistration()">Update</button>
         <button mat-button matStepperNext >Next</button>
       </div>
       <!-- </form> -->
@@ -1904,7 +1904,9 @@
                 </thead>
                 <tbody>
                   <!-- <tr *ngFor="let exam of studentEducationQualification"> -->
-                  <tr *ngFor="let exam of studentEducations">
+                    
+                  <!-- <tr *ngFor="let exam of studentEducations"> -->
+                  <tr *ngFor="let exam of filteredEducations">
                     <td>{{ exam.courseName }}</td>
                     <td>{{ exam.board }}</td>
                     <td>{{ exam.roll }}</td>
