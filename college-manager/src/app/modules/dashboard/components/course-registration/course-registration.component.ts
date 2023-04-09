@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgToastService } from 'ng-angular-popup';
 import { MatDialog } from '@angular/material/dialog';
@@ -24,6 +24,7 @@ interface Education {
   styleUrls: ['./course-registration.component.scss'],
 })
 export class CourseRegistrationComponent {
+  @ViewChild('printableContent', {static: false}) printableContent!: ElementRef ;
   uploadedDocsInPrint: any = [];
   private registrationId: any;
   isNewRegistration: boolean = true;
@@ -846,4 +847,24 @@ export class CourseRegistrationComponent {
   //     //console.log(result)
   //     return result;
   // }
+  submitApplication(){
+    alert("Final submit application")
+  }
+  previewApplication(){
+    let printContent = this.printableContent.nativeElement.innerHTML;
+    const printWindow = window.open('', '', 'height=600,width=800');
+    if (printWindow){
+    printWindow.document.write('<html><head><title>Print Preview</title>');
+    printWindow.document.write('</head><body>');
+    printWindow.document.write(printContent);
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+    printWindow.focus();
+    printWindow.print();
+    printWindow.close();
+    }
+    else{
+      alert("Sorry can not be done at this moment !!!")
+    }
+  }
 }

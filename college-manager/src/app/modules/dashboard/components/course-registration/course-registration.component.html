@@ -1351,10 +1351,10 @@
         </div>
       </div>
       
-      <div>
-        <button mat-button *ngIf="isNewRegistration" (click)="formValidate()">Save</button>
-        <button mat-button *ngIf="!isNewRegistration" (click)="updateRegistration()">Update</button>
-        <button mat-button matStepperNext >Next</button>
+      <div class="alEnd">
+        <button mat-raised-button color="primary" *ngIf="isNewRegistration" (click)="formValidate()">Save</button>
+        <button mat-raised-button color="primary" *ngIf="!isNewRegistration" (click)="updateRegistration()">Update</button>
+        <button mat-raised-button matStepperNext >Next</button>
       </div>
       <!-- </form> -->
     </mat-step>
@@ -1670,9 +1670,9 @@
             required
           />
         </mat-form-field> -->
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>
+      <div class="alEnd">
+        <button mat-raised-button  matStepperPrevious>Back</button>
+        <button mat-raised-button  matStepperNext>
           Next
         </button>
         <!-- <button mat-button matStepperNext (click)="getRegistrationDetails()">
@@ -1685,297 +1685,301 @@
       <ng-template matStepLabel icon
         >Print/Download Application Form</ng-template
       >
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th colspan="2">Lakhimpur Girls College</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td colspan="2">
-              Application No:&nbsp;{{
-                regFormGroup.value.registrationId
-              }}
-              &nbsp; Registration Number:&nbsp;{{
-                regFormGroup.value.registrationId
-              }}, &nbsp; Marks/CGPA Secured: 500/600,&nbsp; Percentage(%): 85
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <table class="table table-bordered printTabel">
-                <thead>
-                  <tr>
-                    <th style="width: 150px">Course applied :</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Course:</td>
-                    <td>{{ regFormGroup.value.aplCourse }}</td>
-                  </tr>
-                  <tr>
-                    <!-- <td>Student Name: </td>
-                    <td>{{regFormGroup.value.fName}}&nbsp;{{regFormGroup.value.mName}}&nbsp;{{regFormGroup.value.lName}}</td> -->
-                    <td>Admission Type:</td>
-                    <td>{{ regFormGroup.value.aplAdmTyp }}</td>
-                  </tr>
-                  <tr>
-                    <!-- <td>Gender: </td>
-                    <td>{{regFormGroup.value.gender}}</td> -->
-                    <td>Applying for Hostel:</td>
-                    <td>{{ regFormGroup.value.aplHstl }}</td>
-                  </tr>
-                  <tr>
-                    <td>Category:</td>
-                    <td>{{ regFormGroup.value.stdCaste }}</td>
-                    <!-- <td>Subjects: </td>
-                    <td>..................</td> -->
-                  </tr>
-                  <tr>
-                    <td>Subjects:</td>
-                    <td>
-                      {{ regFormGroup.value.aplCmpSub }},&nbsp;{{
-                        regFormGroup.value.aplMilSub
-                      }},&nbsp;{{ regFormGroup.value.aplElecSub1 }},&nbsp;{{
-                        regFormGroup.value.aplElecSub2
-                      }},&nbsp;{{ regFormGroup.value.aplElecSub3 }},&nbsp;{{
-                        regFormGroup.value.aplElecSub4
-                      }}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </td>
-            <td style="text-align: center; width: 100px">
-              <div class="form-outline" *ngIf="fileUrls.profile != null">
-                <img
-                  [src]="fileUrls.profile"
-                  style="width: 100px; height: 150px"
-                  alt="No image"
-                />
-              </div>
-              <div class="form-outline" *ngIf="fileUrls.signature != null">
-                <img
-                  [src]="fileUrls.signature"
-                  style="width: 100px; height: 50px"
-                  alt="No image"
-                />
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2">Personal Details</td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              <table class="table table-bordered printTabel">
-                <tbody>
-                  <tr>
-                    <td>Candidate Name:</td>
-                    <td>
-                      {{ regFormGroup.value.fName }}&nbsp;{{
-                        regFormGroup.value.mName
-                      }}&nbsp;{{ regFormGroup.value.lName }}
-                    </td>
-                    <td>DOB:</td>
-                    <td>{{ regFormGroup.value.dBirth }}</td>
-                  </tr>
-                  <tr>
-                    <td>Nationality:</td>
-                    <td>{{ regFormGroup.value.stdNatlty }}</td>
-                    <td>Gender:</td>
-                    <td>{{ regFormGroup.value.gender }}</td>
-                  </tr>
-                  <tr>
-                    <td>Blood Group:</td>
-                    <td>{{ regFormGroup.value.bGroup }}</td>
-                    <td>Religion:</td>
-                    <td>{{ regFormGroup.value.religion }}</td>
-                  </tr>
-                  <tr>
-                    <td>Phone No:</td>
-                    <td>{{ regFormGroup.value.stdPhnNumber }}</td>
-                    <td>Email:</td>
-                    <td>{{ regFormGroup.value.stdEmail }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2">Parent/Guardian Details</td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              <table class="table table-bordered printTabel">
-                <tbody>
-                  <tr>
-                    <td>Father's Name:</td>
-                    <td>{{ regFormGroup.value.aplFatNam }}</td>
-                    <td>Mother's Name:</td>
-                    <td>{{ regFormGroup.value.aplMotNam }}</td>
-                  </tr>
-                  <tr>
-                    <td>Guardian Name:</td>
-                    <td>{{ regFormGroup.value.aplGuardNm }}</td>
-                    <td>Local Guardian's Name:</td>
-                    <td>{{ regFormGroup.value.aplLclGuardNam }}</td>
-                  </tr>
-                  <tr>
-                    <td>Guardian's Phone No:</td>
-                    <td>{{ regFormGroup.value.aplGuardPhn }}</td>
-                    <td>Guardian's Occupation:</td>
-                    <td>{{ regFormGroup.value.aplGuardOcp }}</td>
-                  </tr>
-                  <tr>
-                    <td>Guardian's annual Income:</td>
-                    <td>{{ regFormGroup.value.aplGuardInc }}</td>
-                    <td>Local Guardian's Address:</td>
-                    <td>{{ regFormGroup.value.aplLclGuardAdd }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2">Permanent Address Details</td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              <table class="table table-bordered printTabel">
-                <tbody>
-                  <tr>
-                    <td>Address:</td>
-                    <td>{{ regFormGroup.value.aplPerAdd }}</td>
-                    <td>Pincode:</td>
-                    <td>{{ regFormGroup.value.aplPerPin }}</td>
-                  </tr>
-                  <tr>
-                    <td>District:</td>
-                    <td>{{ regFormGroup.value.aplPerDist }}</td>
-                    <td>State:</td>
-                    <td>{{ regFormGroup.value.aplPerSta }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2">Correspondance Address Details</td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              <table class="table table-bordered printTabel">
-                <tbody>
-                  <tr>
-                    <td>Address:</td>
-                    <td>{{ regFormGroup.value.aplCorAdd }}</td>
-                    <td>Pincode:</td>
-                    <td>{{ regFormGroup.value.aplCorPin }}</td>
-                  </tr>
-                  <tr>
-                    <td>District:</td>
-                    <td>{{ regFormGroup.value.aplCorDist }}</td>
-                    <td>State:</td>
-                    <td>{{ regFormGroup.value.aplCorSta }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2">Academic Qualification</td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              <table class="table table-bordered printTabel">
-                <thead>
-                  <tr>
-                    <th>Qualification</th>
-                    <th>Board/University</th>
-                    <th>Roll No</th>
-                    <th>Percentage/CGPA</th>
-                    <th>Position</th>
-                    <th>Pasing Year</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <!-- <tr *ngFor="let exam of studentEducationQualification"> -->
-                    
-                  <!-- <tr *ngFor="let exam of studentEducations"> -->
-                  <tr *ngFor="let exam of filteredEducations">
-                    <td>{{ exam.courseName }}</td>
-                    <td>{{ exam.board }}</td>
-                    <td>{{ exam.roll }}</td>
-                    <td>{{ exam.percentage }}</td>
-                    <td>{{ exam.position }}</td>
-                    <td>{{ exam.passYear }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2">Last Exam Marks</td>
-          </tr>
-          <tr *ngIf="regFormGroup.controls['applStream'].value != 'Masters'">
-            <td colspan="2">
-              <table class="table table-bordered printTabel">
-                <thead>
-                  <tr>
-                    <td>ENGLISH</td>
-                    <td>{{ regFormGroup.value.aplLastMilSub | uppercase}}</td>
-                    <td>{{ regFormGroup.value.aplLastElecSub1 | uppercase }}</td>
-                    <td>{{ regFormGroup.value.aplLastElecSub2 | uppercase }}</td>
-                    <td>{{ regFormGroup.value.aplLastElecSub3 | uppercase }}</td>
-                    <td>{{ regFormGroup.value.aplLastElecSub4 | uppercase }}</td>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>{{ regFormGroup.value.aplLastEngMrk }}</td>
-                    <td>{{ regFormGroup.value.aplLastMilMrk }}</td>
-                    <td>{{ regFormGroup.value.aplLastElec1Mrk }}</td>
-                    <td>{{ regFormGroup.value.aplLastElec2Mrk }}</td>
-                    <td>{{ regFormGroup.value.aplLastElec3Mrk }}</td>
-                    <td>{{ regFormGroup.value.aplLastElec4Mrk }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </td>
-          </tr>
-          <tr *ngIf="regFormGroup.controls['applStream'].value == 'Masters'">
-            <td colspan="2">
-              Course:&nbsp;{{ regFormGroup.value.aplGradCourseTaken}}&nbsp;&nbsp;Percentage:&nbsp;{{regFormGroup.value.aplGradExmPcObt}}
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2">Documents Uploaded</td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              <span *ngFor="let doc of uploadedDocsInPrint" style="font-size: small;">
-                {{doc}},&nbsp;
-              </span>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="declaration">
-                <p>I hereby declare that the details furnished above are true and commit to the best of my knowledge and belief.</p>
-              </div>
-            </td>
-          </tr>
-
-        </tbody>
-      </table>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
+      <div #printableContent>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th colspan="2">Lakhimpur Girls College</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="2">
+                Application No:&nbsp;{{
+                  regFormGroup.value.registrationId
+                }}
+                &nbsp; Registration Number:&nbsp;{{
+                  regFormGroup.value.registrationId
+                }}, &nbsp; Marks/CGPA Secured: 500/600,&nbsp; Percentage(%): 85
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <table class="table table-bordered printTabel">
+                  <thead>
+                    <tr>
+                      <th style="width: 150px">Course applied :</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Course:</td>
+                      <td>{{ regFormGroup.value.aplCourse }}</td>
+                    </tr>
+                    <tr>
+                      <!-- <td>Student Name: </td>
+                      <td>{{regFormGroup.value.fName}}&nbsp;{{regFormGroup.value.mName}}&nbsp;{{regFormGroup.value.lName}}</td> -->
+                      <td>Admission Type:</td>
+                      <td>{{ regFormGroup.value.aplAdmTyp }}</td>
+                    </tr>
+                    <tr>
+                      <!-- <td>Gender: </td>
+                      <td>{{regFormGroup.value.gender}}</td> -->
+                      <td>Applying for Hostel:</td>
+                      <td>{{ regFormGroup.value.aplHstl }}</td>
+                    </tr>
+                    <tr>
+                      <td>Category:</td>
+                      <td>{{ regFormGroup.value.stdCaste }}</td>
+                      <!-- <td>Subjects: </td>
+                      <td>..................</td> -->
+                    </tr>
+                    <tr>
+                      <td>Subjects:</td>
+                      <td>
+                        {{ regFormGroup.value.aplCmpSub }},&nbsp;{{
+                          regFormGroup.value.aplMilSub
+                        }},&nbsp;{{ regFormGroup.value.aplElecSub1 }},&nbsp;{{
+                          regFormGroup.value.aplElecSub2
+                        }},&nbsp;{{ regFormGroup.value.aplElecSub3 }},&nbsp;{{
+                          regFormGroup.value.aplElecSub4
+                        }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td style="text-align: center; width: 100px">
+                <div class="form-outline" *ngIf="fileUrls.profile != null">
+                  <img
+                    [src]="fileUrls.profile"
+                    style="width: 100px; height: 150px"
+                    alt="No image"
+                  />
+                </div>
+                <div class="form-outline" *ngIf="fileUrls.signature != null">
+                  <img
+                    [src]="fileUrls.signature"
+                    style="width: 100px; height: 50px"
+                    alt="No image"
+                  />
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">Personal Details</td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <table class="table table-bordered printTabel">
+                  <tbody>
+                    <tr>
+                      <td>Candidate Name:</td>
+                      <td>
+                        {{ regFormGroup.value.fName }}&nbsp;{{
+                          regFormGroup.value.mName
+                        }}&nbsp;{{ regFormGroup.value.lName }}
+                      </td>
+                      <td>DOB:</td>
+                      <td>{{ regFormGroup.value.dBirth }}</td>
+                    </tr>
+                    <tr>
+                      <td>Nationality:</td>
+                      <td>{{ regFormGroup.value.stdNatlty }}</td>
+                      <td>Gender:</td>
+                      <td>{{ regFormGroup.value.gender }}</td>
+                    </tr>
+                    <tr>
+                      <td>Blood Group:</td>
+                      <td>{{ regFormGroup.value.bGroup }}</td>
+                      <td>Religion:</td>
+                      <td>{{ regFormGroup.value.religion }}</td>
+                    </tr>
+                    <tr>
+                      <td>Phone No:</td>
+                      <td>{{ regFormGroup.value.stdPhnNumber }}</td>
+                      <td>Email:</td>
+                      <td>{{ regFormGroup.value.stdEmail }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">Parent/Guardian Details</td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <table class="table table-bordered printTabel">
+                  <tbody>
+                    <tr>
+                      <td>Father's Name:</td>
+                      <td>{{ regFormGroup.value.aplFatNam }}</td>
+                      <td>Mother's Name:</td>
+                      <td>{{ regFormGroup.value.aplMotNam }}</td>
+                    </tr>
+                    <tr>
+                      <td>Guardian Name:</td>
+                      <td>{{ regFormGroup.value.aplGuardNm }}</td>
+                      <td>Local Guardian's Name:</td>
+                      <td>{{ regFormGroup.value.aplLclGuardNam }}</td>
+                    </tr>
+                    <tr>
+                      <td>Guardian's Phone No:</td>
+                      <td>{{ regFormGroup.value.aplGuardPhn }}</td>
+                      <td>Guardian's Occupation:</td>
+                      <td>{{ regFormGroup.value.aplGuardOcp }}</td>
+                    </tr>
+                    <tr>
+                      <td>Guardian's annual Income:</td>
+                      <td>{{ regFormGroup.value.aplGuardInc }}</td>
+                      <td>Local Guardian's Address:</td>
+                      <td>{{ regFormGroup.value.aplLclGuardAdd }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">Permanent Address Details</td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <table class="table table-bordered printTabel">
+                  <tbody>
+                    <tr>
+                      <td>Address:</td>
+                      <td>{{ regFormGroup.value.aplPerAdd }}</td>
+                      <td>Pincode:</td>
+                      <td>{{ regFormGroup.value.aplPerPin }}</td>
+                    </tr>
+                    <tr>
+                      <td>District:</td>
+                      <td>{{ regFormGroup.value.aplPerDist }}</td>
+                      <td>State:</td>
+                      <td>{{ regFormGroup.value.aplPerSta }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">Correspondance Address Details</td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <table class="table table-bordered printTabel">
+                  <tbody>
+                    <tr>
+                      <td>Address:</td>
+                      <td>{{ regFormGroup.value.aplCorAdd }}</td>
+                      <td>Pincode:</td>
+                      <td>{{ regFormGroup.value.aplCorPin }}</td>
+                    </tr>
+                    <tr>
+                      <td>District:</td>
+                      <td>{{ regFormGroup.value.aplCorDist }}</td>
+                      <td>State:</td>
+                      <td>{{ regFormGroup.value.aplCorSta }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">Academic Qualification</td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <table class="table table-bordered printTabel">
+                  <thead>
+                    <tr>
+                      <th>Qualification</th>
+                      <th>Board/University</th>
+                      <th>Roll No</th>
+                      <th>Percentage/CGPA</th>
+                      <th>Position</th>
+                      <th>Pasing Year</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- <tr *ngFor="let exam of studentEducationQualification"> -->
+                      
+                    <!-- <tr *ngFor="let exam of studentEducations"> -->
+                    <tr *ngFor="let exam of filteredEducations">
+                      <td>{{ exam.courseName }}</td>
+                      <td>{{ exam.board }}</td>
+                      <td>{{ exam.roll }}</td>
+                      <td>{{ exam.percentage }}</td>
+                      <td>{{ exam.position }}</td>
+                      <td>{{ exam.passYear }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">Last Exam Marks</td>
+            </tr>
+            <tr *ngIf="regFormGroup.controls['applStream'].value != 'Masters'">
+              <td colspan="2">
+                <table class="table table-bordered printTabel">
+                  <thead>
+                    <tr>
+                      <td>ENGLISH</td>
+                      <td>{{ regFormGroup.value.aplLastMilSub | uppercase}}</td>
+                      <td>{{ regFormGroup.value.aplLastElecSub1 | uppercase }}</td>
+                      <td>{{ regFormGroup.value.aplLastElecSub2 | uppercase }}</td>
+                      <td>{{ regFormGroup.value.aplLastElecSub3 | uppercase }}</td>
+                      <td>{{ regFormGroup.value.aplLastElecSub4 | uppercase }}</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{{ regFormGroup.value.aplLastEngMrk }}</td>
+                      <td>{{ regFormGroup.value.aplLastMilMrk }}</td>
+                      <td>{{ regFormGroup.value.aplLastElec1Mrk }}</td>
+                      <td>{{ regFormGroup.value.aplLastElec2Mrk }}</td>
+                      <td>{{ regFormGroup.value.aplLastElec3Mrk }}</td>
+                      <td>{{ regFormGroup.value.aplLastElec4Mrk }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr *ngIf="regFormGroup.controls['applStream'].value == 'Masters'">
+              <td colspan="2">
+                Course:&nbsp;{{ regFormGroup.value.aplGradCourseTaken}}&nbsp;&nbsp;Percentage:&nbsp;{{regFormGroup.value.aplGradExmPcObt}}
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">Documents Uploaded</td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <span *ngFor="let doc of uploadedDocsInPrint" style="font-size: small;">
+                  {{doc}},&nbsp;
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="declaration">
+                  <p>I hereby declare that the details furnished above are true and commit to the best of my knowledge and belief.</p>
+                </div>
+              </td>
+            </tr>
+  
+          </tbody>
+        </table>
+      </div>
+      <div class="alEnd">
+        <button mat-raised-button matStepperPrevious>Back</button>
+        <button mat-raised-button (click)="previewApplication()">Preview</button>
+        <button mat-raised-button color="warn"  (click)="submitApplication()">Submit</button>
+        <!-- <button mat-button (click)="stepper.reset()">Reset</button> -->
       </div>
     </mat-step>
   </mat-horizontal-stepper>
