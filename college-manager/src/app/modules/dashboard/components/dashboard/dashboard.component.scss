@@ -50,3 +50,13 @@ mat-toolbar{
 .full-width {
    width: 60%;
 }
+
+a > mat-icon {
+  color: black;
+  margin-right: 10px;
+  transition: transform 0.2s ease-in-out; 
+}
+a:hover mat-icon {
+  color: #3f51b5;
+  transform: scale(1.2); 
+}

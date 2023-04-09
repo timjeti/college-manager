@@ -25,7 +25,15 @@
 <mat-sidenav-container class="example-container" autosize>
   <mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true">
     <mat-nav-list>
-      <mat-list-item class="menu-item" routerLink="./home">
+      <a mat-list-item  routerLink="./home" >
+        <mat-icon matListItemIcon >home</mat-icon>
+        <span matListItemTitle *ngIf="isExpanded || isShowing">Home</span>
+      </a>
+      <a mat-list-item  routerLink="./course-register" >
+        <mat-icon matListItemIcon >school</mat-icon>
+        <span matListItemTitle *ngIf="isExpanded || isShowing">Course Registration</span>
+      </a> 
+      <!-- <mat-list-item class="menu-item" routerLink="./home">
         <div class="row">
           <div class="column">
             <mat-icon mat-list-icon>home</mat-icon>
@@ -44,7 +52,7 @@
             <span class="full-width">Course Registration</span>
           </div>
         </div>
-      </mat-list-item>
+      </mat-list-item> -->
     </mat-nav-list>
   </mat-sidenav>
   <!--main content area-->

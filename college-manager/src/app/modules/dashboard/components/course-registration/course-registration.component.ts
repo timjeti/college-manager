@@ -30,7 +30,7 @@ export class CourseRegistrationComponent {
 
   studentEducationQualification: any = [];
   registrationModel: any;
-  filteredEducations : Education[]=[];
+  filteredEducations: Education[] = [];
   studentEducations: Education[] = [
     {
       courseName: 'Metriculation',
@@ -273,7 +273,15 @@ export class CourseRegistrationComponent {
     // if(1==1){
     this.regSvc.registerStudent(this.registrationId, data).subscribe({
       next: (res) => {
-        this.isNewRegistration = false;
+        if (res.status == 201) {
+          this.isNewRegistration = false;
+          this.toast.success({
+            detail: 'Success',
+            summary: res.message,
+            position: 'tr',
+            duration: 3000,
+          });
+        }
         console.log('User registered successfully');
       },
       error: () => {
@@ -293,38 +301,50 @@ export class CourseRegistrationComponent {
     //}
     //}
   }
-  updateRegistration(){
+  updateRegistration() {
     let data = {
       userId: this.registrationId,
       registrationId: this.registrationId,
       formData: this.regFormGroup.value,
       tableData: this.convertEducationDetails(this.filteredEducations),
     };
-    console.log(data)
-    this.regSvc.updateRegistrationDetails(data)
-        .subscribe({
-          next:(res) =>{
-            console.log("User registration updated successfully"+res)
-          },
-          error:()=>{
-            console.log("Something went wrong: ${error}")
-          }
-        })
+    console.log(data);
+    this.regSvc.updateRegistrationDetails(data).subscribe({
+      next: (res) => {
+        if (res.status == 200) {
+          this.toast.success({
+            detail: 'Success',
+            summary: res.message,
+            position: 'tr',
+            duration: 3000,
+          });
+        }
+        // console.log("User registration updated successfully"+res.status)
+      },
+      error: () => {
+        this.toast.error({
+          detail: 'Error',
+          summary: `Something went wrong`,
+          position: 'tr',
+          duration: 3000,
+        });
+        //console.log("Something went wrong: ${error}")
+      },
+    });
   }
   /**
    * Student select stream
    */
   selectStream() {
     var stream = this.regFormGroup.value.applStream;
-    console.log(stream)
+    console.log(stream);
     if (stream === 'HS') {
       this.filteredEducations = this.studentEducations.slice(0, 1);
     } else if (stream === 'Graduation') {
       this.filteredEducations = this.studentEducations.slice(0, 2);
-    } else if (stream=== 'Masters') {
+    } else if (stream === 'Masters') {
       this.filteredEducations = this.studentEducations;
-    } 
-    else {
+    } else {
       this.filteredEducations = [];
     }
     //alert(this.regFormGroup.value.applStream);
@@ -667,8 +687,8 @@ export class CourseRegistrationComponent {
             //   aplExtraCur: res.aplExtraCur,
             //   aplLstExmPcObt: res.aplLstExmPcObt,
             // })
-          }else{
-            console.log("Is Registration type NEW:"+this.isNewRegistration);
+          } else {
+            console.log('Is Registration type NEW:' + this.isNewRegistration);
           }
         },
         error: () => {
@@ -731,8 +751,8 @@ export class CourseRegistrationComponent {
 
   /**
    * convert uploaded docs json to an array
-   * @param jsonObj 
-   * @returns 
+   * @param jsonObj
+   * @returns
    */
   convertJsonToArray(jsonObj: any): any {
     const docsWithName: string[] = [];
@@ -776,7 +796,7 @@ export class CourseRegistrationComponent {
   }
   /**
    * convert education hitory to an array
-   * @param response 
+   * @param response
    */
   convertResponseToExams(response: any) {
     for (const exam in response) {

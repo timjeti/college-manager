@@ -44,7 +44,7 @@ router.post('/', (req, res) => {
 			console.log(error)
 			  return res.status(500).json({ type: "ERROR", status:500, message: error });
 		  } else {
-			  return res.status(201).json({ message: 'User registered successfully' });
+			  return res.status(201).json({ type: "SUCCESS", status:201, message: 'Data saved successfully' });
 		  }
 	  });
 	} catch (error) {
@@ -115,7 +115,8 @@ router.put('/',(req, res) => {
 				}
 			} else {
 				// console.log(res)
-				res.status(200).json(rows[0])
+				//res.status(200).json(rows[0])
+				res.status(200).json({ type: "SUCCESS", status:200, message: 'Data updated successfully' })
 			}
 	  })
 	}
