@@ -1,0 +1,24 @@
+<form>
+    <h2 class="text mt-3">Feehead</h2>
+      <div class = 'row'>
+          <div class="col">
+              <label for="feehead">Add Feehead</label>
+              <input type="text" class="form-control" id="feehead"  name = "feehead" placeholder="Enter Feehead Name" [(ngModel)]="newFeehead">
+              <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+            </div>
+            <div class="col">
+              <button type="submit" (click)="addFeehead()" class="btn btn-primary mt-3">Add Feehead</button>
+            </div>
+      </div>
+
+      <div class = 'row'>
+        <!-- <div class="col">
+            <label for="feehead">Add Feehead</label>
+            <input type="text" class="form-control" id="feehead"  name = "feehead" placeholder="Enter Feehead Name" [(ngModel)]="feeheadName">
+          </div> -->
+          <div class="col mt-4">
+            <li *ngFor="let fee of feeheadList">{{fee}}</li>
+          </div>
+    </div>
+  
+  </form>

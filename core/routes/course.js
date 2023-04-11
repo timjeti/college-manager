@@ -12,7 +12,25 @@ var restUtils = require('./RestUtils.js')
 router.post("/", (req,res) =>{
     const { courseId, courseName, courseType } = req.body
     query = `INSERT INTO coll_course (courseId, courseName, courseType) VALUES ('${courseId}', '${courseName}','${courseType}')`
-    restUtils.executeCommitQuery(query, res)
+    // restUtils.executeCommitQuery(query, res)
+    try{
+        connection.query(query, (error, results, fields) => {
+            if(error){
+                console.log(error)
+                return res.status(500).json({ message : "Something happened, Unable to execute the query"})
+            }else{
+                courseName1 = courseName + "_MALE"
+                courseName2 = courseName + "_FEMALE"
+                console.log(courseName1)
+                let query2 = `INSERT INTO coll_feehead (courseName) VALUES ('${courseName1}'), ('${courseName2}')`
+                restUtils.executeCommitQuery(query2, res)
+                // return res.status(201).json({ message : 'Created Successfully'})
+            }
+        })
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({ message : "Something happened, Unable to execute the query"})
+    }
 })
 
 //api to get details of a particular course
@@ -42,15 +60,28 @@ router.get('/courses', (req, res) => {
 })
 
 //api to delete details of a particular course
-router.delete('/:id', (req, res) => {
+router.delete('/:courseName', (req, res) => {
     query = ''
-    const id = req.params.id
-    if(id == 'courses'){
-        query = 'DELETE FROM coll_course'
-    }else{
-        query = `DELETE FROM coll_course WHERE id='${id}'`
+    const courseName = req.params.courseName
+    query = `DELETE FROM coll_course WHERE id='${id}'`
+    try{
+        connection.query(query, (error, results, fields) => {
+            if(error){
+                console.log(error)
+                return res.status(500).json({ message : "Something happened, Unable to execute the query"})
+            }else{
+                courseName1 = req.params.courseName+"_MALE"
+                courseName2 = req.params.courseName+"_FEMALE"
+                query2 = `DELETE FROM coll_feehead WHERE courseName='${courseName1}' OR courseName='${courseName2}'`
+                restUtils.executeCommitQuery(query2, res)
+            }
+        })
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({ message : "Something happened, Unable to execute the query"})
     }
-    return restUtils.executeQuery(query, res)
+    
+    // return restUtils.executeQuery(query, res)
 })
 
 //Get alll subjects for a given course

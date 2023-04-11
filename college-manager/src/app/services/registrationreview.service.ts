@@ -11,29 +11,45 @@ export class RegistrationreviewService {
 
   constructor(private client: HttpClient) { }
 
-  addApprovalStatus(data : any){
-    return this.client.post<any>("http://localhost:3000/register/status/approval", data);
-  }
-
-  updateApprovalStatus(data : any){
-    return this.client.put<any>("http://localhost:3000/register/status/approval", data);
+  addVerificationStatus(data : any){
+    return this.client.post<any>("http://localhost:3000/register/status/verification", data);
   }
 
   addSelectionStatus(data : any){
     return this.client.post<any>("http://localhost:3000/register/status/selection", data);
   }
 
-  updateSelectionStatus(data : any){
-    return this.client.put<any>("http://localhost:3000/register/status/selection", data);
-  }
-
-  getJointStudentData(){
-    return this.client.get<any>("http://localhost:3000/register/review").pipe(
+  getRegisteredNotApprovedData(){
+    return this.client.get<any>("http://localhost:3000/register/review/registration").pipe(
       map(res=>{
         return res;
     }),
     )
   }
 
+  getVerifiedNotSelectedData(){
+    return this.client.get<any>("http://localhost:3000/register/review/verification").pipe(
+      map(res=>{
+        return res;
+    }),
+    )
+  }
+
+  getSelectedNotAdmittedData(){
+    return this.client.get<any>("http://localhost:3000/register/review/selection").pipe(
+      map(res=>{
+        return res;
+    }),
+    )
+  }
+
+  geRejectedData(){
+    return this.client.get<any>("http://localhost:3000/register/review/rejection").pipe(
+      map(res=>{
+        return res;
+    }),
+    )
+  }
+  //selection
 
 }

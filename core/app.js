@@ -9,6 +9,7 @@ const registerRoute = require('./routes/register')
 const courseRoute = require('./routes/course')
 const subjectRoute = require('./routes/subject')
 const facultyRoute = require('./routes/faculty')
+const feeheadRoute = require('./routes/feehead')
 
 app.use(express.json());
 app.use(cors())
@@ -19,6 +20,7 @@ app.use('/register', registerRoute)
 app.use('/course', courseRoute)
 app.use('/subject', subjectRoute)
 app.use('/faculty', facultyRoute)
+app.use('/feehead', feeheadRoute)
 
 
 app.listen(port, () => {

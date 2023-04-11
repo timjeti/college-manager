@@ -36,9 +36,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { CourseDialogComponent } from './wrapper/contentarea/academics/courses/course-dialog/course-dialog.component';
 import { SidenavAutosize } from './sidenavbar/sidenavbar.component';
 import { MatMenuModule} from '@angular/material/menu'
-import { RegistrationviewComponent } from './wrapper/contentarea/registration/registrationview/registrationview.component';
 import { SubjectDialogComponent } from './wrapper/contentarea/academics/subjects/subject-dialog/subject-dialog.component';
-
+import { RejectedlistComponent } from './wrapper/contentarea/applicant-review/rejectedlist/rejectedlist.component';
+import { AdmitdialogComponent } from './wrapper/contentarea/applicant-review/selectedList/admitdialog/admitdialog.component';
+import { FeeheadComponent } from './wrapper/contentarea/applicant-review/feehead/feehead.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,10 @@ import { SubjectDialogComponent } from './wrapper/contentarea/academics/subjects
     SubjectsComponent,
     CourseDialogComponent,
     SidenavAutosize,
-    SubjectDialogComponent
+    SubjectDialogComponent,
+    RejectedlistComponent,
+    AdmitdialogComponent,
+    FeeheadComponent
   ],
   imports: [
     BrowserModule,

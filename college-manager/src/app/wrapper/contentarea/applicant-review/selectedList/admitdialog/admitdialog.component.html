@@ -1,0 +1,111 @@
+<!-- <h1 style="margin-left: 30%;margin-top: 3%">ADMIT STUIDENT</h1> -->
+
+<form>
+  <h2 class="text mt-3">Applicant Search </h2>
+    <div class = 'row'>
+        <div class="col">
+            <label for="registrationId">Registration Id</label>
+            <input type="text" class="form-control" id="registrationId"  name = "registrationId" placeholder="Enter Registration Id" [(ngModel)]="registrationId">
+            <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+          </div>
+          <div class="col">
+            <button type="submit" (click)="getRegistrationDetailsById(registrationId)" class="btn btn-primary mt-3">Search</button>
+          </div>
+    </div>
+
+</form>
+<form>
+    <h2 class="text mt-3">Applicant Details</h2>
+    <hr>
+    <div class = 'row'>
+        <div class="col">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" name="applicantName" placeholder="Name" [(ngModel)]="applicantName">
+            <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+          </div>
+          <div class="col">
+            <label for="aplCourse">Course Name</label>
+            <input type="text" class="form-control" id="aplCourse" placeholder="Course Name"  name="aplCourse" [(ngModel)]="aplCourse">
+          </div>
+    </div>
+    <div class = 'row'>
+        <div class="col">
+            <label for="dheId">DHE Id</label>
+            <input type="text" class="form-control" id="dheId"  placeholder="DHE Id" name="aplDHEId" [(ngModel)]="aplDHEId">
+            <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+          </div>
+          <div class="col">
+            <label for="aplLstExmPcObt">Percentage</label>
+            <input type="text" class="form-control" id="aplLstExmPcObt" placeholder="Percentage" name="aplLstExmPcObt" [(ngModel)]="aplLstExmPcObt">
+          </div>
+    </div>
+    
+    <h2 class="text mt-3">Subject Selection</h2>
+    <hr>
+    <div class = 'row mt-4'>
+        <div class="col">
+            <label for="aplCompDropdown">Compulsory Subject</label>
+            <!-- <input type="text" class="form-control" id="aplCmpSub" placeholder="Compulsory Subject" name="aplCmpSub" [(ngModel)]="aplCmpSub"> -->
+            <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+            <select class="form-control" id="aplCompDropdown" (change)="changeCompSub($event)" >
+                <option value = "aplCmpSub">{{aplCmpSub}}</option>
+                <option *ngFor="let compSub of removeCompSubjectFromList()" value="{{compSub.subjectName}}">{{compSub.subjectName}}</option>
+                <!-- <option>3</option>
+                <option>4</option>
+                <option>5</option> -->
+              </select>
+          </div>
+         <div class="col">
+            <label for="aplMilDropdown">MIL Subject</label>
+            <select class="form-control" id="aplMilDropdown"  (change)="changeMilSub($event)">
+              <option value = "aplMilSub">{{aplMilSub}}</option>
+              <option *ngFor="let milSub of removeMilSubjectFromList()" value="{{milSub.subjectName}}">{{milSub.subjectName}}</option>
+            </select>
+          </div>
+          <div class="col">
+            <label for="aplElec1Dropdown">Major Subject</label>
+            <select class="form-control" id="aplElec1Dropdown" (change) ="changeMajSub($event)" >
+              <option value = "aplMilSub">{{aplMajSub}}</option>
+              <option *ngFor="let compSub of removeMajSubjectFromList()" value="{{compSub.subjectName}}">{{compSub.subjectName}}</option>
+            </select>
+          </div>
+    </div>
+    <div class = 'row mt-2'>
+        <div class="col">
+            <label for="aplElecSub2">Elective Subject1</label>
+            <select class="form-control" id="aplElecSub2" (change) = "changeElecSub($event, 'elec1')">
+              <option value = "{{aplElecSub1}}">{{aplElecSub1}}</option>
+              <option *ngFor="let compSub of removeElectSubjectFromList()" value="{{compSub.subjectName}}">{{compSub.subjectName}}</option>
+            </select>
+          </div>
+          <div class="col">
+            <label for="aplElecSub3">Elective Subject2</label>
+            <select class="form-control" id="aplElecSub3" (change) = "changeElecSub($event, 'elec2')">
+              <option value = "{{aplElecSub2}}">{{aplElecSub2}}</option>
+              <option *ngFor="let compSub of removeElectSubjectFromList()" value="{{compSub.subjectName}}">{{compSub.subjectName}}</option>
+            </select>
+          </div>
+          <div class="col">
+            <label for="aplElecSub4">Elective Subject3</label>
+            <select class="form-control" id="aplElecSub4" (change) = "changeElecSub($event, 'elec3')">
+              <option value = "{{aplElecSub3}}">{{aplElecSub3}}</option>
+              <option *ngFor="let compSub of removeElectSubjectFromList()" value="{{compSub.subjectName}}">{{compSub.subjectName}}</option>
+            </select>
+          </div>
+    </div> 
+    
+    <!-- <div class="form-group form-check mt-3">
+      <input type="checkbox" class="form-check-input" id="exampleCheck1">
+      <label class="form-check-label" for="exampleCheck1">Check me out</label>
+    </div> -->
+    <div class = 'row'>
+        <div class="col">
+            <button type="submit" class="btn btn-primary mt-3">Generate Receipt</button>
+          </div>
+          <div class="col">
+            <button type="submit" class="btn btn-primary mt-3">Admit</button>
+          </div>
+    </div>
+    
+    
+  </form>

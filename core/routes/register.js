@@ -53,6 +53,39 @@ router.post('/', (req, res) => {
 	}
 });
 
+router.put('/',(req, res) => {
+	try{
+		console.log('Update single user registration db data')
+		// console.log(req.query)
+		// userId  = req.query.userId
+		// console.log(req.body)
+	  	let query = updateRegistrationQuery(req)
+		connection.query(query, (err, rows, fields) => {
+			if (err) {
+				console.log(err)
+				console.log(res.body)
+				if(res.body == undefined){
+					console.log("Inside Empty")
+					res.status(500).json({ status:500, message: err})
+				}else{
+					res.status(404).json({ type: "ERROR", status:404, message: 'User not found' })
+				}
+			} else {
+				let query1 = `INSERT INTO register_notification (registrationId, verified_status_notification, verified_status_notification_tstamp) 
+		VALUES ('${registrationId}', '${verified_status_notification}', '${verified_status_notification_tstamp}')
+		ON DUPLICATE KEY UPDATE verified_status_notification='${verified_status_notification}', verified_status_notification_tstamp='${verified_status_notification_tstamp}'`
+				// console.log(res)
+				res.status(200).json(rows[0])
+			}
+	  })
+	}
+	catch(error){
+		console.log(error)
+		res.status(500).json({ type: "ERROR", message: 'Internal server error' })
+	}
+})
+
+
 function jsonParser(stringValue, key) {
 	var stringVal = JSON.stringify(stringValue);
 	var objectValue = JSON.parse(stringVal);
@@ -124,6 +157,36 @@ router.put('/',(req, res) => {
 		res.status(500).json({ type: "ERROR", message: 'Internal server error' })
 	}
 })
+
+router.put('/complete',(req, res) => {
+	try{
+		console.log('Update single user registration db data')
+		const { registrationId, registrationStatus  } = req.body // destructure the request body
+		let query = `UPDATE register SET registrationStatus='${registrationStatus}'' WHERE registrationId='${registrationId}'`
+		connection.query(query, (err, rows, fields) => {
+			if (err) {
+				console.log(err)
+				console.log(res.body)
+				if(res.body == undefined){
+					console.log("Inside Empty")
+					res.status(500).json({ status:500, message: err})
+				}else{
+					res.status(404).json({ type: "ERROR", status:404, message: 'User not found' })
+				}
+			} else {
+				let query1 = `INSERT INTO register_status (registrationId, verified_status, selected_status)
+		 		VALUES ('${registrationId}', '-1', '-1') ON DUPLICATE KEY UPDATE verified_status='-1', selected_status='-1'`
+				// res.status(200).json(rows[0])
+				restUtils.executeQuery(query1, res)
+			}
+	  })
+	}
+	catch(error){
+		console.log(error)
+		res.status(500).json({ type: "ERROR", message: 'Internal server error' })
+	}
+})
+
 
 router.get('/applicantList',async (req, res) => {
 	try{
@@ -309,14 +372,14 @@ function updateRegistrationQuery(req) {
 // })
 
 
-router.post('/status/approval',(req, res) => {
+router.post('/status/verification',(req, res) => {
 	try{
 		console.log('Add approval status for a registration')
 		// console.log(req.query)
-		const {registrationId, approved_status, approved_msg} = req.body
-		let query1 = `INSERT INTO register_status (registrationId, approved_status, approved_msg)
-		 VALUES ('${registrationId}', '${approved_status}', '${approved_msg}')
-		 ON DUPLICATE KEY UPDATE approved_status='${approved_status}', approved_msg='${approved_msg}'`
+		const {registrationId, verified_status, verified_msg} = req.body
+		let query1 = `INSERT INTO register_status (registrationId, verified_status, verified_msg, selected_status)
+		 VALUES ('${registrationId}', '${verified_status}', '${verified_msg}', '-1')
+		 ON DUPLICATE KEY UPDATE verified_status='${verified_status}', verified_msg='${verified_msg}', selected_status='-1'`
 		connection.query(query1, (err, rows, fields) => {
 			if (err) {
 				console.log(err)
@@ -368,9 +431,9 @@ router.post('/status/selection',(req, res) => {
 		console.log('Add selected status for a registration')
 		// console.log(req.query)
 		const {registrationId, selected_status, selected_msg} = req.body
-		let query1 = `INSERT INTO register_status (registrationId, selected_status, selected_msg) 
-		VALUES ('${registrationId}', '${selected_status}', '${selected_msg}')
-		ON DUPLICATE KEY UPDATE selected_status='${selected_status}', selected_msg='${selected_msg}'`
+		let query1 = `INSERT INTO register_status (registrationId, selected_status, selected_msg,  verified_status) 
+		VALUES ('${registrationId}', '${selected_status}', '${selected_msg}', '-1')
+		ON DUPLICATE KEY UPDATE selected_status='${selected_status}', selected_msg='${selected_msg}', verified_status='-1'`
 		connection.query(query1, (err, rows, fields) => {
 			if (err) {
 				console.log(err)
@@ -388,14 +451,15 @@ router.post('/status/selection',(req, res) => {
 	}
 })
 
-router.post('/notification/approval',(req, res) => {
+
+router.post('/notification/verification',(req, res) => {
 	try{
 		console.log('Add notification for approval status for a registration')
 		// console.log(req.query)
 		const {registrationId, approved_status_notification, approved_status_notification_tstamp} = req.body
-		let query1 = `INSERT INTO register_notification (registrationId, approved_status_notification, approved_status_notification_tstamp) 
-		VALUES ('${registrationId}', '${approved_status_notification}', '${approved_status_notification_tstamp}')
-		ON DUPLICATE KEY UPDATE approved_status_notification='${approved_status_notification}', approved_status_notification_tstamp='${approved_status_notification_tstamp}'`
+		let query1 = `INSERT INTO register_notification (registrationId, verified_status_notification, verified_status_notification_tstamp) 
+		VALUES ('${registrationId}', '${verified_status_notification}', '${verified_status_notification_tstamp}')
+		ON DUPLICATE KEY UPDATE verified_status_notification='${verified_status_notification}', verified_status_notification_tstamp='${verified_status_notification_tstamp}'`
 		connection.query(query1, (err, rows, fields) => {
 			if (err) {
 				console.log(err)
@@ -462,14 +526,14 @@ router.post('/notification/selection',(req, res) => {
 // 	}
 // })
 
-router.get('/review/',(req, res) => {
+router.get('/review/registration',(req, res) => {
 	try{
 		console.log('Get single user registration db data')
 
 		// registrationId = req.query.registrationId
 		let query = ''
 
-		query = 'SELECT register.registrationId, fname, mName,lName,register_status.approved_status, register_status.approved_msg FROM register LEFT JOIN register_status ON register.registrationId=register_status.registrationId'
+		query = 'SELECT register.registrationId, fName, mName,lName,register_status.verified_status, register_status.verified_msg FROM register LEFT JOIN register_status ON register.registrationId=register_status.registrationId WHERE (verified_status =-1 OR verified_status=2) AND selected_status =-1'
 		
 		console.log(query)
 		connection.query(query, (err, rows, fields) => {
@@ -489,5 +553,86 @@ router.get('/review/',(req, res) => {
 	}
 })
 
+router.get('/review/verification',(req, res) => {
+	try{
+		console.log('Get single user verification db data')
+
+		// registrationId = req.query.registrationId
+		let query = ''
+
+		query = 'SELECT register.registrationId, fname, mName,lName,register_status.verified_status, register_status.verified_msg FROM register LEFT JOIN register_status ON register.registrationId=register_status.registrationId WHERE verified_status = 1'
+		
+		console.log(query)
+		connection.query(query, (err, rows, fields) => {
+			if (err) {
+				
+				res.status(500).json({ type: "ERROR",  status:500, message: err })
+				
+			} else {
+				console.log(rows[0])
+				res.status(200).json(rows)
+			}
+	  })
+	}
+	catch(error){
+		console.log(error)
+		res.status(500).json({type: "ERROR", status:500, message: error })
+	}
+})
+
+router.get('/review/selection',(req, res) => {
+	try{
+		console.log('Get single user registration db data')
+
+		// registrationId = req.query.registrationId
+		let query = ''
+
+		query = 'SELECT register.registrationId, fname, mName,lName,register_status.selected_status, register_status.selected_msg FROM register LEFT JOIN register_status ON register.registrationId=register_status.registrationId WHERE selected_status = 1'
+		
+		console.log(query)
+		connection.query(query, (err, rows, fields) => {
+			if (err) {
+				
+				res.status(500).json({ type: "ERROR",  status:500, message: err })
+				
+			} else {
+				console.log(rows[0])
+				res.status(200).json(rows)
+			}
+	  })
+	}
+	catch(error){
+		console.log(error)
+		res.status(500).json({type: "ERROR", status:500, message: error })
+	}
+})
+
+
+router.get('/review/rejection',(req, res) => {
+	try{
+		console.log('Get single user registration db data')
+
+		// registrationId = req.query.registrationId
+		let query = ''
+
+		query = 'SELECT register.registrationId, fname, mName,lName,register_status.selected_status, register_status.selected_msg FROM register LEFT JOIN register_status ON register.registrationId=register_status.registrationId WHERE selected_status = 0'
+		
+		console.log(query)
+		connection.query(query, (err, rows, fields) => {
+			if (err) {
+				
+				res.status(500).json({ type: "ERROR",  status:500, message: err })
+				
+			} else {
+				console.log(rows[0])
+				res.status(200).json(rows)
+			}
+	  })
+	}
+	catch(error){
+		console.log(error)
+		res.status(500).json({type: "ERROR", status:500, message: error })
+	}
+})
 
 module.exports = router
