@@ -1,7 +1,7 @@
 
 # College Management Portal
 
-This repository contains work that is responsible for managing day to day activities of a college, it uses Angular as Frontend Technoilogy and Node for API based Queries.
+This repository contains work that is responsible for managing day to day activities of a college, it uses **Angular JS** as Frontend Technology and **Node JS** for API based Queries.
 The installation apis are specified below.
 
 Installation steps:
