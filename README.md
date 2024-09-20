@@ -1,25 +1,37 @@
-This is the college manage management project, we will update the progress as we go along
+
+# College Management Portal
+
+This repository contains work that is responsible for managing day to day activities of a college, it uses Angular as Frontend Technoilogy and Node for API based Queries.
+The installation apis are specified below.
 
 Installation steps:
 
-Express js
+## Express js
 
-1)Express js Installation
+**Express js Installation**
+
+```bash
 $ mkdir core
 $ cd core
 npm init
+```
+**Instruction**
+Update the entrypoint to app.js in package.json
 
-In package.json:
-entry point: (app.js)
+**Install the following dependencies for backend**
 
+```
 npm install express
-
 npm install mysql
 npm install -g nodemon
-Express port:3000
+```
 
-2)Angular installations
-Angular port:4200
+
+- **Express port** : 3000
+
+**Install the following dependencies for Frontend**
+
+```bash
 cd colege-manager
 npm install -g @angular/cli
 content_copy
@@ -32,11 +44,11 @@ ng add @angular/material
 ##Installing bootstrap
 ng add @ng-bootstrap/ng-bootstrap
 
-3)Install mysql via xampp
-mysql port: 3306
-
-4)For image upload, install this inside core folder for express js
+##For image upload, install this inside core folder for express js
 sudo npm install -g multer
 
-5)Install Pdf viewer to view pdf files
+##Install Pdf viewer to view pdf files
 npm i ng2-pdf-viewer
+
+```
+- **Angular port** : 4200
